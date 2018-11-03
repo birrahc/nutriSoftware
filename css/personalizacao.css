@@ -1,0 +1,727 @@
+*{margin:0px; padding:0px; 
+  font-family:arial;
+}
+a{text-decoration: none}
+
+
+
+.divPagina{background-color: #F5FBEF; 
+          height: 520px;
+}
+
+.divPaginaLog{background-color: greenyellow; 
+          height: 390px;
+}
+
+.divCadastroAnminese{
+    margin-left: auto;
+    margin-right: auto;
+    width: 768px;
+    background-color: whitesmoke;
+    height: 400px;
+}
+.divCadastroAnminese table{
+    width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#formularioTexto {
+    font-family: arial;
+    font-size: 15px;
+    width: 200px;
+    height: 18px;
+    border: none;
+    background-color: white;
+}
+.pagContLog{
+    width:400px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+.pagContLog table{
+ 
+    width:400px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+.pagContLog td{
+    padding: 3px;
+}
+.pagContLog input{
+    border: none;
+    background-color: whitesmoke;
+    width:250px;
+    height: 30px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.pagContLog button{
+    width:250px;
+    height: 35px
+     
+}
+.pagContLog h3{
+    color: grey;
+    padding: 5px;
+    height: 22px;
+    width: 70px;
+    background-color: white;
+}
+
+.divContSimb{
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    text-align: center
+}
+
+.divContSimb img{
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contCad{
+    margin-left: auto; 
+    margin-right: auto;
+    width:768px;
+    height: 500px;
+    background-color: #8FBC8F;
+    
+}
+.contCad h2{
+    text-align: center;
+}
+
+.contCad table{
+    width: 768px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.divPaginaAvaliacao{background-color: #F5FBEF; 
+          height: 830px;
+}
+
+.divContudo{margin-left: auto; 
+           margin-right: auto; 
+           width:768px;
+           height: 515px;
+           background-color: white;
+           
+}
+.divContudo td{background-color:whitesmoke ; width: 50%}
+
+.formCadastro{
+    margin-left: auto; 
+    margin-right: auto;
+    width:768px;
+    height: 450px;
+    background-color:white;
+   
+}
+.formCadastro form{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.formCadastro table{
+    position: relative;
+    padding: 30px;
+    margin-left: auto; 
+    margin-right: auto;
+    width: 650px;
+    height: 300px;
+    background-color: white;
+}
+.formCadastro th{
+  margin-left: 50px;  
+  height: 20px;
+  width: 200px;
+  background-color: gainsboro;  
+    
+}
+.formCadastro td{
+    height: 20px;
+}
+.formCadastro input{
+    border: 0px;
+    background-color: whitesmoke;
+    width:400px;
+    height: 30px;
+}
+#tdRadio{
+    background-color: whitesmoke;
+    text-align: right;
+}
+#inputRadio{
+    alignment-adjust: central;
+    width: 20px;
+}
+
+.formCadAn{
+    margin-left: auto; 
+    margin-right: auto;
+    width:768px;
+    height: 450px;
+    background-color:white;
+}
+.formCadAn form{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.formCadAn table{
+    position: relative;
+    padding: 30px;
+    margin-left: auto; 
+    margin-right: auto;
+    width: 700px;
+    height: 300px;
+    background-color: white;
+}
+.formCadAn th{
+  height: 1px;
+  background-color: gainsboro;  
+    
+}
+.formCadAn input{
+    border: 0px;
+    background-color: whitesmoke;
+    width:300px;
+    height: 30px;
+}
+#pacAn{
+    
+    text-align: center;
+    width:300px;
+   
+    
+}
+.formCadAvali{
+    margin-left: auto; 
+    margin-right: auto;
+    width:768px;
+    height: 700px;
+    background-color:white;
+    color: gray;
+    
+}
+.formCadAvali form{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.formCadAvali table{
+    font-size: 15px;
+    position: relative;
+    top: 0px;
+    padding: 30px;
+    margin-left: auto; 
+    margin-right: auto;
+    width: 300px;
+    text-align: center;
+    background-color: white;
+    
+}
+.formCadAvali h5,th{
+    text-align: left;
+}
+.formCadAvali table {
+   position: relative;
+   height: 500px;
+}
+.formCadAvali td{
+    background-color: whitesmoke;
+    height: 20px;
+}
+.formCadAvali b{
+  font-size: 15px;
+    
+}
+.formCadAvali input{
+    text-align: center;
+    border: 0px;
+    background-color: white;
+    width:30px;
+    height: 20px;
+}
+
+    
+
+.formCadAvaliacao{
+   
+    width: 300px;
+    height: 580px;
+    margin-left: 0px;
+    margin-right: 0px;
+    
+}
+.formCadAvaliacao table{
+    width: 765px;
+    height: 400px;
+    
+}
+.formCadAvaliacao h5{
+   background-color:gainsboro;
+   width:100px;
+    
+}
+.formCadAvaliacao input{
+   background-color: whitesmoke;
+   width:130px;
+    
+}
+
+.divlinkcadpac{
+ 
+ height: 20px;
+}
+.divlistpacientes{
+    overflow: auto;
+    height:400px;
+}
+.divlistpacientes a{
+    color: gray;
+    margin-left: 30px;
+}
+.divlistpacientes table {width: 365px}
+.divlistpacientes table td{background-color: white}
+.divlistpacientes input{width:270px; height: 20px}
+
+#campoId input{
+    width:40px;
+}
+
+#botaoButton button{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#campotext{background-color: slategray;}
+#campotext input {
+    background-color: slategray;
+    text-align: center;
+    color: green;
+    width: 30px;
+}
+#botaoAtualizar input{width:100px; height: 20px}
+#botao{width:60px;
+       height: 20px;
+       border: 1px}
+#tdtitulo {height: 60px; background-color: #8FBC8F}
+.tdtitulo{
+   padding-top: 12px;
+   margin-left: auto; 
+   margin-right: auto; 
+   width:768px;
+   height: 60px; 
+   background-color: whitesmoke;
+   text-align: center;
+}
+.tdtitulo h2{
+   
+    text-align: center;
+}
+.divPaciente {
+    height:400 
+}
+.divPaciente b,h2{margin-left: 30px}
+.divPaciente table{height: 300px}
+.divPaciente table td{background-color: white; height: 60px}
+
+.divAnminese b,h2{margin-left: 30px}
+.divAnminese table{height: 300px}
+.divAnminese table td{background-color: white; height: 31px}
+
+.divConsumos b,h2{margin-left: 30px}
+.divConsumos table{height: 300px}
+.divConsumos table td{background-color: white; height: 29px}
+
+.divConteudoAvaliUp{
+    margin-left: auto; 
+    margin-right: auto; 
+    width:768px;
+    height: 600px;
+    background-color: white;
+    color: gray;
+    overflow: auto;
+    
+}
+.divContudoAvaliacao{
+           margin-left: auto; 
+           margin-right: auto; 
+           width:768px;
+           height: 535px;
+           background-color: whitesmoke;
+           color: gray;
+           
+}
+.divContudoAvaliacao table{
+    width: 655px
+}
+
+
+.divContudoAvaliacaotopic{
+          
+           width:200px;
+           height: 510px;
+           background-color: whitesmoke;
+           color: gray;
+          
+}
+.divContudoAvaliacaotopic table{background-color: whitesmoke; 
+                         height: 510px;
+                          
+                          text-align: center
+}
+.divContudoAvaliacaotopic h5 {
+    background-color:gainsboro;
+    width:100px;
+    text-align: left;
+}
+.divContudoAvaliacaotopic td{
+    background-color: white;
+    height:20px;
+}
+.divContudoAvaliacaotopic h3{
+    height: 20px;
+}
+.divContudoAvaliacaoCont h3{
+    height: 20px;
+}
+.divContudoAvaliacaoCont{
+           margin-left: 100px;
+           position: absolute;
+           top:1609px;
+           width:665px;
+           height: 530px;
+           background-color: whitesmoke;
+           color: gray;
+           overflow: auto;
+}
+.divContudoAvaliacaoCont table{background-color: whitesmoke; 
+                          width: 665px;
+                          text-align: center
+}
+.divContudoAvaliacaoCont h5 {
+    background-color:gainsboro;
+    width:100px;
+    text-align: left;
+}
+.divContudoAvaliacaoCont td{
+    background-color: white;
+    height: 20px;
+}
+
+
+.divAvaliacaoTab b,h2{margin-left: 30px}
+.divAvaliacaoTab table{height: 300px;width:768px}
+
+
+.divAvaliacao b,h2{margin-left: 30px}
+.divAvaliacao table{height: 300px;width:170px}
+.divAvaliacao table td,th{background-color: white; 
+                      height: 20px; 
+                      width: 30px}
+
+.divAvaliacao table h5{
+    text-align: left;
+    width:110px 
+}
+
+.divAvaliacao input{
+    border: none;
+    text-align: center;
+    width: 120px;
+    margin-left: 0px;
+}
+
+.divAvaliacaoUp b,h2{margin-left: 30px}
+
+.divAvaliacaoUp table{height: 400px;
+                     width:400px;
+                     margin-left: auto;
+                     margin-right: auto;
+                     background-color: white;}
+.divAvaliacaoUp table td,th{background-color: whitesmoke; 
+                      height: 20px; 
+                      width: 30px}
+
+.divAvaliacaoUp table h5{
+    text-align: left;
+    width:110px 
+}
+
+.divAvaliacaoUp input{
+    border: none;
+    text-align: center;
+    width: 120px;
+    margin-left: 0px;
+}
+
+
+.PacAvaliacao{
+    padding-top: 7px;
+    margin-left: auto; 
+   margin-right: auto; 
+   width:768px;
+    text-align: center;
+    background-color: white;
+    height: 40px;
+}
+
+
+.tableEstatistica table{width:767px; height: 10px}
+.tableEstatistica table td{width:70px;
+text-align: center;
+background-color: #E0FFFF}
+
+
+.divAvaliacao h3{text-align: center}
+.divAvaliacao td{text-align: center}
+.divAvaliacao h5{text-align: left}
+
+.divTitulo{
+    width:768px;
+    height: 40px;
+    background-color: white;
+    margin-left: auto; 
+    margin-right: auto;
+}
+.divTitulo table{
+    position: relative;
+    top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#itens h5{
+     
+}
+.AvaOver {
+   
+    width: 450px;
+    height: 580px;
+    margin-left: 10px;
+    overflow: auto;
+    
+}
+.AvaOver table{
+   width: 450px;
+   height: 390px;
+    
+}
+
+.AvaOver h5{
+   background-color:gainsboro;
+    width:100px;
+    
+}
+.AvaOver table td{
+    height: 25px;
+}
+
+#InputData{
+    width: 130px;
+}
+#botoes{
+    width: 120px;
+    height: 30px;
+}
+#data{font-size: 12px}
+
+.menus {
+       
+       height:50px; 
+       background-color:#036;
+        }
+
+.menus a{text-decoration: none; padding: 20px; color: #CDAD00;}
+
+.menus a:hover{color:#9ACD32;}
+.menus li{padding: 15px;
+   margin-left: 270px}
+.menus ul{
+    list-style-type: none;
+
+}
+
+.menus input,select{
+                  
+                   margin:5px;
+                   padding:0px; font-size:20px; 
+                   font-family:arial; height:30px; 
+                   border:none; 
+                   background-color:#E8E8E8;
+}
+
+.titulocont{
+    height: 60px;
+}
+.titulocont input{
+    border: none;
+    width: 235px;
+    height: 25px;
+}
+
+.divCalculo{
+    
+    padding-top: auto;
+    background-color: white;
+    width: 768px;
+    margin-left:auto; 
+    margin-right: auto;    
+}
+.divCalculo table{
+    width: 768px;
+    background-color: white
+}
+.divCalculo td{
+    background-color: whitesmoke
+}
+.divCalculo h3{
+    text-align: center;
+}
+
+.linkAval{
+    background-color:white; 
+    width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.divBotaoCad{
+    position: relative;
+    top: 40px;
+    background-color: #E8E8E8;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 165px;
+}
+
+.divBotaoCanc{
+    position: relative;
+    top: 0px;
+    background-color: #E8E8E8;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 320px;
+}
+
+.divBotaoCanc button{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.divBotaoEx{
+     position: relative;
+    top: -40px;
+    background-color: #E8E8E8;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 480px;
+}
+
+
+.divBotaoCadPac{
+    position: relative;
+    top: 0px;
+    background-color: #E8E8E8;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 170px;
+}
+
+.divBotaoCancPac{
+    position: relative;
+    top: -40px;
+    background-color: #E8E8E8;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 320px;
+}
+
+.divBotaoCancPac button{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.divBotaoExPac{
+     position: relative;
+    top: -80px;
+    background-color: #E8E8E8;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 470px;
+}
+
+.pacTituloAvali{
+    text-align: center;
+    background-color: whitesmoke;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 768px;
+    height: 30px;
+}
+
+.titPaginaAval{
+    text-align: center;
+    background-color: white;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 768px;
+    height: 40px;
+}
+.divimg{
+  height:200px;
+ 
+  background: url('../imagens/frutas 2.jpg') center center no-repeat fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.divimgLogo{
+ background-color: whitesmoke;
+  height:250px;
+  margin-left: auto;
+  margin-right: auto;  
+  
+}
+.divimgLogo img{
+  width: 100%;
+  height:260px;
+  margin-left: auto;
+  margin-right: auto;  
+  
+}
+.AvaOverEdit{
+    overflow: auto;
+    width: 470px;
+    height: 550px;
+    
+}
+.AvaOverEdit table{
+    margin-left: 0px;
+    position: absolute;
+    top:0px;
+    width: 470px;
+    
+}
+.AvaOverEdit td{
+    padding: 1px;
+    
+    background-color: whitesmoke;
+}
+
+
