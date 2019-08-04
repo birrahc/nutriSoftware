@@ -12,6 +12,7 @@
  * @author Birra
  */
 class ConsumosMold extends PessoaMold{
+    private $cod_local_almoco;
     private $Id_Consumos;
     private $Agua;
     private $Obs_Agua;
@@ -112,7 +113,16 @@ class ConsumosMold extends PessoaMold{
     function getId_Consumos() {
         return $this->Id_Consumos;
     }
+    
+    function getCod_local_almoco() {
+        return $this->cod_local_almoco;
+    }
 
+    function setCod_local_almoco($cod_local_almoco) {
+        $this->cod_local_almoco = $cod_local_almoco;
+    }
+
+    
     function setId_Consumos($Id_Consumos) {
         $this->Id_Consumos = $Id_Consumos;
     }
@@ -255,7 +265,9 @@ class ConsumosMold extends PessoaMold{
     
     public function ListaConsumos(ConsumosMold $pessoa,$Tipo){
         $this->Tipo=$Tipo;
+        
         $coluna8=['id_consumo'=>'id_consumo',
+                  'id_local_alm'=>'l.id_local_alm',
                   'paciente_id'=>'paciente_id',
                   'p.nome'=>'p.nome',
                   'agua.afirmacao'=>'agua.afirmacao as agua', 
@@ -276,7 +288,7 @@ class ConsumosMold extends PessoaMold{
                   'obs_frutas'=>'obs_frutas',
                   'verduras.afirmacao'=>'verduras.afirmacao as verduras', 
                   'obs_verduras'=>'obs_verduras',
-                  'l.local_almoco'=>'l.local_almoco', 
+                  'local_almoco'=>'l.local_almoco as local_almoco',
                   'preferencias'=>'preferencias',
                   'aversoes'=>'aversoes'
             ];
@@ -296,8 +308,8 @@ class ConsumosMold extends PessoaMold{
             'Aversões'
         ];
         
-            
-        $Termos6="inner join consumos c on paciente_id=p.id_paciente
+        if($this->Tipo==1 || $this->Tipo==0):    
+        $Termos6="inner join pacientes p on paciente_id= p.id_paciente
                   inner join afirmacao agua on agua= agua.id_afirmacao
                   inner join afirmacao sucos on sucos= sucos.id_afirmacao
                   inner join afirmacao refeicao on durante_refeicoes= refeicao.id_afirmacao
@@ -307,17 +319,31 @@ class ConsumosMold extends PessoaMold{
                   inner join afirmacao cereais on cereais= cereais.id_afirmacao
                   inner join afirmacao frutas on frutas= frutas.id_afirmacao
                   inner join afirmacao verduras on verduras= verduras.id_afirmacao
-                  inner join local_almoco l on c.local_almoco= l.id_local_alm where id_paciente='{$pessoa->getId_Pessoa()}'";   
+                  inner join local_almoco l on c.local_almoco= l.id_local_alm where id_paciente='{$pessoa->getId_Pessoa()}'";
+        else:
+            $Termos6="inner join pacientes p on paciente_id=p.id_paciente
+                  inner join afirmacao agua on agua= agua.id_afirmacao
+                  inner join afirmacao sucos on sucos= sucos.id_afirmacao
+                  inner join afirmacao refeicao on durante_refeicoes= refeicao.id_afirmacao
+                  inner join afirmacao acucares on acucares= acucares.id_afirmacao
+                  inner join afirmacao sodio on sodio= sodio.id_afirmacao
+                  inner join afirmacao refri on refrigerantes= refri.id_afirmacao
+                  inner join afirmacao cereais on cereais= cereais.id_afirmacao
+                  inner join afirmacao frutas on frutas= frutas.id_afirmacao
+                  inner join afirmacao verduras on verduras= verduras.id_afirmacao
+                  inner join local_almoco l on c.local_almoco= l.id_local_alm where id_consumo='{$pessoa->getId_Consumos()}'";
+        endif;
         
         
         
-        $this->ExRead("pacientes p", $coluna8, $Termos6, $ColumTable6, $this->Tipo);
+        $this->ExRead("consumos c ", $coluna8, $Termos6, $ColumTable6, $this->Tipo);
     }
     
     public function Syntax() {
          while ($col = $this->Read->fetch(PDO::FETCH_ASSOC)):
                     $this->setId_Pessoa($col['paciente_id']);
                     $this->setNome($col['nome']);
+                    $this->cod_local_almoco=$col['id_local_alm'];
                     $this->Id_Consumos = $col['id_consumo'];
                     $this->Agua = $col['agua'];
                     $this->Obs_Agua = $col['obs_agua']; 
@@ -348,77 +374,50 @@ class ConsumosMold extends PessoaMold{
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td colspan='2'><b>Agua:</b></td>"
-                    . "</tr>"
-                    . "<tr>"
-                      . "<td> {$this->getAgua()}</td>"
-                      . "<td> {$this->getObs_Agua()}</td>"
+                      . "<td><b>Agua: </b> {$this->getAgua()}</td>"
+                      . "<td>Obs: {$this->getObs_Agua()}</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td colspan='2'><b>Sucos:</b></td>"
-                    . "</tr>"
-                    . "<tr>"
-                      . "<td>{$this->getSucos()}</td>"
-                      . "<td>{$this->getObs_Sucos()}</td>"
+                      . "<td><b>Sucos: </b> {$this->getSucos()}</td>"
+                      . "<td>Obs: {$this->getObs_Sucos()}</td>"
                     . "</tr>"
                     
                     . "<tr>"
-                      . "<td colspan='2'><b>Durante as Refeições:</b></td>"
-                    . "</tr>"
-                    . "<tr>"
-                      . "<td>{$this->getDurante_Refeicoes()}</td>"
-                      . "<td>{$this->getObs_d_Refeicoes()}</td>"
+                      . "<td><b>Durante as Refeições: </b>{$this->getDurante_Refeicoes()}</td>"
+                      . "<td>Obs: {$this->getObs_d_Refeicoes()}</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td colspan='2'><b>Açucares:</b></td>"
-                    . "</tr>"
-                    . "<tr> "
-                      . "<td>{$this->getAcucares()}</td>"
-                      . "<td>{$this->getObs_Acucares()}</td>"
+                      . "<td><b>Açucares: </b>{$this->getAcucares()}</td>"
+                      . "<td>Obs: {$this->getObs_Acucares()}</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td colspan='2'><b>Sódio:</b></td>"
-                    . "</tr>"
-                    . "<tr>"
-                      . "<td> {$this->getSodio()}</td>"
-                      . "<td> {$this->getObs_Sucos()}</td>"
+                      . "<td><b>Sódio: </b>{$this->getSodio()}</td>"
+                      . "<td>Obs: {$this->getObs_Sucos()}</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td colspan='2'><b>Refrigerantes:</b></td>"
+                      . "<td><b>Refrigerantes: </b>{$this->getRefrigerantes()}</td>"
+                      . "<td>Obs: {$this->getObs_Refrigerantes()}</td>"
                     . "</tr>"
+                     
                     . "<tr>"
-                      . "<td> {$this->getRefrigerantes()}</td>"
-                      . "<td> {$this->getObs_Refrigerantes()}</td>"
+                      . "<td><b>Cereais: </b>{$this->getCereais()}</td>"
+                      . "<td>Obs: {$this->getObs_Cereais()}</td>"
                     . "</tr>"
-                              
+                     
                     . "<tr>"
-                      . "<td colspan='2'><b>Cereais:</b></td>"
+                      . "<td><b>Frutas: </b>{$this->getFrutas()}</td>"
+                      . "<td>Obs: {$this->getObs_Frutas()}</td>"
                     . "</tr>"
+                       
                     . "<tr>"
-                      . "<td>{$this->getCereais()}</td>"
-                      . "<td>{$this->getObs_Cereais()}</td>"
+                      . "<td><b>Verduras: </b>{$this->getVerduras()}</td>"
+                      . "<td>Obs: {$this->getObs_Verduras()}</td>"
                     . "</tr>"
-                              
-                    . "<tr>"
-                      . "<td colspan='2'><b>Frutas:</b></td>"
-                    . "</tr>"
-                    . "<tr>"
-                      . "<td>{$this->getFrutas()}</td>"
-                      . "<td>{$this->getObs_Frutas()}</td>"
-                    . "</tr>"
-                              
-                    . "<tr>"
-                      . "<td colspan='2'><b>Verduras:</b></td>"
-                    . "</tr>"
-                    . "<tr>"
-                      . "<td> {$this->getVerduras()}</td>"
-                      . "<td> {$this->getObs_Verduras()}</td>"
-                    . "</tr>"
-                              
+                     
                     . "<tr>"
                       . "<td colspan='2'><b>Local de Almoço:</b> {$this->getLocal_Amoco()}</td>"
                     . "</tr>"

@@ -38,11 +38,12 @@ class PacienteMold extends PessoaMold{
         $this->dadosPacientes($id,1);
     }
 
-    public function dadosPacientes(PacienteMold $pac,$Tipo) {
+    public function dadosPacientes(PacienteMold $pac, $Tipo) {
         $this->Tipo=$Tipo;
         
         if($this->Tipo==1):
-            $Termos2 = " where nome like '{$pac->getNome()}%'";
+            $Termos2 = " where nome like '{$pac->getNome()}%' "
+            . "ORDER BY nome ";
             
              $coluna2=['id_paciente'=>'id_paciente',
                   'nome'=>'nome',
@@ -52,7 +53,7 @@ class PacienteMold extends PessoaMold{
                   'email'=>'email',
                   'telefone'=>'telefone'];
              
-        elseif($this->Tipo==2||$this->Tipo==3):
+        elseif($this->Tipo == 2 || $this->Tipo == 3):
             $Termos2 = "inner join sexo s on p.sexo=s.id_sexo "
                 . "where id_paciente ={$pac->getId_Pessoa()}";
                 
@@ -79,7 +80,7 @@ class PacienteMold extends PessoaMold{
                while ($col = $this->Read->fetch(PDO::FETCH_ASSOC)):
                    $this->setId_Pessoa($col['id_paciente']);
                    $this->setNome($col['nome']);
-                    echo"<td colspan='2'>  <a href='dadosPacientes1.php?idpac={$this->getId_Pessoa()}'>{$this->getNome()}</a>  </td>"
+                    echo"<td colspan='2'>  <a href='dadosPacientes.php?idpac={$this->getId_Pessoa()}'>{$this->getNome()}</a>  </td>"
               . "</tr>";
                endwhile;
             echo"</table>";

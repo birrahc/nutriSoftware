@@ -20,12 +20,14 @@ class DeletarDados {
     //----------------- DELETAR PACIENTE ---------------------
     //=================================================================================================
     public function DeletarPaciente(PacienteMold $paciente){
+        $DeletarPagamentos = new Delete();
         $DeletaAvaliacao =new Delete();
         $DeletaConsumos = new Delete();
         $DeletaAnminese = new Delete();
         $DeletaPaciente = new Delete();
         
-        $DeletaAvaliacao->ExeDelete('avalicao_antropometrica', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
+        //$DeletarPagamentos->ExeDelete('pagamentos', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
+        $DeletaAvaliacao->ExeDelete('avaliacao_antropometrica', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
         $DeletaConsumos->ExeDelete('consumos', "WHERE paciente_id = :id", 'id='.$paciente->getId_Pessoa());
         $DeletaAnminese->ExeDelete('anaminese', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
         $DeletaPaciente->ExeDelete('pacientes', "WHERE id_paciente = :id", 'id='.$paciente->getId_Pessoa());
@@ -66,12 +68,19 @@ class DeletarDados {
     //==================================================================================================
     //---------------------- DELETA AVALIAÇÃO ----------------------
     //==================================================================================================
-     public function DeletaAvaliacao(AvaliacaoAntrometrica $aval){
+     public function DeletaAvaliacao(AvaliacaoMold $aval){
+         
+        $DeletaPagamento=new Delete();
+        $DeletaPagamento->ExeDelete("pagamentos", "WHERE referencia = :id", 'id='.$aval->getId_Avaliacao());
+         
         $DeletaAvaliacao = new Delete();
         $DeletaAvaliacao->ExeDelete('avaliacao_antropometrica', "WHERE id_avalicao = :id", 'id='.$aval->getId_Avaliacao());
         
+       
         if($DeletaAvaliacao->getResult()):
             echo"{$DeletaAvaliacao->getRunCount()} registro(s) deletados com sucesso: <hr>";
         endif;
     }
+    
+   
 }

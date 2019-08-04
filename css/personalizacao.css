@@ -6,24 +6,58 @@ a{text-decoration: none}
 
 
 .divPagina{background-color: #F5FBEF; 
-          height: 520px;
+          height: 700px;
 }
 
-.divPaginaLog{background-color: greenyellow; 
+.divPaginaLog{background-color: white; 
           height: 390px;
 }
 
-.divCadastroAnminese{
-    margin-left: auto;
+.divCadastroConsumos{
+    margin-left: auto; 
     margin-right: auto;
-    width: 768px;
-    background-color: whitesmoke;
-    height: 400px;
+    width:768px;
+    height: 550px;
+    background-color:white;
 }
-.divCadastroAnminese table{
-    width: 760px;
-    margin-left: auto;
+.divCadastroConsumos form{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.divCadastroConsumos table{
+    position: relative;
+    
+    margin-left: auto; 
     margin-right: auto;
+    width: 700px;
+    height: 300px;
+    background-color: white;
+}
+.divCadastroConsumos th{
+  height: 1px;
+  background-color: gainsboro;  
+    
+}
+.divCadastroConsumos input {
+    border: 0px;
+    width:15px;
+    height: 15px;
+    font-size: 15px;
+}
+.divCadastroConsumos select {
+    border: 0px;
+    text-align: center;
+    background-color: whitesmoke;
+    width:200px;
+    height: 25px;
+    font-size: 15px;
+}
+
+#divCadastroConsumos{
+    border: 0px;
+    background-color: whitesmoke;
+    width:200px;
+    height: 25px;
 }
 
 
@@ -50,6 +84,9 @@ a{text-decoration: none}
     padding: 3px;
 }
 .pagContLog input{
+    font-family: arial;
+    font-size: 20px;
+    text-align: center;
     border: none;
     background-color: whitesmoke;
     width:250px;
@@ -71,16 +108,26 @@ a{text-decoration: none}
     background-color: white;
 }
 
+.pagContLog a{
+    font-family: arial;
+    font-size: 12px;
+    color:gray;
+}
+
 .divContSimb{
     margin-left: auto;
     margin-right: auto;
     width: 400px;
     text-align: center
 }
+.divContSimb h2{
+    font-family: arial;
+    color: gainsboro;
+}
 
 .divContSimb img{
-    width: 150px;
-    height: 150px;
+    width: 28z0px;
+    height: 180px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -166,7 +213,7 @@ a{text-decoration: none}
     margin-left: auto; 
     margin-right: auto;
     width:768px;
-    height: 450px;
+    height: 670px;
     background-color:white;
 }
 .formCadAn form{
@@ -175,7 +222,7 @@ a{text-decoration: none}
 }
 .formCadAn table{
     position: relative;
-    padding: 30px;
+    
     margin-left: auto; 
     margin-right: auto;
     width: 700px;
@@ -187,11 +234,27 @@ a{text-decoration: none}
   background-color: gainsboro;  
     
 }
-.formCadAn input{
+.formCadAn input {
+    border: 0px;
+    background-color: white;
+    width:15px;
+    height: 15px;
+    font-size: 15px;
+}
+.formCadAn select {
+    border: 0px;
+    text-align: center;
+    background-color: whitesmoke;
+    width:260px;
+    height: 25px;
+    font-size: 15px;
+}
+
+#formCadAn{
     border: 0px;
     background-color: whitesmoke;
-    width:300px;
-    height: 30px;
+    width:270px;
+    height: 25px;
 }
 #pacAn{
     
@@ -220,7 +283,7 @@ a{text-decoration: none}
     padding: 30px;
     margin-left: auto; 
     margin-right: auto;
-    width: 300px;
+    width: 768px;
     text-align: center;
     background-color: white;
     
@@ -312,11 +375,10 @@ a{text-decoration: none}
        border: 1px}
 #tdtitulo {height: 60px; background-color: #8FBC8F}
 .tdtitulo{
-   padding-top: 12px;
+   
    margin-left: auto; 
    margin-right: auto; 
    width:768px;
-   height: 60px; 
    background-color: whitesmoke;
    text-align: center;
 }
@@ -331,9 +393,33 @@ a{text-decoration: none}
 .divPaciente table{height: 300px}
 .divPaciente table td{background-color: white; height: 60px}
 
-.divAnminese b,h2{margin-left: 30px}
-.divAnminese table{height: 300px}
-.divAnminese table td{background-color: white; height: 31px}
+.divAnminese{
+    background-color: whitesmoke;
+}
+.divAnminese b,h2{
+    margin-left: 30px
+}
+.divAnminese table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 765px;
+    height: 300px
+}
+.divAnminese table td{
+    background-color: white; 
+    height: 31px
+}
+
+.titAnminese{
+    width: 768px;
+    background-color: whitesmoke;
+    margin-left: auto;
+    margin-right: auto;
+}
+.titAnminese h2{
+    font-family: arial;
+    text-align: center;
+}
 
 .divConsumos b,h2{margin-left: 30px}
 .divConsumos table{height: 300px}
@@ -593,22 +679,22 @@ background-color: #E0FFFF}
 
 .divBotaoCad{
     position: relative;
-    top: 40px;
-    background-color: #E8E8E8;
-    height: 30px;
-    width: 120px;
-    padding: 5px;
-    margin-left: 165px;
-}
-
-.divBotaoCanc{
-    position: relative;
     top: 0px;
     background-color: #E8E8E8;
     height: 30px;
     width: 120px;
     padding: 5px;
-    margin-left: 320px;
+    margin-left: 365px;
+}
+
+.divBotaoCanc{
+    position: relative;
+    top: -40px;
+    background-color: #E8E8E8;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    margin-left: 580px;
 }
 
 .divBotaoCanc button{
@@ -618,12 +704,12 @@ background-color: #E0FFFF}
 
 .divBotaoEx{
      position: relative;
-    top: -40px;
+    top: -80px;
     background-color: #E8E8E8;
     height: 30px;
     width: 120px;
     padding: 5px;
-    margin-left: 480px;
+    margin-left: 780px;
 }
 
 
@@ -724,4 +810,317 @@ background-color: #E0FFFF}
     background-color: whitesmoke;
 }
 
+.divlogoprint{
+    height: 150px;
+    width: 768px;
+     margin-left: auto;
+    margin-right: auto;
+}
 
+.divlogoprint img{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.divContudoAvaliacaoprint{
+          
+           width:200px;
+           height: 510px;
+           background-color: whitesmoke;
+           color: gray;
+          
+}
+.divContudoAvaliacaoprint table{
+    background-color: whitesmoke;
+    width: 765px;
+   height: 510px;
+   text-align: center
+}
+.divContudoAvaliacaoprint h5{
+    background-color:gainsboro;
+    width:100px;
+    text-align: left;
+}
+.divContudoAvaliacaoprint td{
+    background-color: white;
+    height:20px;
+}
+.divContudoAvaliacaoprint h3{
+    height: 20px;
+}
+.contAvaliacao{
+	background-color: white;
+	margin-left: auto;
+    margin-right: auto;
+	width: 768px;
+    height: 600px;
+}
+
+.contAvaliacao table{
+	margin-left: auto;
+    margin-right: auto;
+	width: 768px;
+    height: 600px;
+}
+
+.divconteudoprint{
+    background-color: white;
+    width: 120px;
+    height: 550px;
+   
+}
+.divconteudoprint table{
+    height: 550px;
+    width: 120px;
+    
+}
+
+.divconteudoprint td{
+    font-size: 14px;
+    text-align: left;
+    width: 120px;
+    height: 20px;
+    background-color: #A9A9A9;
+    
+}
+.divconteudoprint b{
+	padding:5px;
+}
+.divformcadAv{
+	background-color: white;
+    width: 210px;
+    height: 550px;
+}
+.divformcadAv table{
+	background-color: whitesmoke;
+	height: 550px;
+    width: 210px;
+}
+.divformcadAv td{
+	font-size: 12px;
+    text-align: left;
+    width: 90px;
+    height: 20px;
+    background-color: #A9A9A9;
+    
+}
+
+
+.divformcadAv  b{
+	padding:5px;
+}
+.divformcadAv input{
+	text-align:center;
+	background-color: #A9A9A9;
+	border:none;
+	width:95px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.divprintavaliacao{
+    overflow: auto;
+    width: 640px;
+    height: 550px;
+	position:relative
+	
+	
+}
+
+.divprintavaliacao table td{
+    font-size: 16px;
+    text-align: center;
+    width: 50px;
+    height: 20px;
+    background-color: whitesmoke;
+    
+}
+.divprintavaliacao table{
+	margin-right:100%;
+	width:50px;
+	height:550px;
+}
+
+.divcadAvaliaca{
+    overflow: auto;
+    width: 550px;
+    height: 550px;
+	position:relative
+}
+.divcadAvaliaca table{
+	width: 550px;
+	height:550px;
+}
+.divcadAvaliaca table td{
+	font-size: 12px;
+    text-align: center;
+    width: 10px;
+    height: 20px;
+    background-color: whitesmoke;
+}
+
+.divupdateavaliacao{
+   
+    width: 435px;
+    height: 540px;
+    overflow: auto;
+}
+.divupdateavaliacao table{
+     width: 435px;
+     height: 520px;
+}
+.divupdateavaliacao table td{
+     text-align: center;
+    width: 50px;
+    height: 20px;
+    background-color: whitesmoke;
+}
+.divconteudoprint input{
+    text-align: center;
+    background-color: gainsboro;
+    width: 100px;
+}
+.titAvaliacao{
+    background-color: #E8E8E8;
+    width: 768px;
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+.titAvaliacao h3{
+    text-align: center;
+}
+.divpaginaCadLogin{
+    background-color: #F5FBEF; 
+    height: 650px;
+}
+.divCadloginTitulo{
+    background-color: whitesmoke;
+    width: 768px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;  
+}
+.divCadloginTitulo h2{
+    font-family: arial;
+    text-align: center;
+}
+.divcadLogin{
+    width:400px;
+    margin-left: auto; 
+    margin-right: auto;
+    
+}
+.divcadLogin table{
+    width:250px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+.divcadLogin td{
+    padding: 0px;
+}
+.divcadLogin input{
+    font-family: arial;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    background-color: whitesmoke;
+    width:250px;
+    height: 30px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+.divcadLogin button{
+    width:250px;
+    height: 35px
+}
+
+.divcadLogin h3{
+   color: grey;
+    height: 22px;
+    width: 150px;
+    background-color: white; 
+}
+.divcadLogin a{
+    font-family: arial;
+    font-size: 12px;
+    color: gray;
+}
+.divcontPag{
+    background-color: white;
+    width:768px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.divcontPag table{
+    width: 760px;
+    height: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titcadPag{
+    background-color: whitesmoke;
+    width: 768px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titcadPag h2{
+    text-align: center;
+}
+
+.botaoFinalizar{
+  width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.divcontlistapag{
+    width: 768px;
+    height: 600px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: auto;
+}
+.divcontlistapag table{
+    padding: 10px;
+    background-color: #FAFAFA;
+    margin-left: auto;
+    margin-right: auto;
+    width: 760px;
+    height: 180px;
+}
+.grafico{
+    
+    width: 768px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.graf-tit{
+    text-align: center;
+    background-color:gray;
+    width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.graf-print{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+    background-color: greenyellow;
+}
+.grafPrint-tit{
+    text-align: center;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}

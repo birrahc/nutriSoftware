@@ -17,7 +17,7 @@ endif;
 $logDao->Logar($log);
 
 if($logDao->getExisteUsuario()){
-	$logDao->setDestino("dadosPacientes.php?idpac=0");
+	$logDao->setDestino("dadosPacientes.php");
 	session_start();
 	$_SESSION["usuario"]=$log->getNome();
 	$_SESSION["permissao"]=$logDao->getPermissaoDao();

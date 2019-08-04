@@ -3,7 +3,7 @@
 define('HOST', 'localhost');
 define('USER', 'root');
 define('PASS', '');
-define('DBSA', 'nutricao');
+define('DBSA', 'softnutricao');
 
 
 function __autoload($Class){

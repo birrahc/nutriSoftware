@@ -18,7 +18,7 @@ if(isset($_POST['tipoexc'])):
         if(isset($_POST['ex_idpac'])):
             $paciente->setId_Pessoa($_POST['ex_idpac']);
             $DeletarDados->DeletarPaciente($paciente);
-            header("Location: dadosPacientes.php?idpac={$paciente->getIdPessoa()}");
+            header("Location: dadosPacientes.php?");
         endif;
     
     
@@ -50,7 +50,7 @@ if(isset($_POST['tipoexc'])):
             $DeletarDados->DeletaAvaliacao($Avaliacao);
             $paciente->setId_Pessoa($_POST['pac']);
             
-            header("Location: cadastrarAvaliacao.php?idpac={$paciente->getId_Pessoa()}#Avaliacao");
+            header("Location: dadosPacientes.php?idpac={$paciente->getId_Pessoa()}#Avaliacao");
         endif;
     endif;
     

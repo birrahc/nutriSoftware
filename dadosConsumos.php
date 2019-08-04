@@ -1,5 +1,5 @@
 <?php 
-    //require_once './controle.php';
+    require_once './controle.php';
 ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,16 +109,14 @@ if(isset($_POST['id_consumo'])):
 endif;
     if($consumos->getId_Consumos()>=1):
         $AtualizarCons->AtualizarConsumos($consumos);
-        header("Location: dadosPacientes.php?idpac={$consumos->getId_Pessoa()}#Anminese");
+        header("Location: dadosPacientes.php?idpac={$consumos->getId_Pessoa()}#Consumos");
         
     elseif($consumos->getId_Consumos()<1):
         if(!empty($consumos) || !$consumos==null):
             $consumosCad->CadastarConsumos($consumos); 
-            header("Location: cadastrarAvaliacao.php?idpac={$consumos->getId_Pessoa()}");
+            header("Location:dadosPacientes.php?idpac={$consumos->getId_Pessoa()}#Consumos");
+            var_dump($consumosCad->CadastarConsumos($consumos));
         endif;
     endif;
 
-    var_dump($consumos);
-    var_dump($consumosCad->CadastarConsumos($consumos));
-
-
+    echo"Resultado {$consumos->getId_Pessoa()}";

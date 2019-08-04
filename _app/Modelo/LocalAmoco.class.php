@@ -39,9 +39,7 @@ class LocalAmoco extends Select{
         ];
         
         $Termos6="";
-        $ColumTable6=[
-            
-        ];
+        $ColumTable6=[];
         
         
        
@@ -50,17 +48,7 @@ class LocalAmoco extends Select{
     public function Syntax() {
         
         while ($col = $this->Read->fetch(PDO::FETCH_ASSOC)):
-              $coluna6=[
-            '*'=>'*'];
-        
-        $Termos6="";
-        $ColumTable6=[
-            
-        ];
-        
-        
-       
-        $this->ExRead("local_almoco", $coluna6, $Termos6, $ColumTable6);
+             
             $this->Cod_local = $col['id_local_alm'];
             $this->Local_Almoco = $col['local_almoco'];
             

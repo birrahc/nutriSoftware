@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-    //require_once './controle.php';
+    require_once './controle.php';
 ?>
 
 <html lang="pt-br">
@@ -8,7 +8,6 @@
         require('./_app/config.inc.php');
         $paciente = new PacienteMold();
         $pacienteDados = new PacienteMold();
-        $anminse = new AnmineseDao();
         $avaliacao =  new AvaliacaoMold();
         $avaliacaoDados = new AvaliacaoMold();
         
@@ -58,16 +57,16 @@
             $botaoAcao = "Editar";
         endif;
      endif;
-     
-     
-     
     ?>
+    
     <head>
+        <script type="text/javascript" src="Script/validaCamposAvaliacao.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/personalizacao.css" rel="stylesheet"/>
         <title><?php echo $acaoTitulo ?></title>
     </head>
+    
     <body>
         <div class="divPaginaAvaliacao">
             
@@ -75,169 +74,195 @@
                 <h2><?php echo $acaoTitulo ?></h2>
             </div>
             
-            <div class="formCadAvali">
-            <form name="cadastrarAvaliacao" action="dadosAvaliacao.php" method="POST">
-                
-                <div class="">
+            <div class="titAvaliacao">
+                <?php
+                    echo"<h3>{$pacienteDados->getNome()}</h3>";
+                ?>
+            </div>
+            
+            <form name="cadastrarAvaliacao" action="dadosAvaliacao.php" method="POST" onsubmit=" return validAvaliacao();">    
+            <div class="contAvaliacao">
+            <table border='0'>
+            <tr>
+                <td>
+                    <div class="divcadAvaliaca">
                     <?php
-                        echo"<h2>{$pacienteDados->getNome()}</h2";//pacTituloAvali
-                    ?>         
-                </div>
-                   
-                <div class="formCadAvaliacao">   
-                <table border="0">
-                   
+                        $avaliacaoDados->ListaAvaliacao($avaliacao,1);
+                    ?>
+                    </div>
+		</td>
+					
+		<td width="220">
+                    <div class="divformcadAv">
+                    <table border='0'>
                     <tr>
-                        <td><h5>Avaliação:</h5></td>
-                        <td rowspan="27">
-                        <div class="AvaOverEdit">
-                            <?php
-                                $avaliacaoDados->ListaAvaliacao($avaliacao,1);
-                            ?>
-                        </div>
-                        </td>
-                        
-                    <td>
-                        <input type="hidden" name="id_avaliacao" value="<?php echo $avaliacao->getId_Avaliacao() ?>"/>
-                        <input type="hidden" name="id_paciente" value="<?php echo $pacienteDados->getId_Pessoa()?>"/>
-                        <input type="text" name="consulta" value="<?php echo $avaliacao->getAvaliacao()?>"/>
-                        
-                    </td>
+			<td width="150"><b>Avaliações</b></td>
+                        <td>
+                            <input type="hidden" name="id_avaliacao" value="<?php echo $avaliacao->getId_Avaliacao() ?>"/>
+                            <input type="hidden" name="id_paciente" value="<?php echo $pacienteDados->getId_Pessoa()?>"/>
+                            <input type="text" name="consulta" value="<?php echo $avaliacao->getAvaliacao()?>"/>
+			</td>
+                    </tr>
+                    <tr>
+                        <td><b>Data:</b></td>
+                        <td><input type="date" name="data_avalicao" value="<?php echo $avaliacao->getDataAvalicao() ?>" width="100"/></td>
                     </tr>
                         
                     <tr>
-                        <td id="Itens"><h5>Data:</h5></td>
-                       
-                        <td><input type="date" name="data_avalicao" value="<?php echo $avaliacao->getDataAvalicao() ?>" id="InputData"/></td>
-                    </tr>
-                        
-                    <tr>
-                        <td id="Itens"><h5>Peso:</h5></td>
+                        <td><b>Peso</b></td>
                         <td><input type="text" name="peso" value="<?php echo $avaliacao->getPeso() ?>"/></td>
                     </tr>
-                        
+			
                     <tr>
-                        <td colspan="2"><h3></h3></td>
+                        <td colspan='2'></td>
                     </tr>
-                           
+										
                     <tr>
-                        <td id="Itens"><h5>C.cintura:</h5></td>
+                        <td><b>C.cintura</b></td>
                         <td><input type="text" name="c_cintura" value="<?php echo $avaliacao->getC_Cintura() ?>"/></td>
                     </tr>
                         
                     <tr>
-                        <td id="Itens"><h5>C.Abdominal:</h5></td>
+                        <td><b>C.Abdominal</b></td>
                         <td><input type="text" name="c_abdominal" value="<?php echo $avaliacao->getC_Abdominal() ?>"/></td>
                     </tr>
-                            
+			
                     <tr>
-                        <td id="Itens"><h5>C.Quadril:</h5></td>
+                        <td><b>C.Quadril</b></td>
                         <td><input type="text" name="c_quadril" value="<?php echo $avaliacao->getC_Quadril() ?>"/></td>
                     </tr>
-                        
+										
                     <tr>
-                       <td id="Itens"><h5>C.Peito:</h5></td>
-                       <td><input type="text" name="c_peito" value="<?php echo $avaliacao->getC_Peito() ?>"/></td>
+                        <td><b>C.Peito</b></td>
+                        <td><input type="text" name="c_peito" value="<?php echo $avaliacao->getC_Peito() ?>"/></td>
                     </tr>
-                            
+			
                     <tr>
-                       <td id="Itens"><h5>C.Braço D:</h5></td>
-                       <td><input type="text" name="c_braco_d" value="<?php echo $avaliacao->getC_Braco_D() ?>"/></td>
+                        <td><b>C.Braço D</b></td>
+                        <td><input type="text" name="c_braco_d" value="<?php echo $avaliacao->getC_Braco_D() ?>"/></td>
                     </tr>
-                        
+										
                     <tr>
-                        <td id="Itens"><h5>C.Braco E:</h5></td>
+                        <td><b>C.Braço E</b></td>
                         <td><input type="text" name="c_braco_e" value="<?php echo $avaliacao->getC_Braco_E() ?>"/></td>
                     </tr>
-                            
+										
                     <tr>
-                        <td id="Itens"><h5>C.Coxa D:</h5></td>
+                        <td><b>C.Coxa D</b></td>
                         <td><input type="text" name="c_coxa_d" value="<?php echo $avaliacao->getC_Coxa_D() ?>"/></td>
                     </tr>
-                        
-                        <tr>
-                            <td id="Itens"><h5>C.Coxa_E:</h5></td>
-                            <td><input type="text" name="c_coxa_e" value="<?php echo $avaliacao->getC_Coxa_E() ?>"/></td>
-                        </tr>
-                        
-                        <tr>
-                            <td colspan="2"><h3></h3></td>
-                        </tr>
-                            
-                        <tr>
-                            <td id="Itens"><h5>Dc.Triceps:</h5></td>
-                            <td><input type="text" name="dc_triceps" value="<?php echo $avaliacao->getDc_Triceps() ?>"/></td>
-                        </tr>
-                            
-                        <tr>
-                            <td id="Itens"><h5>Dc.Escapular:</h5></td>
-                            <td><input type="text" name="dc_escapular" value="<?php echo $avaliacao->getDc_Escapular() ?>"/></td>
-                        </tr>
-                        
-                        <tr>
-                            <td id="Itens"><h5>Dc.Supra Iliaca:</h5></td>
-                            <td><input type="text" name="dc_supra_iliaca" value="<?php echo $avaliacao->getDc_Supra_Iliaca() ?>"/></td>
-                        </tr>
-                            
-                        <tr>
-                            <td id="Itens"><h5>Dc.Abdominal:</h5></td>
-                            <td><input type="text" name="dc_abdominal" value="<?php echo $avaliacao->getDc_Abdominal() ?>"/></td>
-                        </tr>
-                        <tr>
-                            <td id="Itens"><h5>Dc.Axilar:</h5></td>
-                            <td><input type="text" name="dc_axilar" value="<?php echo $avaliacao->getDc_Axilar() ?>"/></td>
-                        </tr>
-                            
-                        <tr>
-                            <td id="Itens"><h5>Dc.Peitoral:</h5></td>
-                            <td><input type="text" name="dc_peitoral" value="<?php echo $avaliacao->getDc_Peitoral() ?>"/></td>
-                        </tr>
-                        
-                        <tr>
-                            <td id="Itens"><h5>Dc.Coxa:</h5></td>
-                            <td><input type="text" name="dc_coxa" value="<?php echo $avaliacao->getDc_Coxa() ?>"/></td>
-                        </tr>
-                        <tr>
-                            <td><h5>% Gordura</h5></td>
-                        </tr>
-                        <tr>
-                            <td><h5>M.Muscular</h5></td>
-                        </tr>
-                        <tr>
-                            <td><h5>Gordura</h5></td>
-                        </tr>
+					
+                    <tr>
+                        <td><b>C.Coxa E</b></td>
+                        <td><input type="text" name="c_coxa_e" value="<?php echo $avaliacao->getC_Coxa_E() ?>"/></td>
+                    </tr>
+				
+                    <tr>
+                        <td colspan='2'></td>
+                    </tr>
+			
+                    <tr>
+                        <td><b>DC Triceps</b></td>
+                        <td><input type="text" name="dc_triceps" value="<?php echo $avaliacao->getDc_Triceps() ?>"/></td>
+                    </tr>
+								
+                    <tr>
+                        <td><b>Dc.Escapular</b></td>
+                        <td><input type="text" name="dc_escapular" value="<?php echo $avaliacao->getDc_Escapular() ?>"/></td>
+                    </tr>
+					
+                    <tr>
+                        <td><b>Dc.Supra Iliaca</b></td>
+                        <td><input type="text" name="dc_supra_iliaca" value="<?php echo $avaliacao->getDc_Supra_Iliaca() ?>"/></td>
+                    </tr>	
+										
+                    <tr>
+                        <td><b>Dc.Abdominal</b></td>
+                        <td><input type="text" name="dc_abdominal" value="<?php echo $avaliacao->getDc_Abdominal() ?>"/></td>
+                    </tr>
+										
+                    <tr>
+                        <td><b>Dc.Axilar</b></td>
+                        <td><input type="text" name="dc_axilar" value="<?php echo $avaliacao->getDc_Axilar() ?>"/></td>
+                    </tr>
+										
+                    <tr>
+                        <td><b>Dc.Peitoral</b></td>
+                        <td><input type="text" name="dc_peitoral" value="<?php echo $avaliacao->getDc_Peitoral() ?>"/></td>
+                    </tr>
+										
+                    <tr>
+                        <td><b>Dc.Coxa</b></td>
+                        <td><input type="text" name="dc_coxa" value="<?php echo $avaliacao->getDc_Coxa() ?>"/></td>
+                    </tr>
+			
+                    <tr>
+                        <td><b>% Gordura</b></td>
+                    </tr>
+			
+                    <tr>
+                        <td><b>M.Muscular</b></td>
+                    </tr>
+					
+                    <tr>
+                            <td><b>Gordura</b></td>
+                    </tr>
+										
                     </table>
-                    </div>
-                   
-            <div class="divBotaoCad">
-                <button type="submit" onclick="cadastrarPaciente" id="botoes"><img src="imagens/simboloCadastrar.png" width="20" height="20"/> <?php echo $botaoAcao ?></button>
+                    </div>								
+                </td>
+            </tr>
+            </table>
             </div>
-                
+            
+            <div class="divBotaoCad">
+            <?php
+            if($botaoAcao=='Editar'):
+                echo"<button type='submit' onclick='return confirmaEditAval();' id='botoes'><img src='imagens/simboloCadastrar.png' width='20' height='20'/> {$botaoAcao} </button>";
+            else:
+                echo"<button type='submit' onclick='cadastrarPaciente' id='botoes'><img src='imagens/simboloCadastrar.png' width='20' height='20'/> {$botaoAcao} </button>";
+            endif;
+            ?>
+            <script>
+                function confirmaEditAval(){
+                    editAval = confirm('Deseja realmente confirmar as alterações desta Avaliação ?');
+                    if(editAval)
+                        return true;
+                    else
+                        return false;
+                }
+            </script>   
+            </div>
             </form>
-                
+			
             <div class="divBotaoCanc">
-                <form method="GET" action="dadosPacientes1.php">
-                    <input type="hidden" name="idpac" value="<?php echo $avaliacao->getId_Pessoa() ?>"/>
-                    <button  type="submit" id="botoes"><img src="imagens/cancel.png" width="20" height="20"/> Cancelar</button>
-                </form>
+            <form method="GET" action="dadosPacientes.php">
+                <input type="hidden" name="idpac" value="<?php echo $avaliacao->getId_Pessoa() ?>"/>
+                <button  type="submit" id="botoes"><img src="imagens/cancel.png" width="20" height="20"/> Cancelar</button>
+            </form>
             </div>
                 
             <?php
             if($avaliacao->getId_Avaliacao()):
-                echo"<div class='divBotaoEx'>";
+	            echo"<div class='divBotaoEx'>";
                 echo"<form name='excluirPaciente' action='excluirdados.php' method='POST'>"
-                        ."<input type='hidden' name='ex_idav' value='{$avaliacao->getId_Avaliacao()}'/>"
+                        ."<input type='hidden' name='ex_idav' value='{$avaliacaoDados->getId_Avaliacao()}'/>"
                         ."<input type='hidden' name='tipoexc' value='4'/>"
-                         ."<input type='hidden' name='pac' value='{$avaliacao->getId_Avaliacao()}'/>"
-                        . "<button type='submit' onclick='excluirPaciente' id='botoes'><img src='imagens/lixeira2.png' width='20' height='20'/> Excluir </button>"
+                         ."<input type='hidden' name='pac' value='{$avaliacaoDados->getId_Pessoa()}'/>"
+                        . "<button type='submit' onclick='return confExAva();' id='botoes'><img src='imagens/lixeira2.png' width='20' height='20'/> Excluir </button>"
                    ."</form>";
                 echo"</div>";
             endif;
             ?>
-
-            </div>
-           
-        
+            <script>
+            function confExAva(){
+                var excAval = confirm('Deseja realmente excluir esta avaliação ?');
+                if(excAval)
+                    return true;
+                else
+            return false;
+            }
+            </script>
         </div>
         
         <div class="divimg"></div>

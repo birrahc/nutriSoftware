@@ -5,26 +5,29 @@
 
 <html lang="pt-br">
     
-    <?php
-    require('./_app/config.inc.php');
+<?php
+require('./_app/config.inc.php');
     
-    $paciente= new Paciente();
-    $pacDao= new PacienteDao();
-    $AnmiseDao = new AnmineseDao();
-    $ConsumosDao = new ConsumoDao();
-    $Avalicao = new AvaliacaoDao();
+$paciente= new PacienteMold();
+$pacDao= new PacienteMold();
+$anminese=new AnmineseMold();
+$AnmiseDao = new AnmineseMold();
+$consumos = new ConsumosMold();
+$ConsumosDao = new ConsumosMold();
+$Avalicao = new AvaliacaoMold();
+$AvaliacaoDao = new AvaliacaoMold();
     
-    if(isset($_POST['pesquisar'])):
-        isset($_POST['pesquisar']);
+if(isset($_POST['pesquisar'])):
+    isset($_POST['pesquisar']);
     $paciente->setNome($_POST['pesquisar']);
-    endif;
+endif;
     
-    if(isset($_GET['idpac'])):
-        isset($_GET['idpac']);
-        $paciente->setIdPessoa($_GET['idpac']);
-    endif;
+if(isset($_GET['idpac'])):
+    isset($_GET['idpac']);
+    $paciente->setId_Pessoa($_GET['idpac']);
+endif;
         
-    ?>
+?>
     
     <head>
         <meta charset="UTF-8">
@@ -35,51 +38,52 @@
     
     <body>
         
-        <div class="menus">
+        <div class="menus"> <!-- Menus -->
            <?php
                require 'menu.php';
            ?>
-        </div>
+        </div> <!-- Fecha Menus -->
         
-        <div class="divPagina">
+        <div class="divPagina"> <!-- div para lista de pacientes e paciente Detalhado -->
             
             <div class="divContudo" id="paciente">
             <table border="0" width="768">
-                <tr>
-                    <td>
+            <tr>
+                <td>
+                    <div class="titulocont">
+                    <form name="pesquisarPaciente" action="#" method="POST"> <!-- Formulario de pesquisa Paciente-->
                         
-                        <div class="titulocont">
-                         <form name="pesquisarPaciente" action="#" method="POST">    
-                            <table border='0'>
-                                <tr>
-                                    <td colspan="2"><h2>Pacientes</h2></td>
-                                </tr>
-                                <tr>
-                                    <td> <input type="text" name="pesquisar"/> </td>
-                                    <td> <button type="submit" onclick="pesquisarPaciente" id="botoes"><img src="imagens/lupa.png" width="20" height="20"/> Procurar </button></td>
-                                </tr>
-                            </table>
-                        </form>    
-                        </div>
+                    <table border='0'>
+                    <tr>
+                        <td colspan="2"><h2>Pacientes</h2></td>
+                    </tr>
+                    <tr>
+                        <td> <input type="text" name="pesquisar"/> </td>
+                        <td> <button type="submit" onclick="pesquisarPaciente" id="botoes"><img src="imagens/lupa.png" width="20" height="20"/> Procurar </button></td>
+                    </tr>
+                    </table>
                         
-                        <div class="divlistpacientes">
-                        <?php
-                            $pacDao->ListaPacientes($paciente);
-                        ?>
-                        </div>
+                    </form>    
+                    </div>
                         
-                        <div class="divlinkcadpac">
-                            <a href="cadastrarPaciente.php">Cadastrar Paciente</a>
-                        </div>
-                        
-                    </td>
-                  
-                    <td>
+                    <div class="divlistpacientes"> <!-- div lista Pacientes -->
                     <?php
-                    if($_GET['idpac']):
+                        $pacDao->listaPaciente($paciente);
+                    ?>
+                    </div>
+                        
+                    <div class="divlinkcadpac">
+                        <a href="cadastrarPaciente.php">Cadastrar Paciente</a>
+                    </div>
+                        
+                </td>
+                  
+                <td>
+                    <?php
+                    if(isset($_GET['idpac'])):
                     ?>   
                         <div class="titulocont">
-                            <table>
+                            <table border='0'>
                                 <tr>
                                     <td colspan="2"><h2>Dados Pessoais</h2></td>
                                 </tr>
@@ -87,15 +91,21 @@
                         </div>
           
                         <div class="divPaciente">
-                        <table>
+                        <table border='0'>
                         <?php
-                            $pacDao->SelectDadosPaciente($_GET['idpac'],2);
+                            $pacDao->dadosPacientes($paciente, 2);
+                            //var_dump($pacDao->dadosPacientes($paciente,2))
                         ?>
                             <tr>
                                 <td>
-                                    <a href="cadastrarPaciente.php?paciente=<?php echo $pacDao->getId_paciente() ?>">Editar</a> | 
+                                    
+                                    <a href='#Avaliacao'>Avaliação</a> | 
                                     <a href='#Anminese'>Anminese</a> | 
-                                    <a href='#Avaliacao'>Avaliação</a>
+                                    <a href='#Consumos'>Consumos</a> | 
+                                    <hr>
+                                    <a href="cadastrarPaciente.php?paciente=<?php echo $pacDao->getId_Pessoa() ?>">Editar</a> | 
+                                    <a href="ListPagamentos.php?idpac=<?php echo $pacDao->getId_Pessoa() ?>">Pagamentos</a> |
+                                    
                                 </td>
                             </tr>
                 
@@ -106,205 +116,271 @@
                     endif;
                     ?>
                         
-                    </td>
+                </td>
                 </tr>
             </table>
             </div>
           
         </div>
-       
-        <div class="divimg"></div>
-        
-        <?php
-        if($_GET['idpac']):
-        ?>
-        
-        <div class="divPagina">
-            <div class="divContudo" id="Anminese">
-            <table border="0" width="768">
-                <tr>
-                    <td>
-                        
-                        <div class="titulocont"> 
-                        <table border='0'>
-                            <tr>
-                                <td colspan="2"><h2>Anminese</h2></td>
-                            </tr>
-                        </table>
-                        </div>
-                        
-                        <div class="divAnminese">
-                        <table>
-                        <?php
-                            $AnmiseDao->ListaAnminese($_GET['idpac'],2);
-                            echo"<tr>"
-                                . "<td>";
-                                if($AnmiseDao->getId_Anminese()):
-                                    echo"<a href='cadastrarAnminese.php?cod_anminese={$AnmiseDao->getId_Anminese()}&idpac={$_GET['idpac']}'/>Editar</a> | ";
-                                else:
-                                   echo "<a href='cadastrarAnminese.php?idpac={$_GET['idpac']}'/>Cadastar</a> | ";
-                                endif;
-                                   
-                                   echo"<a href='#paciente'>Paciente</a> |"
-                                   . "<a href='#Avaliacao'>Avaliação</a>"
-                                . "</td>"
-                             . "</tr>";
-                        ?>
-                        
-                        </table>
-                        </div>
-                        
-                    </td>
-                    
-                    <td>
-                        
-                        <div class="titulocont">
-                            <table>
-                            <tr>
-                                <td colspan="2"><h2>Consumos</h2></td>
-                            </tr>
-                            </table>
-                        </div>
-                        
-                        <div class="divConsumos">
-                            <table>
-                            <?php
-                               $ConsumosDao->ListaConsumos($_GET['idpac'],2);
-                            
-                            echo"<tr>"
-                            . "<td>";
-                            if($ConsumosDao->getId_Consumos()):
-                               echo "<a href='cadastrarConsumos.php?cod_consumos={$ConsumosDao->getId_Consumos()}&idpac={$_GET['idpac']}'>Editar</a> | ";
-                            else:
-                                echo"<a href='cadastrarConsumos.php?idpac={$_GET['idpac']}'>Cadastrar</a> | ";
-                            endif;
-                            
-                            echo"<a href='#paciente'>Paciente</a> | "
-                            . "<a href='#Avaliacao'>Avaliação</a>"
-                            . "</td>"
-                     .      "</tr>";
-                            ?>
-                            </table>
-                        </div>
-                        
-                    </td>
-                </tr>
-            </table>
-            </div>
-            
-        </div>
         
         <div class="divimg"></div>
         
+        <!-- Div Avaliacao -->
+    <?php  if(isset($_GET['idpac'])): ?>    
         <div class="divPaginaAvaliacao" id="Avaliacao">
             <div class="tdtitulo">
                 <h2>Avaliação</h2>
             </div>
             
+            <?php
+                $Avalicao->setId_Pessoa($_GET['idpac']);
+                $AvaliacaoDao->ListaAvaliacao($Avalicao, null);
+                if($AvaliacaoDao->getNome()):
+            ?>
+            
             <div class="PacAvaliacao">
             <?php
-                $Avalicao->ListapacAval($_GET['idpac']);
+                echo"Paciente: <b>{$AvaliacaoDao->getNome()}</b>  <b>|</b>  Idade: <b>{$AvaliacaoDao->getIdade()} anos</b>"; 
             ?>
             </div>
-            
-            <div class="divContudoAvaliacao">
-            <div class="divContudoAvaliacaotopic">
-                <table>
-                    <tr>
-                        <td><h5>Avaliações</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>Data:</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>Peso</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h3></h3></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.cintura</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.Abdominal</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.Quadril</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.Peito</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.Braço D</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.Braço E</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.Coxa D</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>C.Coxa E</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h3></h3></td>
-                    </tr>
-                    <tr>
-                        <td><h5>DC Triceps</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>DC Escapular</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>DC Supra Iliaca</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>DC Abdominal</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>DC Axilar</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>DC Peitoral</h5></td>
-                    </tr>
-                     <tr>
-                        <td><h5>DC Coxa</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>% Gordura</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>M.Muscular</h5></td>
-                    </tr>
-                    <tr>
-                        <td><h5>Gordura</h5></td>
-                    </tr>
-                     
-                </table>
+			
+            <div class="contAvaliacao">
+                <table border='0'>
+                <tr>
+                    <td>
+			<div class="divconteudoprint">
+                            <table border="0">
+                            <tr>
+				<td width="150"><b>Avaliações</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>Data:</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>Peso</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>C.cintura</b></td>
+                            </tr>
+                            
+                            <tr>
+                                <td><b>C.Abdominal</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>C.Quadril</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>C.Peito</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>C.Braço D</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>C.Braço E</b></td>
+                            </tr>
+								
+                            <tr>
+				<td><b>C.Coxa D</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>C.Coxa E</b></td>
+                            </tr>
+			
+                            <tr>
+                                <td><b></h5></b>		
+                            </tr>
+								
+                            <tr>
+				<td><b>DC Triceps</b></td>
+                            </tr>
+				
+                            <tr>
+				<td><b>DC Escapular</b></td>
+                            </tr>
+								
+                            <tr>
+				<td><b>DC Supra Iliaca</b></td>
+                            </tr>
+								
+                            <tr>
+				<td><b>DC Abdominal</b></td>
+                            </tr>
+			
+                            <tr>
+				<td><b>DC Axilar</b></td>
+                            </tr>
+								
+                            <tr>
+				<td><b>DC Peitoral</b></td>
+                            </tr>
+								
+                            <tr>
+				<td><b>DC Coxa</b></td>
+                            </tr>
+				
+                            <tr>
+                                <td><b>% Gordura</b></td>
+                            </tr>
+                            
+                            <tr>
+				<td><b>M.Muscular</b></td>
+                            </tr>
+				
+                            <tr>
+				<td><b>Gordura</b></td>
+                            </tr>  
+										 
+                            </table>
+							
+			</div>
+                    </td>
+				
+                    <td>
+						
+			<div class="divprintavaliacao">
+			<?php
+                        if($Avalicao->getId_Pessoa()):
+                            $AvaliacaoDao->ListaAvaliacao($Avalicao,1);
+			endif;
+			?>
+			</div>
+						
+                    </td>
+		</tr>
+		</table>
             </div>
-            
-            <div class="divContudoAvaliacaoCont">
-                <?php
-                    $Avalicao->ListaAvaliacao($_GET['idpac'],2);
-                ?>
-            </div>
-            
-            </div>
-            
+			
             <div class="linkAval">
-                <a href='cadastrarAvaliacao.php?idpac=<?php echo $paciente->getIdPessoa()?>'> Cadastrar Avaliação</a>
-            </div>
-            
-            <div class="divCalculo">
-                <?php
-                    $Avalicao->ListaAvaliacao($_GET['idpac'],11);
-                ?>
+                <a href='cadastrarAvaliacao.php?idpac=<?php echo $Avalicao->getId_Pessoa()?>'> Cadastrar Avaliação</a> | 
+                    <a href='printAvaliacao.php?paciente=<?php echo $Avalicao->getId_Pessoa()?>'> Visualizar</a> | 
+                    <a href='#paciente'>Paciente</a> | 
+                    <a href='#Anminese'>Anminese</a> | 
+                    <a href='#Consumos'>Consumos</a> |
+                    <a href='#graf-perc'>Grafico</a> 
+                    
             </div>
             
         </div>
         
+        <div class="divimg"></div>
+        
         <?php
+        else:
+       
+        echo"<div class='linkAval'>
+                Nenhuma Avaliação cadastrada <br/>
+                <a href='cadastrarAvaliacao.php?idpac={$Avalicao->getId_Pessoa()}'> Cadastrar Avaliação</a> | 
+                <a href='#paciente'>Paciente</a> | 
+                <a href='#Anminese'>Anminese</a> | 
+                <a href='#Consumos'>Consumos</a>
+            </div>";
         endif;
-        ?>
+    endif;
+    
+    $anminese->setId_Pessoa($paciente->getId_Pessoa());
+    $AnmiseDao->ListaAnminese($anminese,0);
+    
+    if($AnmiseDao->getId_Pessoa()):
+    ?>
+		
+    <div class="divPagina" id="Anminese">
+        <div class="divContudo" >
+                
+            <div class="titAnminese">
+                    <h2> Anminese </h2>
+            </div>
+                
+            <div class="divAnminese" id="Anminese">
+            <table>
+            <?php
+            $anminese->setId_Pessoa($paciente->getId_Pessoa());
+            $AnmiseDao->ListaAnminese($anminese,1);
+                
+            echo"<tr>"
+                . "<td colspan='2'>";
+                    if($AnmiseDao->getId_Anminese()):
+                        echo"<a href='cadastrarAnminese.php?cod_anminese={$AnmiseDao->getId_Anminese()}&idpac={$AnmiseDao->getId_Pessoa()}'/>Editar</a> | ";
+                    else:
+                        echo "<a href='cadastrarAnminese.php?idpac={$anminese->getId_Pessoa()}'/>Cadastar</a> | ";
+                    endif;
+                    echo"<a href='#paciente'>Paciente</a> | "
+                      . "<a href='#Avaliacao'>Avaliação</a> | "
+                      . "<a href='#Consumos'>Consumos</a>"
+                    . "</td>"
+              . "</tr>";
+            ?>
+            </table>
+            </div>
+            
+        </div>
+            
+    </div>
+    
+    <div class="divimg"></div>
+    
+    <?php
+    else:
+        echo"<div id='Anminese'>"
+            . "<p align='center'> Anminese não cadastrada para este Paciente. Cadastrar : <a href='cadastrarAnminese.php?idpac={$anminese->getId_Pessoa()}'/>Cadastar</a> </p>"
+          . "</div>";
+    endif;
+    
+    $consumos->setId_Pessoa($paciente->getId_Pessoa());
+    $ConsumosDao->ListaConsumos($consumos,0);
+    
+    if($ConsumosDao->getId_Pessoa()):
+    ?>
+        <div class="divPagina" id="Consumos">
+            <div class="divContudo" id="Consumos">
+                
+                <div class="titAnminese">
+                    <h2> Consumos </h2>
+                </div>
+                
+                <div class="divAnminese" id="Consumos">
+                <table>
+                <?php
+                $consumos->setId_Pessoa($paciente->getId_Pessoa());
+                $ConsumosDao->ListaConsumos($consumos,1);
+                
+                echo"<tr>"
+                    . "<td colspan='2'>";
+                        if($ConsumosDao->getId_Consumos()):
+                            echo"<a href='cadastrarConsumos.php?cod_consumos={$ConsumosDao->getId_Consumos()}&idpac={$ConsumosDao->getId_Pessoa()}'/>Editar</a> | ";
+                        else:
+                            echo "<a href='cadastrarConsumos.php?idpac={$consumos->getId_Pessoa()}'/>Cadastar</a> | ";
+                        endif;
+                    echo"<a href='#paciente'>Paciente</a> | "
+                      . "<a href='#Avaliacao'>Avaliação</a> | "
+                      . "<a href='#Anminese'>Anminese</a>"
+                    . "</td>"
+                  . "</tr>";
+                
+                ?>
+                </table>
+                </div>
+            </div>
+            
+        </div> 
+        
+    <?php
+    else:
+        echo"<div id='Consumos'>"
+            . "<p align='center'> Consumo não cadastrado para este Paciente: <a href='cadastrarConsumos.php?idpac={$consumos->getId_Pessoa()}'/>Cadastar</a></p>"
+          . "</div>";
+    endif;
+    ?>
     </body>
 </html>

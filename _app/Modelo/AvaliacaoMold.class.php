@@ -12,7 +12,8 @@
  * @author Birra
  */
 class AvaliacaoMold extends PessoaMold{
-   private $Id_Avaliacao;
+    private $Ultimo_Registro;
+    private $Id_Avaliacao;
     private $Avaliacao;
     private $DataAvalicao;
     private $Peso;
@@ -71,7 +72,13 @@ class AvaliacaoMold extends PessoaMold{
         
             $this->Table = [];
     }
-            function getId_Avaliacao() {
+    
+    function getUltimo_Registro() {
+        return $this->Ultimo_Registro;
+    }
+
+        
+    function getId_Avaliacao() {
         return $this->Id_Avaliacao;
     }
     function getAvaliacao() {
@@ -260,52 +267,66 @@ class AvaliacaoMold extends PessoaMold{
     }
     
     function calculos(){
-       
-            $this->SomatoriaDc = ($this->Dc_Triceps+
-                                  $this->Dc_Escapular+
-                                  $this->Dc_Supra_Iliaca+
-                                  $this->Dc_Abdominal+
-                                  $this->Dc_Axilar+
-                                  $this->Dc_Peitoral+
-                                  $this->Dc_Coxa); 
+        if($this->Dc_Triceps !== '' && $this->Dc_Triceps ==!null 
+          && $this->Dc_Escapular !=='' && $this->Dc_Escapular !== null
+          && $this->Dc_Supra_Iliaca !== '' && $this->Dc_Supra_Iliaca !== null
+          && $this->Dc_Abdominal !== '' && $this->Dc_Abdominal !== null
+          && $this->Dc_Axilar !== '' && $this->Dc_Axilar !== null
+          && $this->Dc_Peitoral !== '' && $this->Dc_Peitoral !== null
+          && $this->Dc_Coxa !== '' && $this->Dc_Coxa !== null):
+            $this->SomatoriaDc = ($this->getDc_Triceps()+
+                                  $this->getDc_Escapular()+
+                                  $this->getDc_Supra_Iliaca()+
+                                  $this->getDc_Abdominal()+
+                                  $this->getDc_Axilar()+
+                                  $this->getDc_Peitoral()+
+                                  $this->getDc_Coxa()); 
                                  
         
-         $DensidadeHomem = 1.11200000 - 
-                        (0.00043499 * ($this->SomatoriaDc)) + 
-                        (0.00000055 * (pow($this->SomatoriaDc,2))) - 
-                        (0.0002882 * ($this->getIdade()));
-       
-       $DensidadeMulher = 1.097 - 
-                         (0.00046971 * ($this->SomatoriaDc)) + 
-                         (0.00000056 * (pow($this->SomatoriaDc, 2))) - 
-                         (0.00012828 * ($this->getIdade()));
-       
-       if($this->getSexo()=="M"):
-            $this->Densidade=$DensidadeHomem;
-        
-        elseif($this->getSexo()=="F"):
-            $this->Densidade=$DensidadeMulher;
-       endif;
-       
-       $this->Percentual_Gordura = ((4.95 / $this->Densidade) - 4.5) * 100;
-       
-       $this->M_Muscular = $this->Peso - (($this->Percentual_Gordura/100)*$this->Peso);
-       
-       $this->Gordura =($this->Percentual_Gordura/100)*$this->Peso;
+            $DensidadeHomem = 1.11200000 - 
+                           (0.00043499 * ($this->SomatoriaDc)) + 
+                           (0.00000055 * (pow($this->SomatoriaDc,2))) - 
+                           (0.0002882 * ($this->getIdade()));
+
+            $DensidadeMulher = 1.097 - 
+                              (0.00046971 * ($this->SomatoriaDc)) + 
+                              (0.00000056 * (pow($this->SomatoriaDc, 2))) - 
+                              (0.00012828 * ($this->getIdade()));
+
+            if($this->getSexo()=="M"):
+                 $this->Densidade=$DensidadeHomem;
+
+             elseif($this->getSexo()=="F"):
+                 $this->Densidade=$DensidadeMulher;
+            endif;
+
+            $this->Percentual_Gordura = ((4.95 / $this->Densidade) - 4.5) * 100;
+
+            $this->M_Muscular = $this->Peso - (($this->Percentual_Gordura/100)*$this->Peso);
+
+            $this->Gordura =($this->Percentual_Gordura/100)*$this->Peso;
+            
+        else:
+        $this->Percentual_Gordura=0;
+        $this->M_Muscular=0;
+        $this->Gordura=0;
+        endif;
     }
-    
+   
     public function ListaAvaliacao(AvaliacaoMold $paciente,$tipo) {
         $this->Tipo=$tipo;
         $Termos = "inner join avaliacao_antropometrica a on p.id_paciente=a.paciente
                     inner join sexo s on p.sexo= s.id_sexo 
-                    where id_paciente='{$paciente->getId_Pessoa()}'";
+                    where id_paciente='{$paciente->getId_Pessoa()}'
+					ORDER BY data_avalicao ASC";
                     
         $this->ExRead("pacientes p", $this->Coluna, $Termos, $this->Table, $this->Tipo);
     }
     
     public function AvalEspecifica(AvaliacaoMold $Aval) {
         $Termos = "inner join pacientes p on a.paciente= p.id_paciente "
-                . "inner join sexo s on p.sexo = s.id_sexo where id_avalicao='{$Aval->getId_Avaliacao()}'";
+                . "inner join sexo s on p.sexo = s.id_sexo where id_avalicao='{$Aval->getId_Avaliacao()}'
+				ORDER BY data_avalicao ASC";
         $this->ExRead("avaliacao_antropometrica a", $this->Coluna, $Termos, $this->Table);
     }
 
@@ -347,11 +368,11 @@ class AvaliacaoMold extends PessoaMold{
                     while ($linha = $this->Read->fetch(PDO::FETCH_ASSOC)) {
                         $this->setId_Avaliacao($linha['id_avalicao']);
                         $this->setId_Pessoa($linha['paciente']);
-                        echo "<td id='data'><a href='cadastrarAvaliacao.php?cod_aval={$this->getId_Avaliacao()}&idpac={$this->getId_Pessoa()}'>{$linha['consulta']}° Aval</a></td>";
+                        echo "<td><a href='cadastrarAvaliacao.php?cod_aval={$this->getId_Avaliacao()}&idpac={$this->getId_Pessoa()}'>{$linha['consulta']}° Aval</a></td>";
                     }
             echo"<tr>";
                     while ($linha = $this->Read_1->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<td id='data'>" . date('d/m/Y', strtotime($linha['data_avalicao'])) . "</td>";
+                        echo "<td>" . date('d/m/Y', strtotime($linha['data_avalicao'])) . "</td>";
                     }
             echo"</tr>";
             
@@ -364,7 +385,7 @@ class AvaliacaoMold extends PessoaMold{
             echo"</tr>";
 
             echo"<tr>"
-                    . "<td colspan='{$i}'><h3>Circunferências</h3></td>"
+                    . "<td colspan='{$i}' height='21'><h3>Circunferências</h3></td>"
             . "</tr>";
 
             echo"<tr>";
@@ -411,7 +432,7 @@ class AvaliacaoMold extends PessoaMold{
 
             echo"<tr>";
                     while ($linha = $this->Read_10->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_braco_e']}</td>";
+                        echo"<td>{$linha['c_coxa_e']}</td>";
                     }
             echo"</tr>"
                     
@@ -479,11 +500,11 @@ class AvaliacaoMold extends PessoaMold{
                          if($PercGordura>25):
                             echo"<td><font color='red'><b>{$PercGordura } %</b></font></td>";
                          elseif($PercGordura>=23 && $PercGordura<=25):
-                            echo"<td><font color='yellow'><b>{$PercGordura } %</b></font></td>";
+                            echo"<td><font color='orange'><b>{$PercGordura } %</b></font></td>";
                         else:
                             echo"<td><font color='green'><b>{$PercGordura } %</b></font></td>";
                         endif;
-        
+                       
                         
                         
                     }
@@ -510,7 +531,7 @@ class AvaliacaoMold extends PessoaMold{
 
             echo"<tr>";
                     while ($linha = $this->Read_20->fetch(PDO::FETCH_ASSOC)) {
-                        $this->calculos();
+                        
                         $this->setDc_Triceps($linha['dc_triceps']);
                         $this->setDc_Escapular($linha['dc_escapular']);
                         $this->setDc_Supra_Iliaca($linha['dc_supra_iliaca']);
@@ -521,7 +542,7 @@ class AvaliacaoMold extends PessoaMold{
                         $this->setSexo($linha['sexo']);
                         $this->setIdade($linha['data_nascimento']);
                         $this->setPeso($linha['peso']);
-                        
+                        $this->calculos();
                             $Gordura=number_format($this->getGordura(), 1, ',', '');
                             echo"<td>{$Gordura } Kg</td>";
                     }

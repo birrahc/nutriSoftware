@@ -6,19 +6,25 @@
  */
 class Cadastro {
     private $UltimaId;
+    private $RegistroPagamentos;
     
     function getUltimaId() {
         return $this->UltimaId;
     }
+    
+    function getRegistroPagamentos() {
+        return $this->RegistroPagamentos;
+    }
 
-        //==============================================================================================
+    
+    //==============================================================================================
     //--------------- Cadastro de Login ----------------------
     //==============================================================================================
-    public function CadastrarLogin($Login, $Senha, $Permissao){
+    public function CadastrarLogin(Login $cad_log){
         
-        $DadosLogin=['login'=>$Login, 
-                     'senha'=>$Senha, 
-                     'permissao'=>$Permissao];
+        $DadosLogin=['login'=>$cad_log->getNome(), 
+                     'senha'=>$cad_log->getSenha() 
+                    ];
         
         $CadastrarLogin= new InsercaoBanco();
         $CadastrarLogin->ExecutInserir("login", $DadosLogin);
@@ -52,19 +58,29 @@ class Cadastro {
         $DadosAnMinse=['paciente'=>$anminese->getId_Pessoa(),
                       'objetivo'=>$anminese->getObjetivo(),
                       'diagnostico_medico'=>$anminese->getDiagnostico_medico(),
+                      'obs_diag_medico'=>$anminese->getObs_Diag_medico(),
                       'exames'=>$anminese->getExames(),
+                      'obs_exames'=>$anminese->getObs_exames(),
                       'medicamentos'=>$anminese->getMedicamentos(),
+                      'obs_medicamentos'=>$anminese->getObs_medicamentos(),
                       'suplementos'=>$anminese->getSuplementos(),
+                      'obs_suplementos'=>$anminese->getObs_Suplementos(),
                       'historico_familiar'=>$anminese->getHistorico_familiar(),
+                      'obs_hist_familiar'=>$anminese->getObs_hist_familiar(),
                       'sinais_sintomas'=>$anminese->getSinais_sintomas(),
+                      'obs_sinais_sintomas'=>$anminese->getObs_Sinais_Sintomas(),
                       'habito_intestinal'=>$anminese->getHabito_intestinal(),
+                      'obs_hab_intestinal'=>$anminese->getObs_Habit_int(),
                       'tabagismo'=>$anminese->getTabagismo(),
+                      'obs_tabagismo'=>$anminese->getObs_Tabagismo(),
                       'etilismo'=>$anminese->getEtilismo(),
-                      'Atividades_fisicas'=>$anminese->getAtividades_fisicas()
+                      'obs_etilismo'=>$anminese->getObs_Etilismo(),
+                      'Atividades_fisicas'=>$anminese->getAtividades_fisicas(),
+                      'obs_atividades'=>$anminese->getObs_Atividades_Fisicas()
                     ];
         
         $CadastrarAn= new InsercaoBanco();
-        $CadastrarAn->ExecutInserir("anaminese", $DadosAnMinse);
+        $CadastrarAn->ExecutInserir(" anaminese ", $DadosAnMinse);
         echo $CadastrarAn->getMensagem();
         
     }
@@ -133,6 +149,32 @@ class Cadastro {
         $CadAvalAnt->ExecutInserir("avaliacao_antropometrica", $DadosAvalAntro);
         echo $CadAvalAnt->getMensagem();
         $this->Ultimo_id = $CadAvalAnt->getResult();
+        
+        $inserirPgmt= new Pagamentos();
+        $inserirPgmt->setData_Consulta($Avaliacao->getDataAvalicao());
+        $inserirPgmt->setReferencia($CadAvalAnt->getResult());
+        
+        $this->CadastrarPagamentos($inserirPgmt);
+        
+        $this->RegistroPagamentos=$inserirPgmt->getUltimo_Registro();
+      
     }
-
+    
+    public function CadastrarPagamentos(Pagamentos $pagamentos) {
+        
+        $Dados=['data_cons'=>$pagamentos->getData_Consulta(),
+               'referencia'=>$pagamentos->getReferencia(),
+               'tipo'=>1,
+               'plano'=>1,
+               'situacao'=>1,
+               'l_atendimento'=>1
+              ]; 
+        
+        $cadastrarPagamentos = new InsercaoBanco();
+        $cadastrarPagamentos->ExecutInserir("pagamentos", $Dados);
+        $pagamentos->setUltimo_Registro($cadastrarPagamentos->getResult());
+        
+      
+        
+    }
 }

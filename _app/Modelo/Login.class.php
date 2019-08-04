@@ -11,12 +11,17 @@
  *
  * @author Birra
  */
-class Login extends Pessoa{
+class Login extends PessoaMold{
     private $Senha;
+    private $RepeteSenha;
     private $Pemissao;
     
     function getSenha() {
         return $this->Senha;
+    }
+    
+    function getRepeteSenha() {
+        return $this->RepeteSenha;
     }
 
     function getPemissao() {
@@ -25,6 +30,9 @@ class Login extends Pessoa{
 
     function setSenha($Senha) {
         $this->Senha = md5($Senha);
+    }
+    function setRepeteSenha($RepeteSenha) {
+        $this->RepeteSenha = md5($RepeteSenha);
     }
 
     function setPemissao($Pemissao) {

@@ -1,6 +1,6 @@
 
 <?php 
-    //require_once './controle.php';
+    require_once './controle.php';
 ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@ endif;
     elseif($paciente->getId_Pessoa()<1):
         if(!empty($paciente->getNome())||!$paciente->getNome()==null):
             $pacienteCad->CadastrarPaciente($paciente);
-            header("Location: cadastrarAnminese.php?idpac={$pacienteCad->getUltimaId()}");
+            header("Location: dadosPacientes.php?idpac={$pacienteCad->getUltimaId()}");
         endif;
     endif;
         

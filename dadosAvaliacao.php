@@ -1,12 +1,12 @@
 <?php 
-    //require_once './controle.php';
+    require_once './controle.php';
 ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php
 
 require ('./_app/config.inc.php');
-$paciente = new Paciente();
+$paciente = new PacienteMold();
 $Avaliacao = new AvaliacaoMold();
 $avaliacaoCad = new Cadastro();
 $AtualizarAval = new AtualizaDados();
@@ -96,11 +96,11 @@ if(isset($_POST['id_avaliacao'])):
 endif;
     if($Avaliacao->getId_Avaliacao()>=1):
         $AtualizarAval->AtualizarAvaliacao($Avaliacao);
-        header("Location: cadastrarAvaliacao.php?cod_aval={$Avaliacao->getId_Avaliacao()}&idpac={$Avaliacao->getId_Pessoa()}");
+        header("Location: dadosPacientes.php?cod_aval={$Avaliacao->getId_Avaliacao()}&idpac={$Avaliacao->getId_Pessoa()}#Avaliacao");
         
     elseif($Avaliacao->getId_Avaliacao()<1):
         $avaliacaoCad->CadAvalAntropometrica($Avaliacao);
-        header("Location: dadosPacientes1.php?idpac={$Avaliacao->getId_Pessoa()}#Avaliacao");
+        header("Location: AvaliacaoDetalhada.php?idpac={$Avaliacao->getId_Pessoa()}&idpg={$avaliacaoCad->getRegistroPagamentos()}");
     endif;
 
     

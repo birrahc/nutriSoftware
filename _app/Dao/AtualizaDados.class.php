@@ -59,15 +59,25 @@ class AtualizaDados {
                       'paciente'=>$anminese->getId_Pessoa(),
                       'objetivo'=>$anminese->getObjetivo(),
                       'diagnostico_medico'=>$anminese->getDiagnostico_medico(),
+                      'obs_diag_medico'=>$anminese->getObs_Diag_medico(),
                       'exames'=>$anminese->getExames(),
+                      'obs_exames'=>$anminese->getObs_exames(),
                       'medicamentos'=>$anminese->getMedicamentos(),
+                      'obs_medicamentos'=>$anminese->getObs_medicamentos(),
                       'suplementos'=>$anminese->getSuplementos(),
+                      'obs_suplementos'=>$anminese->getObs_Suplementos(),
                       'historico_familiar'=>$anminese->getHistorico_familiar(),
+                      'obs_hist_familiar'=>$anminese->getObs_hist_familiar(),
                       'sinais_sintomas'=>$anminese->getSinais_sintomas(),
+                      'obs_sinais_sintomas'=>$anminese->getObs_Sinais_Sintomas(),
                       'habito_intestinal'=>$anminese->getHabito_intestinal(),
+                      'obs_hab_intestinal'=>$anminese->getObs_Habit_int(),
                       'tabagismo'=>$anminese->getTabagismo(),
+                      'obs_tabagismo'=>$anminese->getObs_Tabagismo(),
                       'etilismo'=>$anminese->getEtilismo(),
-                      'Atividades_fisicas'=>$anminese->getAtividades_fisicas()
+                      'obs_etilismo'=>$anminese->getObs_Etilismo(),
+                      'Atividades_fisicas'=>$anminese->getAtividades_fisicas(),
+                      'obs_atividades'=>$anminese->getObs_Atividades_Fisicas()
                     ];
         
         $AtualAnm= new Update();
@@ -149,7 +159,22 @@ class AtualizaDados {
             echo"{$AtualAval->getRunCount()} dados Atualizados <br>";
         endif;
     }
+      
+    public function AtualizarPagamentos(Pagamentos $pagmentos) {
         
+        $Dados=['data_cons'=>$pagmentos->getData_Consulta(),
+                'tipo'=>$pagmentos->getTipo(),
+                'plano'=>$pagmentos->getPlano(),
+                'valor'=>$pagmentos->getValor(),
+                'qtd_vezes'=>$pagmentos->getQtd_vezes(),
+                'situacao'=>$pagmentos->getSituacao(),
+                'l_atendimento'=>$pagmentos->getLocal_Atendimento(),
+                'observacao'=>$pagmentos->getObservacao()
+              ]; 
+        
+        $AtulizarPagamentos = new Update();
+        $AtulizarPagamentos->ExUpdate("pagamentos", $Dados, "WHERE id_pagamento =:id", 'id=' . $pagmentos->getId_Pagamento());
+    }
             
 }  
 
