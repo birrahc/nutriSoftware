@@ -16,6 +16,8 @@ $consumos = new ConsumosMold();
 $ConsumosDao = new ConsumosMold();
 $Avalicao = new AvaliacaoMold();
 $AvaliacaoDao = new AvaliacaoMold();
+$Bio = new BioImpedancia();
+$BioDao = new BioImpedancia();
     
 if(isset($_POST['pesquisar'])):
     isset($_POST['pesquisar']);
@@ -282,6 +284,110 @@ endif;
         echo"<div class='linkAval'>
                 Nenhuma Avaliação cadastrada <br/>
                 <a href='cadastrarAvaliacao.php?idpac={$Avalicao->getId_Pessoa()}'> Cadastrar Avaliação</a> | 
+                <a href='#paciente'>Paciente</a> | 
+                <a href='#Anminese'>Anminese</a> | 
+                <a href='#Consumos'>Consumos</a>
+            </div>";
+        endif;
+    endif;
+    
+    if(isset($_GET['idpac'])): 
+    ?>    
+        <div class="divPaginaAvaliacao" id="Avaliacao">
+            <div class="tdtitulo">
+                <h2>Bioimpedância</h2>
+            </div>
+            
+            <?php
+                $Bio->setId_Pessoa($_GET['idpac']);
+                $BioDao->ListaBioImpedancia($Bio, null);
+                if($BioDao->getNome()):
+            ?>
+            
+            <div class="PacAvaliacao">
+            <?php
+                echo"Paciente: <b>{$BioDao->getNome()}</b> <b>|</b>  Sexo: <b>{$BioDao->getSexo()}</b> <b>|</b>  Idade: <b>{$BioDao->getIdade()} anos</b> <b>|</b>  Altura: <b>{$BioDao->getAltura()}</b>"; 
+            ?>
+            </div>
+			
+            <div class="contBioimp">
+            <table border='0'>
+            <tr>
+                <td>
+                    <div class="divconteudoprintBio">
+                    <table border="0">			
+
+                    <tr>
+                        <td><b>Data:</b></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Peso</b></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Imc</b></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>% Gord.Corporal</b></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>% Musc.Esquelético</b></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Met.Basal</b></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Idade Corporal</b></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Gord.Viceral</b></td>
+                    </tr>
+
+                    </table>
+
+                    </div>
+                </td>
+
+                <td>				
+                <div class="divprintavaBio">
+                <?php
+                if($Bio->getId_Pessoa()):
+                    $BioDao->ListaBioImpedancia($Bio,1);
+                endif;
+                ?>
+                </div>				
+                </td>
+
+            </tr>
+            </table>
+        </div>
+			
+            <div class="linkAval">
+                <a href='cadastrarBioimpedancia.php?idpac=<?php echo $Avalicao->getId_Pessoa()?>'> Cadastrar Bioimpedância</a> | 
+                    <a href='printAvaliacao.php?paciente=<?php echo $Avalicao->getId_Pessoa()?>'> Visualizar</a> | 
+                    <a href='#paciente'>Paciente</a> | 
+                    <a href='#Anminese'>Anminese</a> | 
+                    <a href='#Consumos'>Consumos</a> |
+                    <a href='#graf-perc'>Grafico</a> 
+                    
+            </div>
+            
+        </div>
+        
+        <div class="divimg"></div>
+        
+        <?php
+        else:
+       
+        echo"<div class='linkAval'>
+                Nenhuma Bioimpedância Cadastrada <br/>
+                <a href='cadastrarBioimpedancia.php?idpac={$Avalicao->getId_Pessoa()}'> Cadastrar Bioimpedância</a> | 
                 <a href='#paciente'>Paciente</a> | 
                 <a href='#Anminese'>Anminese</a> | 
                 <a href='#Consumos'>Consumos</a>

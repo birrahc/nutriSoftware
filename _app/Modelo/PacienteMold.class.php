@@ -50,6 +50,7 @@ class PacienteMold extends PessoaMold{
                   'sexo'=>'sexo',
                   'profissao'=>'profissao', 
                   'data_nascimento'=>'data_nascimento',
+                  'altura'=>'altura',
                   'email'=>'email',
                   'telefone'=>'telefone'];
              
@@ -62,6 +63,7 @@ class PacienteMold extends PessoaMold{
                   'sexo'=>'s.sexo',
                   'profissao'=>'profissao', 
                   'data_nascimento'=>'data_nascimento',
+                  'altura'=>'altura',
                   'email'=>'email',
                   'telefone'=>'telefone'];
         endif;
@@ -93,6 +95,7 @@ class PacienteMold extends PessoaMold{
                     $this->Profissao=$col['profissao'];
                     $this->setData_Nascimento($col['data_nascimento']);
                     $this->setIdade($col['data_nascimento']);
+                    $this->setAltura($col['altura']);
                     $this->Email=$col['email'];
                     $this->Telefone=$col['telefone'];
                 endwhile;
@@ -111,6 +114,10 @@ class PacienteMold extends PessoaMold{
                               
                     . "<tr>"
                       . "<td><b>Idade:</b> {$this->getIdade()} anos</td>"
+                    . "</tr>"
+                             
+                    . "<tr>"
+                      . "<td><b>Altura:</b> {$this->getAltura()}</td>"
                     . "</tr>"
                               
                     . "<tr>"

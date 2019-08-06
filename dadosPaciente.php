@@ -27,6 +27,10 @@ if(isset($_POST['nascimento'])):
     $paciente->setData_Nascimento($_POST['nascimento']);
 endif;
 
+if(isset($_POST['altura'])):
+    $paciente->setAltura($_POST['altura']);
+endif;
+
 if(isset($_POST['email'])):
     $paciente->setEmail($_POST['email']);
 endif;

@@ -17,6 +17,7 @@ class PessoaMold extends Select {
     private $Sexo;
     private $Data_Nascimento;
     private $Idade;
+    private $Altura;
     
     function getId_Pessoa() {
         return $this->Id_Pessoa;
@@ -37,8 +38,12 @@ class PessoaMold extends Select {
     function getIdade() {
         return $this->Idade;
     }
+    
+    function getAltura() {
+        return $this->Altura;
+    }
 
-    function setId_Pessoa($Id_Pessoa) {
+        function setId_Pessoa($Id_Pessoa) {
         $this->Id_Pessoa = $Id_Pessoa;
     }
 
@@ -74,7 +79,12 @@ class PessoaMold extends Select {
        
         $this->Idade=$Anos;
     }
+    
+    function setAltura($Altura) {
+        $this->Altura = $Altura;
+    }
 
+    
     public function Syntax() {
         
     }

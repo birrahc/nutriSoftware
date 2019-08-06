@@ -82,5 +82,19 @@ class DeletarDados {
         endif;
     }
     
+    //==================================================================================================
+    //---------------------- DELETA Bioimpedancia ----------------------
+    //==================================================================================================
+     public function DeletaBioimpedancia(BioImpedancia $bio){
+        
+        $DeletaBio = new Delete();
+        $DeletaBio->ExeDelete('bioimp', "WHERE id_bio = :id", 'id='.$bio->getId_bio());
+        
+       
+        if($DeletaBio->getResult()):
+            echo"{$DeletaBio->getRunCount()} registro(s) deletados com sucesso: <hr>";
+        endif;
+    }
+    
    
 }

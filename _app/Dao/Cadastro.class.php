@@ -38,7 +38,8 @@ class Cadastro {
         $Dados=[
                 'nome'=>$paciente->getNome(),
                 'sexo'=>$paciente->getSexo(),
-                'data_nascimento'=>$paciente->getData_Nascimento(), 
+                'data_nascimento'=>$paciente->getData_Nascimento(),
+                'altura'=>$paciente->getAltura(),
                 'profissao'=>$paciente->getProfissao(), 
                 'telefone'=>$paciente->getTelefone(), 
                 'email'=>$paciente->getEmail()];
@@ -160,6 +161,29 @@ class Cadastro {
       
     }
     
+    //=====================================================================
+    //================ Cadastro de BioImpedancia ==========================
+    //=====================================================================
+    public function CadBioImpedancia(BioImpedancia $bio){
+        
+        $DadosBio=['paciente_bio'=>$bio->getId_Pessoa(),
+                         'data_bio'=>$bio->getData_bio(),
+                         'peso_bio'=>$bio->getPeso_bio(),
+                         'imc_bio'=>$bio->getImc(), 
+                         'perc_gord_corp'=>$bio->getPerc_gord_corp(), 
+                         'perc_musc_esq'=>$bio->getPerc_musc_esq(),
+                         'met_basal'=>$bio->getMetabolismo_basal(), 
+                         'idade_corpoaral'=>$bio->getIdade_corporal(), 
+                         'gord_viceral'=>$bio->getGordura_viceral()
+                         ];
+        
+        $CadBio = new InsercaoBanco();
+        $CadBio->ExecutInserir("bioimp", $DadosBio);
+        echo $CadBio->getMensagem();
+        $this->Ultimo_id = $CadBio->getResult();
+    }
+
+
     public function CadastrarPagamentos(Pagamentos $pagamentos) {
         
         $Dados=['data_cons'=>$pagamentos->getData_Consulta(),

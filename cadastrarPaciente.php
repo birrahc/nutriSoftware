@@ -47,11 +47,11 @@ endif;
             <input type="hidden" name="id_paciente" value="<?php echo $pacienteDao->getId_Pessoa() ?>"/>                           
             <tr>
                 <th>Nome:</th>
-                <td colspan="4"><input type="text" name="nome" value="<?php echo $pacienteDao->getNome() ?>"/></td>
+                <td colspan="6"><input type="text" name="nome" value="<?php echo $pacienteDao->getNome() ?>"/></td>
             </tr>
                             
             <tr>
-                <td colspan="5"></td>
+                <td colspan="7"></td>
             </tr>
                             
             <tr>
@@ -77,43 +77,45 @@ endif;
             </tr>
                             
             <tr>
-                <td colspan="5"></td>
+                <td colspan="7"></td>
             </tr>
                             
             <tr>
                 <th>Nascimento:</th>
-                <td colspan="4"><input type="date" name="nascimento" value="<?php echo $pacienteDao->getData_Nascimento() ?>"/></td>
+                <td colspan="2"><input type="date" name="nascimento" value="<?php echo $pacienteDao->getData_Nascimento() ?>" id="campoMedio" /></td>
+                <th>Altura:</th>
+                <td><input type="text" name="altura" value="<?php echo $pacienteDao->getAltura() ?>" id="campoPequeno"/></td>
             </tr>
                             
             <tr>
-                <td colspan="5"></td>
+                <td colspan="7"></td>
             </tr>
                            
             <tr>
                 <th>Profissão:</th>
-                <td colspan="4"><input type="text" name="profissao" value="<?php echo $pacienteDao->getProfissao() ?>"/></td>
+                <td colspan="6"><input type="text" name="profissao" value="<?php echo $pacienteDao->getProfissao() ?>"/></td>
             </tr>
                             
             <tr>
-                <td colspan="5"></td>
+                <td colspan="7"></td>
             </tr>
                             
             <tr>
                 <th>E_Mail:</th>
-                <td colspan="4"><input type="text" name="email" value="<?php echo $pacienteDao->getEmail() ?>"/></td>
+                <td colspan="6"><input type="text" name="email" value="<?php echo $pacienteDao->getEmail() ?>"/></td>
             </tr>
                     
             <tr>
-                <td colspan="5"></td>
+                <td colspan="7"></td>
             </tr>
                             
             <tr>
                 <th>Telefone:</th>
-                <td colspan="4"><input type="text" name="telefone" value="<?php echo $pacienteDao->getTelefone() ?>"/></td>
+                <td colspan="6"><input type="text" name="telefone" value="<?php echo $pacienteDao->getTelefone() ?>"/></td>
             </tr>
                             
             <tr>
-                <td colspan="5"></td>
+                <td colspan="7"></td>
             </tr>
             
             </table>

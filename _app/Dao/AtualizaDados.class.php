@@ -36,7 +36,8 @@ class AtualizaDados {
         
         $DadosPacientes=['nome' => $paciente->getNome(),
                         'sexo'=>$paciente->getSexo(),
-                        'data_nascimento' => $paciente->getData_Nascimento(), 
+                        'data_nascimento' => $paciente->getData_Nascimento(),
+                        'altura'=> $paciente->getAltura(),
                         'profissao' => $paciente->getProfissao(), 
                         'telefone' => $paciente->getTelefone(), 
                         'email' => $paciente->getEmail()
@@ -157,6 +158,29 @@ class AtualizaDados {
 
         if ($AtualAval->getResult()):
             echo"{$AtualAval->getRunCount()} dados Atualizados <br>";
+        endif;
+    }
+    
+    //==============================================================================================
+    //--------------------- ATUALIZAR Bioimpedancia --------------------------
+    //==============================================================================================
+    public function AtualizarBioimpedancia(BioImpedancia $bio) {
+
+              $DadosBio=['data_bio'=>$bio->getData_bio(),
+                         'peso_bio'=>$bio->getPeso_bio(),
+                         'imc_bio'=>$bio->getImc(), 
+                         'perc_gord_corp'=>$bio->getPerc_gord_corp(), 
+                         'perc_musc_esq'=>$bio->getPerc_musc_esq(),
+                         'met_basal'=>$bio->getMetabolismo_basal(), 
+                         'idade_corpoaral'=>$bio->getIdade_corporal(), 
+                         'gord_viceral'=>$bio->getGordura_viceral()
+                         ];
+
+        $Atualizabio = new Update();
+        $Atualizabio->ExUpdate('`bioimp`', $DadosBio, "WHERE id_bio =:id", 'id=' . $bio->getId_bio());
+
+        if ($Atualizabio->getResult()):
+            echo"{$Atualizabio->getRunCount()} dados Atualizados <br>";
         endif;
     }
       
