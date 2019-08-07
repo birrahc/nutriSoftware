@@ -57,8 +57,8 @@ if(isset($_POST['tipoexc'])):
     
     if($_POST['tipoexc']==5):
         if($_POST['ex_idbio']):
-            $Avaliacao->setId_Avaliacao($_POST['ex_idbio']);
-            $DeletarDados->DeletaAvaliacao($Avaliacao);
+            $Bioimpedancia->setId_bio($_POST['ex_idbio']);
+            $DeletarDados->DeletaBioimpedancia($Bioimpedancia);
             $paciente->setId_Pessoa($_POST['pac']);
             
             header("Location: dadosPacientes.php?idpac={$paciente->getId_Pessoa()}#Bioimpedancia");

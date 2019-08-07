@@ -103,7 +103,8 @@ endif;
                                     
                                     <a href='#Avaliacao'>Avaliação</a> | 
                                     <a href='#Anminese'>Anminese</a> | 
-                                    <a href='#Consumos'>Consumos</a> | 
+                                    <a href='#Consumos'>Consumos</a> |
+                                    <a href='#Bioimpedancia'>Bioimpedancia</a>
                                     <hr>
                                     <a href="cadastrarPaciente.php?paciente=<?php echo $pacDao->getId_Pessoa() ?>">Editar</a> | 
                                     <a href="ListPagamentos.php?idpac=<?php echo $pacDao->getId_Pessoa() ?>">Pagamentos</a> |
@@ -270,7 +271,7 @@ endif;
                     <a href='#paciente'>Paciente</a> | 
                     <a href='#Anminese'>Anminese</a> | 
                     <a href='#Consumos'>Consumos</a> |
-                    <a href='#graf-perc'>Grafico</a> 
+                    <a href='#Bioimpedancia'>Bioimpedancia</a> 
                     
             </div>
             
@@ -286,14 +287,15 @@ endif;
                 <a href='cadastrarAvaliacao.php?idpac={$Avalicao->getId_Pessoa()}'> Cadastrar Avaliação</a> | 
                 <a href='#paciente'>Paciente</a> | 
                 <a href='#Anminese'>Anminese</a> | 
-                <a href='#Consumos'>Consumos</a>
+                <a href='#Consumos'>Consumos</a> |
+                <a href='#Bioimpedancia'>Bioimpedancia</a>
             </div>";
         endif;
     endif;
     
     if(isset($_GET['idpac'])): 
     ?>    
-        <div class="divPaginaAvaliacao" id="Avaliacao">
+        <div class="divPaginaAvaliacao" id="Bioimpedancia">
             <div class="tdtitulo">
                 <h2>Bioimpedância</h2>
             </div>
@@ -374,7 +376,7 @@ endif;
                     <a href='#paciente'>Paciente</a> | 
                     <a href='#Anminese'>Anminese</a> | 
                     <a href='#Consumos'>Consumos</a> |
-                    <a href='#graf-perc'>Grafico</a> 
+                    <a href='#Bioimpedancia'>Bioimpedancia</a> 
                     
             </div>
             
@@ -390,7 +392,8 @@ endif;
                 <a href='cadastrarBioimpedancia.php?idpac={$Avalicao->getId_Pessoa()}'> Cadastrar Bioimpedância</a> | 
                 <a href='#paciente'>Paciente</a> | 
                 <a href='#Anminese'>Anminese</a> | 
-                <a href='#Consumos'>Consumos</a>
+                <a href='#Consumos'>Consumos</a> |
+                <a href='#Bioimpedancia'>Bioimpedancia</a>
             </div>";
         endif;
     endif;
@@ -423,7 +426,8 @@ endif;
                     endif;
                     echo"<a href='#paciente'>Paciente</a> | "
                       . "<a href='#Avaliacao'>Avaliação</a> | "
-                      . "<a href='#Consumos'>Consumos</a>"
+                      . "<a href='#Consumos'>Consumos</a> | "
+                      .  "<a href='#Bioimpedancia'>Bioimpedancia</a>"
                     . "</td>"
               . "</tr>";
             ?>
@@ -470,7 +474,8 @@ endif;
                         endif;
                     echo"<a href='#paciente'>Paciente</a> | "
                       . "<a href='#Avaliacao'>Avaliação</a> | "
-                      . "<a href='#Anminese'>Anminese</a>"
+                      . "<a href='#Anminese'>Anminese</a> | "
+                      . "<a href='#Bioimpedancia'>Bioimpedancia</a>"
                     . "</td>"
                   . "</tr>";
                 

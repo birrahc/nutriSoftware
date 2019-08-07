@@ -180,7 +180,9 @@ class BioImpedancia extends PessoaMold{
         echo"<table border='0'>"
             . "<tr>";
                     while ($linha = $this->Read_1->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<td><a href='#?co_bio={$this->getId_bio()}&idpac={$this->getId_Pessoa()}'>". date('d/m/Y', strtotime($linha['data_bio'])) ."</a></td>";
+                        $this->setId_bio($linha['id_bio']);
+                        $this->setId_Pessoa($linha['paciente_bio']);
+                        echo "<td><a href='cadastrarBioimpedancia.php?id_bio={$this->getId_bio()}&idpac={$this->getId_Pessoa()}'>". date('d/m/Y', strtotime($linha['data_bio'])) ."</a></td>";
                         
                     }
                     

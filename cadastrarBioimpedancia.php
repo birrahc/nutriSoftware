@@ -46,12 +46,13 @@
             
             $acaoTitulo = "Editar Bioimpedância";
             $botaoAcao = "Editar";
+            
         endif;
      endif;
     ?>
     
     <head>
-        <script type="text/javascript" src="Script/validaCamposAvaliacao.js"></script>
+        <script type="text/javascript" src="Script/ValidaCamposImpedancia.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/personalizacao.css" rel="stylesheet"/>
@@ -71,16 +72,16 @@
                 ?>
             </div>
             
-            <form name="cadastrarBioimpedancia" action="dadosBioimpedancia.php" method="POST" onsubmit=" return validAvaliacao();">    
+            <form name="cadastrarBioimpedancia" action="dadosBioimpedancia.php" method="POST" onsubmit=" return validBio();">    
             <div class="contAvaBio">
             <table border='0'>
             <tr>
                 <td colspan="3" id="bio">
-                    <?php $BioDados->ListaBioImpedancia($Bioimp,0);
-                    if($BioDados->getSexo()&& $BioDados->getIdade() && $BioDados->getAltura()):
-                    echo"Sexo: {$BioDados->getSexo()} | Idade: {$BioDados->getIdade()} | Altura: {$BioDados->getAltura()} ";
+                    <?php 
+                    if($Bioimp->getId_Pessoa()&& $Bioimp->getId_bio()):
+                        echo"Sexo: {$Bioimp->getSexo()} | Idade: {$Bioimp->getIdade()} | Altura: {$Bioimp->getAltura()} ";
                     else:
-                     echo"Sexo: {$pacienteDados->getSexo()} | Idade: {$pacienteDados->getIdade()} | Altura: {$pacienteDados->getAltura()} ";   
+                        echo"Sexo: {$pacienteDados->getSexo()} | Idade: {$pacienteDados->getIdade()} | Altura: {$pacienteDados->getAltura()} ";   
                     endif;
                     ?>
                 </td>
@@ -99,44 +100,44 @@
                     <table border='0'>
                     <tr>
                         <td><b>Data:</b></td>
-                        <td><input type="date" name="data_bio" value="<?php echo $BioDados->getData_bio() ?>" width="100"/></td>
-                        <input type="hidden" name="id_avaliacao" value="<?php echo $BioDados->getId_bio() ?>"/>
+                        <td><input type="date" name="data_bio" value="<?php echo $Bioimp->getData_bio() ?>" width="100"/></td>
+                        <input type="hidden" name="id_bio" value="<?php echo $Bioimp->getId_bio() ?>"/>
                         <input type="hidden" name="id_paciente" value="<?php echo $pacienteDados->getId_Pessoa()?>"/>
                     </tr>
                         
                     <tr>
                         <td><b>Peso</b></td>
-                        <td><input type="text" name="peso_bio" value="<?php echo $BioDados->getPeso_bio() ?>"/></td>
+                        <td><input type="text" name="peso_bio" value="<?php echo $Bioimp->getPeso_bio() ?>"/></td>
                     </tr>
 										
                     <tr>
                         <td><b>IMC</b></td>
-                        <td><input type="text" name="imc_bio" value="<?php echo $BioDados->getImc() ?>"/></td>
+                        <td><input type="text" name="imc_bio" value="<?php echo $Bioimp->getImc() ?>"/></td>
                     </tr>
                         
                     <tr>
                         <td><b>% Gord.Corporal</b></td>
-                        <td><input type="text" name="perc_gord_corp" value="<?php echo $BioDados->getPerc_gord_corp() ?>"/></td>
+                        <td><input type="text" name="perc_gord_corp" value="<?php echo $Bioimp->getPerc_gord_corp() ?>"/></td>
                     </tr>
 			
                     <tr>
                         <td><b>% Musc.Esquelético</b></td>
-                        <td><input type="text" name="perc_musc_esq" value="<?php echo $BioDados->getPerc_musc_esq() ?>"/></td>
+                        <td><input type="text" name="perc_musc_esq" value="<?php echo $Bioimp->getPerc_musc_esq() ?>"/></td>
                     </tr>
 										
                     <tr>
-                        <td><b>Met.Basal</b></td>
-                        <td><input type="text" name="met_basal" value="<?php echo $BioDados->getMetabolismo_basal() ?>"/></td>
+                        <td><b>TMB</b></td>
+                        <td><input type="text" name="met_basal" value="<?php echo $Bioimp->getMetabolismo_basal() ?>"/></td>
                     </tr>
 			
                     <tr>
                         <td><b>Idade Corporal</b></td>
-                        <td><input type="text" name="idade_corpoaral" value="<?php echo $BioDados->getIdade_corporal() ?>"/></td>
+                        <td><input type="text" name="idade_corpoaral" value="<?php echo $Bioimp->getIdade_corporal() ?>"/></td>
                     </tr>
 										
                     <tr>
                         <td><b>Gordura Viceral</b></td>
-                        <td><input type="text" name="gord_viceral" value="<?php echo $BioDados->getGordura_viceral() ?>"/></td>
+                        <td><input type="text" name="gord_viceral" value="<?php echo $Bioimp->getGordura_viceral() ?>"/></td>
                     </tr>
                         							
                     </table>
@@ -174,12 +175,12 @@
             </div>
                 
             <?php
-            if($BioDados->getId_bio()):
+            if($Bioimp->getId_bio()):
 	            echo"<div class='divBotaoEx'>";
                 echo"<form name='excluirPaciente' action='excluirdados.php' method='POST'>"
                         ."<input type='hidden' name='ex_idbio' value='{$BioDados->getId_bio()}'/>"
                         ."<input type='hidden' name='tipoexc' value='5'/>"
-                         ."<input type='hidden' name='pac' value='{$BioDados->getId_bio()}'/>"
+                         ."<input type='hidden' name='pac' value='{$BioDados->getId_Pessoa()}'/>"
                         . "<button type='submit' onclick='return confExAva();' id='botoes'><img src='imagens/lixeira2.png' width='20' height='20'/> Excluir </button>"
                    ."</form>";
                 echo"</div>";
