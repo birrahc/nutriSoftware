@@ -38,6 +38,11 @@ class AvaliacaoMold extends PessoaMold{
     Private $Densidade;
     private $SomatoriaDc;
     
+    private $Mc_graf;
+    private $PesoResidual;
+    
+
+
     private $Consulta;
     
     private $Coluna;
@@ -166,6 +171,15 @@ class AvaliacaoMold extends PessoaMold{
         return $this->Gordura;
     }
     
+    function getMc_graf() {
+        return $this->Mc_graf;
+    }
+
+    function getPesoResidual() {
+        return $this->PesoResidual;
+    }
+
+        
     function getConsulta() {
         return $this->Consulta;
     }
@@ -313,6 +327,16 @@ class AvaliacaoMold extends PessoaMold{
         endif;
     }
    
+    public function CalcGrafico(){
+        if($this->getSexo()=="M"):
+            $this->PesoResidual = $this->getPeso() * 0.241;
+        elseif($this->getSexo()=="F"):
+            $this->PesoResidual = $this->getPeso() * 0.209; 
+        endif;
+        
+        $this->Mc_graf = $this->getM_Muscular() - $this->PesoResidual;
+    }
+
     public function ListaAvaliacao(AvaliacaoMold $paciente,$tipo) {
         $this->Tipo=$tipo;
         $Termos = "inner join avaliacao_antropometrica a on p.id_paciente=a.paciente
@@ -358,7 +382,8 @@ class AvaliacaoMold extends PessoaMold{
             $this->Dc_Peitoral = $linha['dc_peitoral'];
             $this->Dc_Coxa = $linha['dc_coxa'];
             
-            //$this->calculos();
+            $this->calculos();
+            $this->CalcGrafico();
         endwhile;
         
        
@@ -368,11 +393,12 @@ class AvaliacaoMold extends PessoaMold{
                     while ($linha = $this->Read->fetch(PDO::FETCH_ASSOC)) {
                         $this->setId_Avaliacao($linha['id_avalicao']);
                         $this->setId_Pessoa($linha['paciente']);
-                        echo "<td><a href='cadastrarAvaliacao.php?cod_aval={$this->getId_Avaliacao()}&idpac={$this->getId_Pessoa()}'>{$linha['consulta']}° Aval</a></td>";
+                        echo "<td id='data-aval'><a href='cadastrarAvaliacao.php?cod_aval={$this->getId_Avaliacao()}&idpac={$this->getId_Pessoa()}'>{$linha['consulta']}°Aval</a></td>";
                     }
-            echo"<tr>";
+            echo"</tr>"
+               . "<tr>";
                     while ($linha = $this->Read_1->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<td>" . date('d/m/Y', strtotime($linha['data_avalicao'])) . "</td>";
+                        echo "<td id='data-aval'>" . date('d/m/Y', strtotime($linha['data_avalicao'])) . "</td>";
                     }
             echo"</tr>";
             
@@ -565,7 +591,17 @@ class AvaliacaoMold extends PessoaMold{
                 endif;
                     }
                  $this->getConsulta();
-       
+        elseif($this->Tipo==2):
+            echo"<table border='1'>"
+                . "<tr>";
+                    while ($linha = $this->Read->fetch(PDO::FETCH_ASSOC)) {
+                        $this->setId_Avaliacao($linha['id_avalicao']);
+                        $this->setId_Pessoa($linha['paciente']);
+                        echo "<td><a href='Grafico.php?cod_aval={$this->getId_Avaliacao()}&idpac={$this->getId_Pessoa()}'>{$linha['consulta']}° Aval</a></td>";
+                    }
+            echo"</tr>"
+              . "</table>";
+                 
         endif;
          
     }

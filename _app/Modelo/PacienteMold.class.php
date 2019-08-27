@@ -77,12 +77,12 @@ class PacienteMold extends PessoaMold{
 
     public function Syntax() {
         if($this->Tipo==1):
-            echo"<table>"
-              . "<tr>";
+            echo"<table border='0'>";
+                
                while ($col = $this->Read->fetch(PDO::FETCH_ASSOC)):
                    $this->setId_Pessoa($col['id_paciente']);
                    $this->setNome($col['nome']);
-                    echo"<td colspan='2'>  <a href='dadosPacientes.php?idpac={$this->getId_Pessoa()}'>{$this->getNome()}</a>  </td>"
+                    echo"<td><a href='PacienteDados.php?idpac={$this->getId_Pessoa()}'>{$this->getNome()}</a></td>"
               . "</tr>";
                endwhile;
             echo"</table>";
@@ -100,33 +100,35 @@ class PacienteMold extends PessoaMold{
                     $this->Telefone=$col['telefone'];
                 endwhile;
                 
-                echo "<tr>"
-                      . "<td><b>Nome:</b> {$this->getNome()}</td>"
+                echo "<table>"
+                    . "<tr>"
+                      . "<th><h4>Nome:<h4></th> <td>{$this->getNome()}</td>"
                     . "</tr>"
                       
                     . "<tr>"
-                      . "<td><b>Profissão:</b> {$this->getProfissao()}</td>"
+                      . "<th><h4>Profissão:</h4></th> <td>{$this->getProfissao()}</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td><b>Nascimento:</b>".date('d/m/Y',  strtotime($this->getData_Nascimento()))."</td>"
+                      . "<th><h4>Nascimento:</h4></th> <td>".date('d/m/Y',  strtotime($this->getData_Nascimento()))."</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td><b>Idade:</b> {$this->getIdade()} anos</td>"
+                      . "<th><h4>Idade:</h4></th> <td>{$this->getIdade()} anos</td>"
                     . "</tr>"
                              
                     . "<tr>"
-                      . "<td><b>Altura:</b> {$this->getAltura()}</td>"
+                      . "<th><h4>Altura:</h4></th> <td>{$this->getAltura()}</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td><b>E-Mail:</b> {$this->getEmail()}</td>"
+                      . "<th><h4>E-Mail:</h4></th> <td>{$this->getEmail()}</td>"
                     . "</tr>"
                               
                     . "<tr>"
-                      . "<td><b>Telefone:</b> {$this->getTelefone()}</td>"; 
-                  echo"</tr>";
+                      . "<th><h4>Telefone:</h4</th> <td>{$this->getTelefone()}</td>"; 
+                  echo"</tr>"
+                  . "</table>";
             elseif($this->Tipo==3):
                 while ($col = $this->Read->fetch(PDO::FETCH_ASSOC)):
                     $this->setId_Pessoa($col['id_paciente']);

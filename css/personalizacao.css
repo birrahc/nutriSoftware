@@ -1159,12 +1159,70 @@ background-color: #E0FFFF}
     width: 760px;
     height: 180px;
 }
-.grafico{
-    
+.graficoPagina{
     width: 768px;
-    height: 600px;
+    height: 500px;
     margin-left: auto;
     margin-right: auto;
+}
+.graficoPagina table{
+    height: 400px;
+}
+.graficoAval{
+    width: 750px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.graficoAval table{
+    height: 20px;
+}
+.graficoAval td{
+    width:70px;
+}
+.grafdobras{
+    width: 190px;
+    height: 250px;
+}
+.grafdobras table{
+    width: 200px;
+    height: 250px;
+    margin-right: 100%;
+}
+
+.grafdobras table td{
+    text-align: center;
+    width: 100px;
+    
+}
+.grafdobras b{
+    padding: 5px;
+    text-align: left;
+    font-size: 14px;
+}
+.grafdobras h3{
+    text-align: center;
+}
+.grafCirc{
+    width: 190px;
+    height: 250px;
+}
+.grafCirc table{
+    width: 200px;
+    height: 250px;
+    margin-right: 100%;
+}
+.grafCirc table td{
+    text-align: center;
+    width: 100px;
+    
+}
+.grafCirc b{
+    font-size: 14px;
+}
+
+.grafCirc h3{
+    text-align: center;
 }
 .graf-tit{
     text-align: center;
@@ -1292,3 +1350,42 @@ background-color: #E0FFFF}
     height: 30px;
 }
 
+.grafvalor{
+    width: 760;
+    
+}
+
+.grafvalor table{
+    width:760px;
+    height: 50px;
+}
+
+.grafvalor table td{
+    font-size: 20px;
+    text-align: center;
+    width:84px;
+    height: 50px;
+}
+
+#mmgraf{
+    background-color: blue;
+}
+
+#gordgraf{
+    background-color: red;
+}
+
+#residualgraf{
+    background-color: yellow;
+}
+
+#tit-table{
+    height: 50px;
+    background-color: gray;
+}
+
+#atri{
+    background-color: whitesmoke;
+    text-align: left;
+    padding: 5px;
+}
