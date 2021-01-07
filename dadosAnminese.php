@@ -13,12 +13,12 @@ $Atualizar = new AtualizaDados();
 
 
 if(isset($_GET['id'])):
-     $paciente->setId_Pessoa($_GET['id']);
+     $paciente->setId_Pessoa(intval($_GET['id']));
 endif;
        
         
 if(isset($_POST['id_paciente'])):
-   $anminese->setId_Pessoa($_POST['id_paciente']);
+   $anminese->setId_Pessoa(intval($_POST['id_paciente']));
 endif;
 
 if(isset($_POST['historico_familiar'])):
@@ -111,11 +111,11 @@ if(isset($_POST['id_anminese'])):
 endif;
     if($anminese->getId_Anminese()>=1):
         $Atualizar->AtualizarAnminese($anminese);
-        header("Location: dadosPacientes.php?idpac={$anminese->getId_Pessoa()}#Anminese");
+        header("Location: Anamnese.php?idpac={$anminese->getId_Pessoa()}");
         
 elseif($anminese->getId_Anminese()<1):
     if(!empty($anminese) || !$anminese==null):
         $anmineseCad->CadAnMinese($anminese);
-        header("Location: dadosPacientes.php?idpac={$anminese->getId_Pessoa()}#Anminese");
+        header("Location: Anamnese.php?idpac={$anminese->getId_Pessoa()}");
     endif;
 endif;

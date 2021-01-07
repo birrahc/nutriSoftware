@@ -49,10 +49,10 @@ endif;
 if(isset($_POST['observacao'])):
     $pagamentos->setObservacao($_POST['observacao']);
 endif;
-
+//echo"id:". $pagamentos->getId_Pagamento();
 if($pagamentos->getId_Pagamento()>=1):
     $cadPagamentos->AtualizarPagamentos($pagamentos);
-    header("Location: ListPagamentos.php?idpac={$id}#Avaliacao");
+    header("Location: ListPagamentos.php?idpac={$id}");
 else:
    echo"<script> alert('Não foi possivel cadastrar');</script>";
 endif;

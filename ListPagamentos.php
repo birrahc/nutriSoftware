@@ -14,24 +14,27 @@ endif;
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <link href="css/personalizacao.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/stylo.css">
+        <script src="css/jquery-3.5.1.min.js"></script>
+        <script src="css/bootstrap.min.js"></script>
         <title></title>
     </head>
     <body>
-        <div class="divPagina">
-            
-            <div class="titcadPag"> <h2> Pagamentos </h2> </div>
-            
-            <div class="divcontlistapag">
-                <table>
-                <?php
+        <div class="container">
+            <div class="row">
+                <div class="col-12 bdr-20 pt-2 pb-2 bds-1 bcAzulMar">
+                    <div class="col-12 bg-secondary p-1 bdr-5">
+                        <h5 class="text-center text-light p-0 m-0">Pagamentos: <b><?php //echo $pacientedao->getNome() ?></b></h5>
+                    </div>
+                    <div class="conteudoCad">
+                    <?php
                     $PagDao = new Pagamentos();
                     $PagDao->listaParcialPg($pagamentos, 2);
-               
-                ?>   
-                </table>
+                    ?>   
+                    </div>
+                </div>
             </div>
         </div>
-        
     </body>
 </html>

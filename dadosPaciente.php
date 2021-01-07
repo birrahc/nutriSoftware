@@ -2,8 +2,7 @@
 <?php 
     require_once './controle.php';
 ?>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <?php
 require("./_app/config.inc.php");
 $paciente =new PacienteMold();
@@ -13,6 +12,13 @@ $AtualizarPac = new AtualizaDados();
 
 if(isset($_POST['nome'])):
     $paciente->setNome($_POST['nome']);
+endif;
+
+if(isset($_POST['cpf'])):
+    if($_POST['cpf']=="" || $_POST['cpf']==null):
+        $_POST['cpf']=="";
+    endif;
+    $paciente->setCpf($_POST['cpf']);
 endif;
 
 if(isset($_POST['sexo'])):
@@ -43,12 +49,18 @@ if(isset($_POST['id_paciente'])):
 endif;
     if($paciente->getId_Pessoa()>=1):
         $AtualizarPac->AtualizarPaciente($paciente);
-        header("Location: dadosPacientes.php?idpac={$paciente->getId_Pessoa()}");
+        
+        //header("Location: pacientes.php?idpac={$paciente->getId_Pessoa()}");
         
     elseif($paciente->getId_Pessoa()<1):
         if(!empty($paciente->getNome())||!$paciente->getNome()==null):
             $pacienteCad->CadastrarPaciente($paciente);
-            header("Location: dadosPacientes.php?idpac={$pacienteCad->getUltimaId()}");
+            if($pacienteCad->getUltimaId()){
+                echo $pacienteCad->getUltimaId();
+            } else {
+                echo 0;
+            }
+            //header("Location: pacientes.php?idpac={$pacienteCad->getUltimaId()}");
         endif;
     endif;
         

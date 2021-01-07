@@ -145,19 +145,19 @@ class Pagamentos extends AvaliacaoMold{
     public function listaParcialPg(Pagamentos $pagamentos, $tipo){
         $this->Tipo=$tipo;
         
-        $coluna5=['id_pagamento'=>'id_pagamento',
-                  'referencia'=>'referencia',
+        $coluna5=['id_pagamento'=>'pg.id_pagamento',
+                  'referencia'=>'pg.referencia',
                   'p.id_paciente'=>'p.id_paciente as id_paciente',
                   'p.nome'=>'p.nome as nome',
                   'ava.consulta'=>'ava.consulta as consulta',
                   'ava.data_avalicao'=>'ava.data_avalicao as data_avalicao',
                   'tp.tipo'=>'tp.tipo as tipo',
                   'plan.planos'=>'plan.planos as planos',
-                  'valor'=>'valor',
+                  'valor'=>'pg.valor',
                   'qtd_vezes'=>'qtd_vezes',
                   'st.status'=>'st.status as situacao',
                   'la.nome'=>'la.nome as l_atendimento',
-                  'observacao'=>'observacao'
+                  'observacao'=>'pg.observacao'
                 ];
         if($this->Tipo==1):    
         $Termos5 =" inner join avaliacao_antropometrica ava on referencia = ava.id_avalicao"
@@ -166,7 +166,7 @@ class Pagamentos extends AvaliacaoMold{
                 . " inner join planos plan on pg.plano = plan.id_plano "
                 . " inner join status st on situacao = st.id_status "
                 . " inner join local_atendimento la on l_atendimento = la.id_local "
-                . " where id_pagamento='{$pagamentos->getId_Pagamento()}'";
+                . " where pg.id_pagamento='{$pagamentos->getId_Pagamento()}'";
         else:
             $Termos5 =" inner join avaliacao_antropometrica ava on referencia = ava.id_avalicao"
                 . " inner join pacientes p on paciente= p.id_paciente "
@@ -202,43 +202,58 @@ class Pagamentos extends AvaliacaoMold{
         
     if($this->Tipo==1 || $this->Tipo==3):
           
-          echo"<td><b>Paciente:</b> {$this->getNome()}</td>"
-            . "<td><b>Referente a consulta Nº:</b> {$this->getConsulta()}</td>"
-            . "<td><b>Data :</b> {$this->getData_Consulta()}</td>";
+          echo"<div class='w30pec float-left'>
+                <h6 class='text-center bg-light p-2'>Paciente: {$this->getNome()}</h6>
+            </div>
+            <div class='w30pec float-left'>
+                <h6 class='text-center bg-light p-2'>Referente a consulta/Avaliação: {$this->getConsulta()}</h6>
+            </div>
+            <div class='w30pec float-left'>
+            <h6 class='text-center bg-light p-2'>Data: " .date('d/m/Y', strtotime($this->getData_Consulta()))."</h6>
+            </div>";
             
     elseif($this->Tipo==2):
         
-        echo"<tr>"
-                . "<td><b>Paciente:</b> {$this->getNome()}</td>"
-                . "<td><b>Referente a consulta Nº:</b> {$this->getConsulta()}</td>"
-                . "<td><b>Data :</b> {$this->getData_Consulta()}</td>"
-            . "</tr>"
-                        
-            . "<tr>"
-                . "<td><b>Tipo :</b> {$this->getTipo()}</td>"
-                . "<td><b>Plano :</b> {$this->getPlano()}</td>"
-                . "<td><b>Valor :</b> {$this->getValor()}</td>"
-            . "</tr>"
-                        
-            . "<tr>"
-                . "<td><b>Parcelado em :</b> {$this->getQtd_vezes()}X</td>" 
-                . "<td><b>Situação :</b> {$this->getSituacao()}</td>"
-                . "<td><b>Local :</b> {$this->getLocal_Atendimento()}</td>"
-            . "</tr>"
-                        
-            . "<tr>"
-                . "<td colspan='3'><b>Observação :</b> {$this->getObservacao()}</td>"
-            . "</tr>"
-                        
-            . "<tr>"
-               . "<td colspan='3'>"
-                    . "<a href='CadastrarPagamentos.php?idpg={$this->getId_Pagamento()}&idpac={$this->getId_Pessoa()}'>Editar | </a>"
-                    . "<a href='dadosPacientes.php'> Sair | </a>"
-                . "</td>"
-            . "</tr>"
-             . "<tr>"
-                . "<td colspan='3'><hr></a>"
-            . "</tr>";
+        echo"<div class='w-100 mt-2'>
+                <div class='w30pec float-left'>
+                    <h6 class='text-center bg-light p-1'>Paciente: {$this->getNome()}</h6>
+                </div>
+                <div class='w30pec float-left'>
+                    <h6 class='text-center bg-light p-1'>Referente a consulta/Avaliação: {$this->getConsulta()}</h6>
+                </div>
+                <div class='w30pec float-left'>
+                <h6 class='text-center bg-light p-1'>Data: " .date('d/m/Y', strtotime($this->getData_Consulta()))."</h6>
+                </div>
+
+                <div class='w30pec float-left'>
+                    <h6 class='text-center bg-light p-1'>Tipo: {$this->getTipo()}</h6>
+                </div>
+                <div class='w30pec float-left'>
+                    <h6 class='text-center bg-light p-1'>Plano: {$this->getPlano()}</h6>
+                </div>
+                <div class='w30pec float-left'>
+                <h6 class='text-center bg-light p-1'>Valor R$: ".number_format($this->getValor(),2)."</h6>
+
+
+                </div> <div class='w30pec float-left'>
+                    <h6 class='text-center bg-light p-1'>Parcelado em: {$this->getQtd_vezes()}</h6>
+                </div>
+                <div class='w30pec float-left'>
+                    <h6 class='text-center bg-light p-1'>Situação: {$this->getSituacao()}</h6>
+                </div>
+                <div class='w30pec float-left'>
+                <h6 class='text-center bg-light p-1'>local:{$this->getLocal_Atendimento()}</h6>
+                </div>
+                <div style='clear:both'></div>
+                <div class='w-100'>
+                <h6 class='text-center bg-light p-1'>Observação:</h6>
+                <p class='bg-light p-2 text-center'>{$this->getObservacao()}</p>
+                </div> 
+                <div>
+                <a href='CadastrarPagamentos.php?idpg={$this->getId_Pagamento()}&idpac={$this->getId_Pessoa()}'>Editar | </a>
+                <a href='pacientes.php'> Sair | </a>
+                </div> 
+            </div>";
     endif;
 endwhile;
     }

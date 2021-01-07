@@ -78,7 +78,7 @@ class Update extends Conexao{
             
         } catch (PDOException $e) {
             $this->Result = null;
-            Error("<br>Erro ao atualizar dados {$e->getMessage()}</b>", $e->getCode());
+            //Error("<br>Erro ao atualizar dados {$e->getMessage()}</b>", $e->getCode());
             
         }
     }

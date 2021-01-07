@@ -12,8 +12,13 @@
  * @author Birra
  */
 class AtualizaDados {
+    private $Resultado;
     
-    //================================================================================================
+    function getResultado() {
+        return $this->Resultado;
+    }
+
+        //================================================================================================
     //---------------- ATUALIZAR LOGIN -----------------------
     //================================================================================================
     public function AtualizarLogin($Login,$senha,$Id_login){
@@ -36,6 +41,7 @@ class AtualizaDados {
         
         $DadosPacientes=['nome' => $paciente->getNome(),
                         'sexo'=>$paciente->getSexo(),
+                        'cpf'=>$paciente->getCpf(),
                         'data_nascimento' => $paciente->getData_Nascimento(),
                         'altura'=> $paciente->getAltura(),
                         'profissao' => $paciente->getProfissao(), 
@@ -47,7 +53,7 @@ class AtualizaDados {
         $AtulPac->ExUpdate('pacientes', $DadosPacientes, "WHERE id_paciente = :id", 'id='.$paciente->getId_Pessoa());
         
         if($AtulPac->getResult()):
-            echo"{$AtulPac->getRunCount()} dados Atualizados <br>";
+            echo $AtulPac->getRunCount();
         endif;
     }
     
@@ -126,6 +132,7 @@ class AtualizaDados {
         if($AtualCons->getResult()):
             echo"{$AtualCons->getRunCount()} dados Atualizados <br>";
         endif;
+        //var_dump($AtualCons);
     }
     
     //==============================================================================================
@@ -157,8 +164,9 @@ class AtualizaDados {
         $AtualAval->ExUpdate('avaliacao_antropometrica', $DadosAvalAntro, "WHERE id_avalicao =:id", 'id=' . $Aval->getId_Avaliacao());
 
         if ($AtualAval->getResult()):
-            echo"{$AtualAval->getRunCount()} dados Atualizados <br>";
+            $this->Resultado = $AtualAval->getRunCount();
         endif;
+        //var_dump($AtualAval);
     }
     
     //==============================================================================================
@@ -177,14 +185,27 @@ class AtualizaDados {
                          ];
 
         $Atualizabio = new Update();
-        $Atualizabio->ExUpdate('`bioimp`', $DadosBio, "WHERE id_bio =:id", 'id=' . $bio->getId_bio());
+        $Atualizabio->ExUpdate('bioimp', $DadosBio, "WHERE id_bio =:id", 'id=' . $bio->getId_bio());
 
         if ($Atualizabio->getResult()):
-            echo"{$Atualizabio->getRunCount()} dados Atualizados <br>";
+            $this->Resultado=$Atualizabio->getRunCount();
         endif;
     }
-      
-    public function AtualizarPagamentos(Pagamentos $pagmentos) {
+    
+    public function AtualizarObservacao(Observacao $obs){
+        $Dados = [
+            'id_observacao'=>$obs->getId_Obs(),
+            'data_obs'=>$obs->getData_obs(),
+            'obs'=>$obs->getObservacao()
+        ];
+        
+        $AtualizerObs = new Update();
+        $AtualizerObs->ExUpdate('observacao', $Dados, "WHERE id_observacao =:id", 'id=' . $obs->getId_Obs());
+        $this->Resultado = $AtualizerObs->getRunCount();
+        //var_dump($AtualizerObs);
+    }
+
+        public function AtualizarPagamentos(Pagamentos $pagmentos) {
         
         $Dados=['data_cons'=>$pagmentos->getData_Consulta(),
                 'tipo'=>$pagmentos->getTipo(),
@@ -198,6 +219,7 @@ class AtualizaDados {
         
         $AtulizarPagamentos = new Update();
         $AtulizarPagamentos->ExUpdate("pagamentos", $Dados, "WHERE id_pagamento =:id", 'id=' . $pagmentos->getId_Pagamento());
+        var_dump($AtulizarPagamentos);
     }
             
 }  

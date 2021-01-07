@@ -109,13 +109,13 @@ if(isset($_POST['id_consumo'])):
 endif;
     if($consumos->getId_Consumos()>=1):
         $AtualizarCons->AtualizarConsumos($consumos);
-        header("Location: dadosPacientes.php?idpac={$consumos->getId_Pessoa()}#Consumos");
+        header("Location: consumos.php?idpac={$consumos->getId_Pessoa()}");
         
     elseif($consumos->getId_Consumos()<1):
         if(!empty($consumos) || !$consumos==null):
             $consumosCad->CadastarConsumos($consumos); 
-            header("Location:dadosPacientes.php?idpac={$consumos->getId_Pessoa()}#Consumos");
-            var_dump($consumosCad->CadastarConsumos($consumos));
+            header("Location:consumos.php?idpac={$consumos->getId_Pessoa()}");
+            //var_dump($consumosCad->CadastarConsumos($consumos));
         endif;
     endif;
 

@@ -48,5 +48,10 @@ function validAvaliacao(){
 		document.cadastrarAvaliacao.c_coxa_e.focus();
 		return false;
 	}
+        if(document.cadastrarBioimpedancia.data_bio.value==""){
+		alert("Por favor preencha o campo Data");
+		document.cadastrarBioimpedancia.data_bio.focus();
+		return false;
+	}
 
 }

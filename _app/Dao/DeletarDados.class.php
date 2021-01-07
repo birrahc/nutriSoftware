@@ -2,8 +2,13 @@
 
 
 class DeletarDados {
+    private $Result;
     
-    //=================================================================================================
+    function getResult() {
+        return $this->Result;
+    }
+
+        //=================================================================================================
     //----------------- DELETAR LOGIN ---------------------------
     //=================================================================================================
     public function DeletaLogin($IdLogin){
@@ -22,12 +27,16 @@ class DeletarDados {
     public function DeletarPaciente(PacienteMold $paciente){
         $DeletarPagamentos = new Delete();
         $DeletaAvaliacao =new Delete();
+        $DeletaBio =new Delete();
+        $DeletaObs =new Delete();
         $DeletaConsumos = new Delete();
         $DeletaAnminese = new Delete();
         $DeletaPaciente = new Delete();
         
-        //$DeletarPagamentos->ExeDelete('pagamentos', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
+        $DeletarPagamentos->ExeDelete('pagamentos', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
         $DeletaAvaliacao->ExeDelete('avaliacao_antropometrica', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
+        $DeletaBio->ExeDelete('bioimp', "WHERE paciente_bio = :id", 'id='.$paciente->getId_Pessoa());
+        $DeletaObs->ExeDelete('observacao', "WHERE paciente_obs = :id", 'id='.$paciente->getId_Pessoa());
         $DeletaConsumos->ExeDelete('consumos', "WHERE paciente_id = :id", 'id='.$paciente->getId_Pessoa());
         $DeletaAnminese->ExeDelete('anaminese', "WHERE paciente = :id", 'id='.$paciente->getId_Pessoa());
         $DeletaPaciente->ExeDelete('pacientes', "WHERE id_paciente = :id", 'id='.$paciente->getId_Pessoa());
@@ -75,10 +84,10 @@ class DeletarDados {
          
         $DeletaAvaliacao = new Delete();
         $DeletaAvaliacao->ExeDelete('avaliacao_antropometrica', "WHERE id_avalicao = :id", 'id='.$aval->getId_Avaliacao());
-        
+        $this->Result= $DeletaAvaliacao->getRunCount();
        
-        if($DeletaAvaliacao->getResult()):
-            echo"{$DeletaAvaliacao->getRunCount()} registro(s) deletados com sucesso: <hr>";
+        if($DeletaAvaliacao->getRunCount()):
+           $this->Result = $DeletaAvaliacao->getRunCount();
         endif;
     }
     
@@ -91,8 +100,19 @@ class DeletarDados {
         $DeletaBio->ExeDelete('bioimp', "WHERE id_bio = :id", 'id='.$bio->getId_bio());
         
        
-        if($DeletaBio->getResult()):
-            echo"{$DeletaBio->getRunCount()} registro(s) deletados com sucesso: <hr>";
+        if($DeletaBio->getRunCount()):
+           $this->Result = $DeletaBio->getRunCount();
+            
+        endif;
+        
+    }
+    
+    public function DeletarObs(Observacao $obs){
+        $DeleteObs = new Delete();
+        $DeleteObs->ExeDelete('observacao', "WHERE id_observacao = :id", 'id='.$obs->getId_Obs());
+        if($DeleteObs->getResult()):
+            echo"{$DeleteObs->getRunCount()} registro(s) deletados com sucesso: <hr>";
+            
         endif;
     }
     

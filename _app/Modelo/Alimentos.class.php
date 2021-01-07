@@ -46,8 +46,8 @@ class Alimentos extends Select{
     public function Syntax(){
          while ($col = $this->Read->fetch(PDO::FETCH_ASSOC)):
              
-            $this->Id_Doenca = $col['id_alimento'];
-            $this->Doenca = $col['alimento'];
+            $this->Id_alimento = $col['id_alimento'];
+            $this->Alimento = $col['alimento'];
             
             echo"<option value='{$this->getId_alimento()}'>{$this->getAlimento()}</option>";
         endwhile;

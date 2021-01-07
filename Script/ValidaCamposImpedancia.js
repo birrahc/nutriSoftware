@@ -7,7 +7,7 @@ function validBio(){
 	
 	if(document.cadastrarBioimpedancia.peso_bio.value==""){
 		alert("Por favor preencha o campo Peso");
-		document.cadastrarBioimpedancia.c_cintura.focus();
+		document.cadastrarBioimpedancia.peso_bio.focus();
 		return false;
 	}
 	if(document.cadastrarBioimpedancia.imc_bio.value==""){

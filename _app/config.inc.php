@@ -8,7 +8,7 @@ define('DBSA', 'softnutricao');
 
 function __autoload($Class){
     
-    $cDir= ['Dao','Modelo','InsAtuDelSel','pChart2.1.4'];
+    $cDir= ['Dao','Modelo','InsAtuDelSel','pChart2.1.4', 'PHPMailer-master'];
     $iDir= null;
     
     foreach ($cDir as $dirName):

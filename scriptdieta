@@ -1,0 +1,22 @@
+SELECT linha,
+ dieta_numero, 
+ data_dieta, 
+ plano_alimentar,
+ pac.nome, 
+ ho.hora, 
+ ali.alimento, 
+ qtdal.desq_qtd as quantidade, 
+ sub.alimento as substituicao, 
+ qtdsub.desq_qtd as qtd_substituicao, 
+ beb.bebida as intervalos,
+ interqtd.desq_qtd as qtd_intervalo,
+ anotacoes
+FROM softnutricao.dietas die
+inner join pacientes pac on paciente = pac.id_paciente
+inner join horarios ho on die.horario = ho.id_horarios
+inner join alimentos ali on die.alimento = ali.id_alimento
+inner join qtd_medidas qtdal on die.quantidade= qtdal.id_qtd
+inner join alimentos sub on die.substituicao = sub.id_alimento
+inner join qtd_medidas qtdsub on die.qtd_substituicao = qtdsub.id_qtd
+inner join bebidas beb on die.intervalos = beb.id_bebida 
+inner join qtd_medidas interqtd on qtd_intervalo = interqtd.id_qtd

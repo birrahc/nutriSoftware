@@ -1,6 +1,6 @@
 <?php
 
-require_once './controle.php';
+//require_once './controle.php';
 
 require('./_app/config.inc.php');
 
@@ -9,7 +9,9 @@ $anminese = new AnmineseMold();
 $consumos = new ConsumosMold();
 $Avaliacao = new AvaliacaoMold();
 $Bioimpedancia = new BioImpedancia();
+$Observacao = new Observacao();
 $DeletarDados = new DeletarDados() ;
+
 
 
 if(isset($_POST['tipoexc'])):
@@ -19,7 +21,7 @@ if(isset($_POST['tipoexc'])):
         if(isset($_POST['ex_idpac'])):
             $paciente->setId_Pessoa($_POST['ex_idpac']);
             $DeletarDados->DeletarPaciente($paciente);
-            header("Location: dadosPacientes.php?");
+            header("Location: pacientes.php");
         endif;
     
     
@@ -31,7 +33,7 @@ if(isset($_POST['tipoexc'])):
             $anminese->setId_Anminese($_POST['ex_idan']);
             $DeletarDados->DeletaAmnise($anminese);
             $paciente->setId_Pessoa($_POST['pac']);
-            header("Location: dadosPacientes.php?idpac={$paciente->getId_Pessoa()}#Anminese");
+            header("Location: PacienteDados.php?idpac={$paciente->getId_Pessoa()}#Anminese");
         endif;
         
     if($_POST['tipoexc']==3):
@@ -40,7 +42,7 @@ if(isset($_POST['tipoexc'])):
             $consumos->setId_Consumos($_POST['ex_idcon']);
             $DeletarDados->DeletaConsumos($consumos);
             $paciente->setId_Pessoa($_POST['pac']);
-            header("Location: dadosPacientes.php?idpac={$paciente->getId_Pessoa()}#Anminese");
+            header("Location: PacienteDados.php?idpac={$paciente->getId_Pessoa()}#Anminese");
         endif;
         
     endif;
@@ -51,7 +53,12 @@ if(isset($_POST['tipoexc'])):
             $DeletarDados->DeletaAvaliacao($Avaliacao);
             $paciente->setId_Pessoa($_POST['pac']);
             
-            header("Location: dadosPacientes.php?idpac={$paciente->getId_Pessoa()}#Avaliacao");
+            if($DeletarDados->getResult()):
+                echo $DeletarDados->getResult();
+            else:
+                echo 0;
+            endif;
+           // header("Location: Avaliacoes.php?idpac={$paciente->getId_Pessoa()}");
         endif;
     endif;
     
@@ -60,8 +67,22 @@ if(isset($_POST['tipoexc'])):
             $Bioimpedancia->setId_bio($_POST['ex_idbio']);
             $DeletarDados->DeletaBioimpedancia($Bioimpedancia);
             $paciente->setId_Pessoa($_POST['pac']);
-            
-            header("Location: dadosPacientes.php?idpac={$paciente->getId_Pessoa()}#Bioimpedancia");
+            if($DeletarDados->getResult()):
+                echo $DeletarDados->getResult();
+            else:
+                echo 0;
+            endif;
+            //var_dump( $DeletarDados->DeletaBioimpedancia($Bioimpedancia));
+           // header("Location: CadastrarBioimpedancia2.php?idpac={$paciente->getId_Pessoa()}");
+        endif;
+    endif;
+    
+    if($_POST['tipoexc']==6):
+        if($_POST['ex_idobs']):
+            $Observacao->setId_Obs($_POST['ex_idobs']);
+            $DeletarDados->DeletarObs($Observacao);
+            $paciente->setId_Pessoa($_POST['pac']);
+            header("Location: pacientes.php?idpac={$paciente->getId_Pessoa()}");
         endif;
     endif;
     

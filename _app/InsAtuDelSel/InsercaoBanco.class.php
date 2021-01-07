@@ -55,7 +55,7 @@ class InsercaoBanco extends Conexao {
     
     private function Execute(){
         $this->ConetarBanco();
-        $this->Mensagem="<script> alert('Cadastrado com sucesso!')</script>";
+        //$this->Mensagem="<script> alert('Cadastrado com sucesso!')</script>";
         try {
             $this->Inserir->execute($this->Dados);
             $this->Result = $this->Conectar->lastInsertId();

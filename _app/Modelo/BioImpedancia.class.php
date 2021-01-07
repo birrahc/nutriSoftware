@@ -23,6 +23,7 @@ class BioImpedancia extends PessoaMold{
     private $Metabolismo_basal;
     private $Idade_corporal;
     private $Gordura_viceral;
+    private $obs_Bio;
     
     function __construct() {
         $this->Coluna = ['id_bio' => 'id_bio',
@@ -41,7 +42,6 @@ class BioImpedancia extends PessoaMold{
             'met_basal' => 'met_basal',
             'idade_corpoaral' => 'idade_corpoaral',
             'gord_viceral' => 'gord_viceral'
-            
             ];
         
             $this->Table = [];
@@ -88,6 +88,11 @@ class BioImpedancia extends PessoaMold{
         return $this->Gordura_viceral;
     }
     
+    function getObs_Bio() {
+        return $this->obs_Bio;
+    }
+
+        
     function setId_bio($Id_bio) {
         $this->Id_bio = $Id_bio;
     }
@@ -129,6 +134,11 @@ class BioImpedancia extends PessoaMold{
         $this->Gordura_viceral = $Gordura_viceral;
     }
     
+    function setObs_Bio($obs_Bio) {
+        $this->obs_Bio = $obs_Bio;
+    }
+
+        
     public function VerificaConsultaBio(BioImpedancia $paciente) {
         
         $Termos = "inner join pacientes p on b.paciente_bio = p.id_paciente "
@@ -177,62 +187,84 @@ class BioImpedancia extends PessoaMold{
         
        
         if($this->Tipo==1):
-        echo"<table border='0'>"
-            . "<tr>";
-                    while ($linha = $this->Read_1->fetch(PDO::FETCH_ASSOC)) {
-                        $this->setId_bio($linha['id_bio']);
-                        $this->setId_Pessoa($linha['paciente_bio']);
-                        echo "<td><a href='cadastrarBioimpedancia.php?id_bio={$this->getId_bio()}&idpac={$this->getId_Pessoa()}'>". date('d/m/Y', strtotime($linha['data_bio'])) ."</a></td>";
+            $conta_largura="0"; 
+            while ($linha = $this->Read_11->fetch(PDO::FETCH_ASSOC)) {
+                $conta_largura++;
+            }
+            
+            //Aumentando a div conforme o conteudo
+            $conta_largura = $conta_largura*101;
+           echo"<div style='width:{$conta_largura}px; height:auto;' class='tableBio'>";
+          
+            
+           
+            while ($linha = $this->Read_1->fetch(PDO::FETCH_ASSOC)) {
+               
+                $this->setId_bio($linha['id_bio']);
+                $this->setId_Pessoa($linha['paciente_bio']);
+                echo "<div class='bio-cont'><p><a href='CadastrarBioimpedancia2.php?id_bio={$this->getId_bio()}&idpac={$this->getId_Pessoa()}'>". date('d/m/Y', strtotime($linha['data_bio'])) ."</a></p></div>";
+                $conta_largura++;
                         
-                    }
-                    
-            echo"</tr>";
+            }
+            
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_2->fetch(PDO::FETCH_ASSOC)) {
+                echo "<div class='bio-cont'><p>{$linha['peso_bio']}</p></div>";
+            }
+                
+           echo"<div style='clear: both'></div>";
+           
+            while ($linha = $this->Read_3->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='bio-cont'><p>{$linha['imc_bio']}</p></div>";
+            }
+                
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_4->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='bio-cont'><p>{$linha['perc_gord_corp']}</p></div>";
+            }
+            
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_5->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='bio-cont'><p>{$linha['perc_musc_esq']}</p></div>";
+            }
+            
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_6->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='bio-cont'><p>{$linha['met_basal']}</p></div>";
+            }
+            
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_7->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='bio-cont'><p>{$linha['idade_corpoaral']}</p></div>";
+            }
+            
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_8->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='bio-cont'><p>{$linha['gord_viceral']}</p></div>";
+            }
+            
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_9->fetch(PDO::FETCH_ASSOC)) {
+                $this->setId_bio($linha['id_bio']);
+               echo"<div class='bio-cont bg-none'>"
+                       ."<input type='hidden' name='ex_idbio' value='{$this->getId_bio()}'/>"
+                        ."<input type='hidden' name='tipoexc' value='5'/>"
+                         ."<input type='hidden' id='paciente' name='pac' value='{$this->getId_Pessoa()}'/>"
+                        . "<button type='submit' class='text-center w-100 delete-aval'><img src='icons-main/icons/x-circle-fill.svg' alt='Deletar' width='15' height='15' title='Deletar'></a></button>"
+                . "</div>";
+           }
             
             
-            echo"<tr>";
-                    while ($linha = $this->Read_2->fetch(PDO::FETCH_ASSOC)) {
-                       
-                        echo "<td>{$linha['peso_bio']}</td>";
-                    }
-            echo"</tr>";
+           
             
-            echo"<tr>";
-                    while ($linha = $this->Read_3->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['imc_bio']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_4->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['perc_gord_corp']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_5->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['perc_musc_esq']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_6->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['met_basal']}</td>";
-                    }
-            echo"</tr>";
-            
-            echo"<tr>";
-                    while ($linha = $this->Read_7->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['idade_corpoaral']}</td>";
-                    }
-            echo"</tr>";  
-
-            echo"<tr>";
-                    while ($linha = $this->Read_8->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['gord_viceral']}</td>";
-                    }
-            echo"</tr>";
-            
-            echo"</table>"; 
+        echo"</div>";    
             
         elseif($this->Tipo==8):
                        

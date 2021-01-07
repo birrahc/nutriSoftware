@@ -52,152 +52,140 @@
     ?>
     
     <head>
-        <script type="text/javascript" src="Script/ValidaCamposImpedancia.js"></script>
         <meta charset="UTF-8">
+        <script type="text/javascript" src="Script/ValidaCamposImpedancia.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/personalizacao.css" rel="stylesheet"/>
+        <link href="css/stylo_large.css" rel="stylesheet"/>
         <title><?php echo $acaoTitulo ?></title>
     </head>
     
     <body>
-        <div class="divPaginaAvaliacao">
+        <div id="pagina" style="float:none; margin: auto; margin-top: -21px;">
+           
+	<main>
             
-            <div class="titPaginaAval">
-                <h2><?php echo $acaoTitulo ?></h2>
-            </div>
-            
-            <div class="titAvaliacao">
-                <?php
-                    echo"<h3>{$pacienteDados->getNome()}</h3>";
-                ?>
-            </div>
-            
-            <form name="cadastrarBioimpedancia" action="dadosBioimpedancia.php" method="POST" onsubmit=" return validBio();">    
-            <div class="contAvaBio">
-            <table border='0'>
-            <tr>
-                <td colspan="3" id="bio">
-                    <?php 
-                    if($Bioimp->getId_Pessoa()&& $Bioimp->getId_bio()):
-                        echo"Sexo: {$Bioimp->getSexo()} | Idade: {$Bioimp->getIdade()} | Altura: {$Bioimp->getAltura()} ";
-                    else:
-                        echo"Sexo: {$pacienteDados->getSexo()} | Idade: {$pacienteDados->getIdade()} | Altura: {$pacienteDados->getAltura()} ";   
-                    endif;
-                    ?>
-                </td>
-            </tr>
-            <tr>
-                <td width="460">
-                    <div class="divcadBio">
-                    <?php
-                        $BioDados->ListaBioImpedancia($Bioimp,1);
-                    ?>
+            <section>
+		<div class="conteudo">
+
+                    <h2><?php echo $acaoTitulo ?></h2>
+
+                    <div class="camada-2">
+
+                        <div class="camada-3">
+                            
+                            <div id="titulo-paciente"><p>Paciente: <b><?php echo $pacienteDados->getNome() ?></b> | Idade: <b><?php echo $pacienteDados->getIdade() ?> anos</b> | Altura:<b><?php echo $pacienteDados->getAltura() ?></b></p></div>
+                                
+                            <div class="dados-ava-bio div-ajuste-dados" style="width: 29% !important;">
+                            <?php
+                                $BioDados->ListaBioImpedancia($Bioimp, 1)
+                            ?>			
+                            </div>
+                            <div class="div-ind-bio div-ajut-ind">
+                            
+                                <div class="indice-bio"><h1>Data</h1></div>
+                               
+                                <div class="indice-bio"><h1>Peso</h1></div>
+                                
+                                <div class="indice-bio"><h1>Imc</h1></div>
+                               
+                                <div class="indice-bio"><h1>%Gord.Corporal</h1></div>
+                                
+                                <div class="indice-bio"><h1>%Musc.Esquelético</h1></div>
+                                
+                                <div class="indice-bio"><h1>Met.Basal</h1></div>
+                               
+                                <div class="indice-bio"><h1>Idade Corporal</h1></div>
+                                
+                                <div class="indice-bio"><h1>Gord.Veceral</h1></div>
+                              
+                        </div>
+                            <form name="cadastrarBioimpedancia" action="dadosBioimpedancia.php" method="POST" onsubmit=" return validBio();">        
+                                <div class="div-indice div-ajut-ind div-ajut-form div-ajut-form-bio">
+                                    <input type="hidden" name="id_bio" value="<?php echo $Bioimp->getId_bio() ?>"/>
+                                    <input type="hidden" name="id_paciente" value="<?php echo $pacienteDados->getId_Pessoa()?>"/>
+                                    <input type="date" name="data_bio" value="<?php echo $Bioimp->getData_bio() ?>">
+                                    <input type="text" name="peso_bio" value="<?php echo $Bioimp->getPeso_bio() ?>">
+                                    <input type="text" name="imc_bio" value="<?php echo $Bioimp->getImc() ?>">
+                                    <input type="text" name="perc_gord_corp" value="<?php echo $Bioimp->getPerc_gord_corp() ?>">
+                                    <input type="text" name="perc_musc_esq" value="<?php echo $Bioimp->getPerc_musc_esq() ?>">
+                                    <input type="text" name="met_basal" value="<?php echo $Bioimp->getMetabolismo_basal() ?>">
+                                    <input type="text" name="idade_corpoaral" value="<?php echo $Bioimp->getIdade_corporal() ?>">
+                                    <input type="text" name="gord_viceral" value="<?php echo $Bioimp->getGordura_viceral() ?>">
+                                </div>
+
+                                <div id="obsAvaliacao">
+                                    <h3 style="color:whitesmoke;">Observação</h3>
+                                    <p>Referente a data <?php echo  date('d/m/Y', strtotime($Bioimp->getData_bio())) ?></p>
+                                        <textarea name="observacao_bio"><?php echo ""?></textarea>
+                                </div>
+                                
+                                <?php
+                                $acao="";
+                                if($botaoAcao=='Editar'):
+                                    $acao="onclick='return confirmaEditAval();'";
+                                endif;
+                                ?>
+
+                                <div class="botoes Ajude-botoes-bio">
+                                    <button type="submit" <?php echo $acao ?>> <?php echo $botaoAcao ?> </button>
+                                </div>
+                                
+                                <script>
+                                    function confirmaEditAval(){
+                                        editAval = confirm('Deseja realmente confirmar as alterações desta Avaliação ?');
+                                        if(editAval)
+                                            return true;
+                                        else
+                                            return false;
+                                    }
+                                </script> 
+                                
+                            </form>
+                            
+                            <div class="botoes Ajude-botoes-bio">
+                                <form method="GET" action="PacienteDados.php">
+                                    <input type="hidden" name="idpac" value="<?php echo $pacienteDados->getId_Pessoa() ; ?>"/>
+                                    <button  type="submit"> Cancelar</button>
+                                </form>
+                            </div>
+                            
+                            <?php
+                                $acaobotao="";
+                                if(!$Bioimp->getId_bio()):
+                                    $acaobotao="disabled='true'";
+                                endif;
+                            ?>
+                            <div class="botoes Ajude-botoes-bio">
+                            <form name="excluirPaciente" action="excluirdados.php" method="POST">
+                                <input type="hidden" name="ex_idbio" value="<?php echo $Bioimp->getId_bio(); ?>"/>
+                                <input type="hidden" name="tipoexc" value="5"/>
+                                <input type="hidden" name="pac" value="<?php echo $Bioimp->getId_Pessoa() ?>"/>
+                                <button type="submit" <?php echo $acaobotao ?>onclick="return confExAva();"> Excluir </button>
+                   .        </form>
+                                
+                            <script>
+                                function confExAva(){
+                                    var excAval = confirm('Deseja realmente excluir esta avaliação ?');
+                                    if(excAval)
+                                        return true;
+                                    else
+                                return false;
+                                }
+                                </script>
+                            </div>
+			</div>
+
                     </div>
-		</td>
-					
-		<td>
-                    <div class="divformcadBio">
-                    <table border='0'>
-                    <tr>
-                        <td><b>Data:</b></td>
-                        <td><input type="date" name="data_bio" value="<?php echo $Bioimp->getData_bio() ?>" width="100"/></td>
-                        <input type="hidden" name="id_bio" value="<?php echo $Bioimp->getId_bio() ?>"/>
-                        <input type="hidden" name="id_paciente" value="<?php echo $pacienteDados->getId_Pessoa()?>"/>
-                    </tr>
-                        
-                    <tr>
-                        <td><b>Peso</b></td>
-                        <td><input type="text" name="peso_bio" value="<?php echo $Bioimp->getPeso_bio() ?>"/></td>
-                    </tr>
-										
-                    <tr>
-                        <td><b>IMC</b></td>
-                        <td><input type="text" name="imc_bio" value="<?php echo $Bioimp->getImc() ?>"/></td>
-                    </tr>
-                        
-                    <tr>
-                        <td><b>% Gord.Corporal</b></td>
-                        <td><input type="text" name="perc_gord_corp" value="<?php echo $Bioimp->getPerc_gord_corp() ?>"/></td>
-                    </tr>
-			
-                    <tr>
-                        <td><b>% Musc.Esquelético</b></td>
-                        <td><input type="text" name="perc_musc_esq" value="<?php echo $Bioimp->getPerc_musc_esq() ?>"/></td>
-                    </tr>
-										
-                    <tr>
-                        <td><b>TMB</b></td>
-                        <td><input type="text" name="met_basal" value="<?php echo $Bioimp->getMetabolismo_basal() ?>"/></td>
-                    </tr>
-			
-                    <tr>
-                        <td><b>Idade Corporal</b></td>
-                        <td><input type="text" name="idade_corpoaral" value="<?php echo $Bioimp->getIdade_corporal() ?>"/></td>
-                    </tr>
-										
-                    <tr>
-                        <td><b>Gordura Viceral</b></td>
-                        <td><input type="text" name="gord_viceral" value="<?php echo $Bioimp->getGordura_viceral() ?>"/></td>
-                    </tr>
-                        							
-                    </table>
-                    </div>								
-                </td>
-            </tr>
-            </table>
-            </div>
-            
-            <div class="divBotaoCad">
-            <?php
-            if($botaoAcao=='Editar'):
-                echo"<button type='submit' onclick='return confirmaEditAval();' id='botoes'><img src='imagens/simboloCadastrar.png' width='20' height='20'/> {$botaoAcao} </button>";
-            else:
-                echo"<button type='submit' onclick='cadastrarPaciente' id='botoes'><img src='imagens/simboloCadastrar.png' width='20' height='20'/> {$botaoAcao} </button>";
-            endif;
-            ?>
-            <script>
-                function confirmaEditAval(){
-                    editAval = confirm('Deseja realmente confirmar as alterações desta Avaliação ?');
-                    if(editAval)
-                        return true;
-                    else
-                        return false;
-                }
-            </script>   
-            </div>
-            </form>
-			
-            <div class="divBotaoCanc">
-            <form method="GET" action="dadosPacientes.php">
-                <input type="hidden" name="idpac" value="<?php echo $Bioimp->getId_Pessoa() ?>"/>
-                <button  type="submit" id="botoes"><img src="imagens/cancel.png" width="20" height="20"/> Cancelar</button>
-            </form>
-            </div>
+                    
+                    </div>
+
+		</div>
                 
-            <?php
-            if($Bioimp->getId_bio()):
-	            echo"<div class='divBotaoEx'>";
-                echo"<form name='excluirPaciente' action='excluirdados.php' method='POST'>"
-                        ."<input type='hidden' name='ex_idbio' value='{$BioDados->getId_bio()}'/>"
-                        ."<input type='hidden' name='tipoexc' value='5'/>"
-                         ."<input type='hidden' name='pac' value='{$BioDados->getId_Pessoa()}'/>"
-                        . "<button type='submit' onclick='return confExAva();' id='botoes'><img src='imagens/lixeira2.png' width='20' height='20'/> Excluir </button>"
-                   ."</form>";
-                echo"</div>";
-            endif;
-            ?>
-            <script>
-            function confExAva(){
-                var excAval = confirm('Deseja realmente excluir esta avaliação ?');
-                if(excAval)
-                    return true;
-                else
-            return false;
-            }
-            </script>
+               
+            </section>
+            
+	</main>
         </div>
-        
-        <div class="divimg"></div>
-      
+            <div style="clear:both"></div> 
     </body>
 </html>

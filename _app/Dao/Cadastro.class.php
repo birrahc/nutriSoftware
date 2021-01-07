@@ -38,6 +38,7 @@ class Cadastro {
         $Dados=[
                 'nome'=>$paciente->getNome(),
                 'sexo'=>$paciente->getSexo(),
+                'cpf'=>$paciente->getCpf(),
                 'data_nascimento'=>$paciente->getData_Nascimento(),
                 'altura'=>$paciente->getAltura(),
                 'profissao'=>$paciente->getProfissao(), 
@@ -81,8 +82,9 @@ class Cadastro {
                     ];
         
         $CadastrarAn= new InsercaoBanco();
-        $CadastrarAn->ExecutInserir(" anaminese ", $DadosAnMinse);
-        echo $CadastrarAn->getMensagem();
+        $CadastrarAn->ExecutInserir("anaminese", $DadosAnMinse);
+        //$this->UltimaId =
+        //var_dump($CadastrarAn);
         
     }
     
@@ -117,8 +119,8 @@ class Cadastro {
         
         $CadConsumo=new InsercaoBanco();
         $CadConsumo->ExecutInserir("consumos", $DadosConsumo);
-        $this->Ultimo_Id= $CadConsumo->getResult();
-        echo $CadConsumo->getMensagem();
+        $this->UltimaId= $CadConsumo->getResult();
+        //echo $CadConsumo->getMensagem();
     }
     
     //=============================================================================================
@@ -144,19 +146,21 @@ class Cadastro {
                          'dc_abdominal'=>$Avaliacao->getDc_Abdominal(), 
                          'dc_axilar'=>$Avaliacao->getDc_Axilar(),
                          'dc_peitoral'=>$Avaliacao->getDc_Peitoral(),
-                         'dc_coxa'=>$Avaliacao->getDc_Coxa()];
+                         'dc_coxa'=>$Avaliacao->getDc_Coxa()
+                        ];
         
-        $CadAvalAnt = new InsercaoBanco();
+         $CadAvalAnt = new InsercaoBanco();
         $CadAvalAnt->ExecutInserir("avaliacao_antropometrica", $DadosAvalAntro);
-        echo $CadAvalAnt->getMensagem();
-        $this->Ultimo_id = $CadAvalAnt->getResult();
+        //echo $CadAvalAnt->getMensagem();
+        $this->UltimaId = $CadAvalAnt->getResult();
         
+        //var_dump($CadAvalAnt);
         $inserirPgmt= new Pagamentos();
         $inserirPgmt->setData_Consulta($Avaliacao->getDataAvalicao());
         $inserirPgmt->setReferencia($CadAvalAnt->getResult());
         
         $this->CadastrarPagamentos($inserirPgmt);
-        
+        //var_dump($this->CadastrarPagamentos($inserirPgmt));
         $this->RegistroPagamentos=$inserirPgmt->getUltimo_Registro();
       
     }
@@ -174,13 +178,13 @@ class Cadastro {
                          'perc_musc_esq'=>$bio->getPerc_musc_esq(),
                          'met_basal'=>$bio->getMetabolismo_basal(), 
                          'idade_corpoaral'=>$bio->getIdade_corporal(), 
-                         'gord_viceral'=>$bio->getGordura_viceral()
+                         'gord_viceral'=>$bio->getGordura_viceral(),
                          ];
         
         $CadBio = new InsercaoBanco();
         $CadBio->ExecutInserir("bioimp", $DadosBio);
         echo $CadBio->getMensagem();
-        $this->Ultimo_id = $CadBio->getResult();
+        $this->UltimaId = $CadBio->getResult();
     }
 
 
@@ -197,6 +201,46 @@ class Cadastro {
         $cadastrarPagamentos = new InsercaoBanco();
         $cadastrarPagamentos->ExecutInserir("pagamentos", $Dados);
         $pagamentos->setUltimo_Registro($cadastrarPagamentos->getResult());
+      
+        
+    }
+    
+    public function cadatrarObservacao(Observacao $obs){
+        
+        $Dados=[
+            'paciente_obs'=>$obs->getId_Pessoa(),
+            'data_obs'=>$obs->getData_obs(),
+            'obs'=>$obs->getObservacao()
+        ];
+        
+        $cadastrarObs = new InsercaoBanco();
+        $cadastrarObs->ExecutInserir("`observacao`", $Dados);
+        
+        $this->UltimaId = $cadastrarObs->getResult();
+    }
+
+        public function CadastrarDietas(Dietas $dieta) {
+        
+        $Dados=[
+               'id_dieta'=>$dieta->getId_dieta(),
+               'linha'=>$dieta->getLinha_campo(),
+               'dieta_numero'=>$dieta->getDieta_numero(),
+               'plano_alimentar'=>$dieta->getPlano_Alimentar(),
+               'paciente'=>$dieta->getPaciente(),
+               'data_dieta'=>$dieta->getData_dieta(),
+               'horario'=>$dieta->getHora_dieta(),
+               'alimento'=>$dieta->getAlimento(),
+               'quantidade'=>$dieta->getQtd_alimento(),
+               'substituicao'=>$dieta->getSubstituicao(),
+               'qtd_substituicao'=>$dieta->getQtd_substituicao(),
+               'intervalos'=>$dieta->getIntervalos(),
+               'qtd_intervalo'=>$dieta->getIntervalos(),
+               'anotacoes'=>$dieta->getAnotacoes()
+              ]; 
+        
+        $inserirDietas = new InsercaoBanco();
+        $inserirDietas->ExecutInserir("dietas", $Dados);
+        //$cadastrarDietas->setUltimo_Registro($cadastrarDietas->getResult());
         
       
         

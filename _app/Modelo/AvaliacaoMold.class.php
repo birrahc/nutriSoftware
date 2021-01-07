@@ -35,6 +35,7 @@ class AvaliacaoMold extends PessoaMold{
     private $Percentual_Gordura;
     private $M_Muscular;
     private $Gordura;
+    private $Obs_Avalicao;
     Private $Densidade;
     private $SomatoriaDc;
     
@@ -49,30 +50,33 @@ class AvaliacaoMold extends PessoaMold{
     private $Table;
      
     function __construct() {
-        $this->Coluna = ['id_avalicao' => 'id_avalicao',
-            'id_paciente' => 'id_paciente',
-            'paciente'=>'paciente',
-            'nome' => 'p.nome',
-            'data_nascimento'=>'p.data_nascimento',
-            's.sexo'=>'s.sexo as sexo',
-            'consulta' => 'consulta',
-            'data_avalicao' => 'data_avalicao',
-            'peso' => 'peso',
-            'c_cintura' => 'c_cintura',
-            'c_abdominal' => 'c_abdominal',
-            'c_quadril' => 'c_quadril',
-            'c_peito' => 'c_peito',
-            'c_braco_d' => 'c_braco_d',
-            'c_braco_e' => 'c_braco_e',
-            'c_coxa_d' => 'c_coxa_d',
-            'c_coxa_e' => 'c_coxa_e',
-            'dc_triceps' => 'dc_triceps',
-            'dc_escapular' => 'dc_escapular',
-            'dc_supra_iliaca' => 'dc_supra_iliaca',
-            'dc_abdominal' => 'dc_abdominal',
-            'dc_axilar' => 'dc_axilar',
-            'dc_peitoral' => 'dc_peitoral',
-            'dc_coxa' => 'dc_coxa'
+        $this->Coluna = [
+                    'id_avalicao' => 'id_avalicao',
+                    'id_paciente' => 'id_paciente',
+                    'paciente'=>'paciente',
+                    'nome' => 'p.nome',
+                    'altura'=>'altura',
+                    'data_nascimento'=>'p.data_nascimento',
+                    's.sexo'=>'s.sexo as sexo',
+                    'consulta' => 'consulta',
+                    'data_avalicao' => 'data_avalicao',
+                    'peso' => 'peso',
+                    'c_cintura' => 'c_cintura',
+                    'c_abdominal' => 'c_abdominal',
+                    'c_quadril' => 'c_quadril',
+                    'c_peito' => 'c_peito',
+                    'c_braco_d' => 'c_braco_d',
+                    'c_braco_e' => 'c_braco_e',
+                    'c_coxa_d' => 'c_coxa_d',
+                    'c_coxa_e' => 'c_coxa_e',
+                    'dc_triceps' => 'dc_triceps',
+                    'dc_escapular' => 'dc_escapular',
+                    'dc_supra_iliaca' => 'dc_supra_iliaca',
+                    'dc_abdominal' => 'dc_abdominal',
+                    'dc_axilar' => 'dc_axilar',
+                    'dc_peitoral' => 'dc_peitoral',
+                    'dc_coxa' => 'dc_coxa',
+            
             ];
         
             $this->Table = [];
@@ -171,7 +175,12 @@ class AvaliacaoMold extends PessoaMold{
         return $this->Gordura;
     }
     
-    function getMc_graf() {
+    function getObs_Avalicao() {
+        return $this->Obs_Avalicao;
+    }
+
+    
+                function getMc_graf() {
         return $this->Mc_graf;
     }
 
@@ -210,69 +219,76 @@ class AvaliacaoMold extends PessoaMold{
     }
 
     function setPeso($Peso) {
-        $this->Peso = ((float) $Peso ? $Peso:'Somente Numeros');
+        $this->Peso = str_replace(",", ".", $Peso);
+        /*$this->Cpf = str_replace("-","", $limpa);
+        $this->Peso = ((float) $Peso ? $Peso:'Somente Numeros');*/
     }
 
     function setC_Cintura($C_Cintura) {
-        $this->C_Cintura = ((float) $C_Cintura ? $C_Cintura:'Somente Numeros');
+        $this->C_Cintura = str_replace(",", ".", $C_Cintura);;
     }
 
     function setC_Abdominal($C_Abdominal) {
-        $this->C_Abdominal = ((float) $C_Abdominal ? $C_Abdominal:'Somente Numeros');
+        $this->C_Abdominal = str_replace(",", ".", $C_Abdominal);
     }
 
     function setC_Quadril($C_Quadril) {
-        $this->C_Quadril = ((float) $C_Quadril ? $C_Quadril:'Somente Numeros');
+        $this->C_Quadril = str_replace(",", ".", $C_Quadril);
     }
 
     function setC_Peito($C_Peito) {
-        $this->C_Peito = ((float) $C_Peito ? $C_Peito:'Somente Numeros');
+        $this->C_Peito = str_replace(",", ".", $C_Peito);
     }
 
     function setC_Braco_D($C_Braco_D) {
-        $this->C_Braco_D = ((float) $C_Braco_D ? $C_Braco_D:'Somente Numeros');
+        $this->C_Braco_D = str_replace(",", ".", $C_Braco_D);
     }
 
     function setC_Braco_E($C_Braco_E) {
-        $this->C_Braco_E = ((float) $C_Braco_E ? $C_Braco_E:'Somente Numeros');
+        $this->C_Braco_E = str_replace(",", ".", $C_Braco_E);
     }
 
     function setC_Coxa_D($C_Coxa_D) {
-        $this->C_Coxa_D = ((float) $C_Coxa_D ? $C_Coxa_D:'Somente Numeros');
+        $this->C_Coxa_D = str_replace(",", ".", $C_Coxa_D);
     }
 
     function setC_Coxa_E($C_Coxa_E) {
-        $this->C_Coxa_E = ((float) $C_Coxa_E ? $C_Coxa_E:'Somente Numeros');
+        $this->C_Coxa_E = str_replace(",", ".", $C_Coxa_E);
     }
 
     function setDc_Triceps($Dc_Triceps) {
-        $this->Dc_Triceps = ((float) $Dc_Triceps ? $Dc_Triceps:'Somente Numeros');
+        $this->Dc_Triceps = str_replace(",", ".", $Dc_Triceps);
     }
 
     function setDc_Escapular($Dc_Escapular) {
-        $this->Dc_Escapular = ((float) $Dc_Escapular ? $Dc_Escapular:'Somente Numeros');
+        $this->Dc_Escapular = str_replace(",", ".", $Dc_Escapular);
     }
 
     function setDc_Supra_Iliaca($Dc_Supra_Iliaca) {
-        $this->Dc_Supra_Iliaca = ((float) $Dc_Supra_Iliaca ? $Dc_Supra_Iliaca:'Somente Numeros');
+        $this->Dc_Supra_Iliaca = str_replace(",", ".", $Dc_Supra_Iliaca);
     }
 
     function setDc_Abdominal($Dc_Abdominal) {
-        $this->Dc_Abdominal = ((float) $Dc_Abdominal ? $Dc_Abdominal:'Somente Numeros');
+        $this->Dc_Abdominal = str_replace(",", ".", $Dc_Abdominal);
     }
 
     function setDc_Axilar($Dc_Axilar) {
-        $this->Dc_Axilar = ((float) $Dc_Axilar ? $Dc_Axilar:'Somente Numeros');
+        $this->Dc_Axilar = str_replace(",", ".", $Dc_Axilar);
     }
 
     function setDc_Peitoral($Dc_Peitoral) {
-        $this->Dc_Peitoral = ((float) $Dc_Peitoral ? $Dc_Peitoral:'Somente Numeros');
+        $this->Dc_Peitoral = str_replace(",", ".", $Dc_Peitoral);
     }
 
     function setDc_Coxa($Dc_Coxa) {
-        $this->Dc_Coxa = ((float) $Dc_Coxa ? $Dc_Coxa:'Somente Numeros');
+        $this->Dc_Coxa = str_replace(",", ".", $Dc_Coxa);
     }
     
+    function setObs_Avalicao($Obs_Avalicao) {
+        $this->Obs_Avalicao = $Obs_Avalicao;
+    }
+
+        
     public function VerificaConsulta(AvaliacaoMold $paciente) {
         
         $Termos = "inner join pacientes p on a.paciente = p.id_paciente "
@@ -362,6 +378,7 @@ class AvaliacaoMold extends PessoaMold{
             $this->setNome($linha['nome']);
             $this->setData_Nascimento($linha['data_nascimento']);
             $this->setIdade($linha['data_nascimento']);
+            $this->setAltura($linha['altura']);
             $this->setSexo($linha['sexo']);
             $this->Avaliacao = $linha['consulta'];
             $this->DataAvalicao = $linha['data_avalicao'];
@@ -382,199 +399,231 @@ class AvaliacaoMold extends PessoaMold{
             $this->Dc_Peitoral = $linha['dc_peitoral'];
             $this->Dc_Coxa = $linha['dc_coxa'];
             
+            
             $this->calculos();
-            $this->CalcGrafico();
         endwhile;
         
        
         if($this->Tipo==1):
-        echo"<table border='0'>"
-            . "<tr>";
-                    while ($linha = $this->Read->fetch(PDO::FETCH_ASSOC)) {
-                        $this->setId_Avaliacao($linha['id_avalicao']);
-                        $this->setId_Pessoa($linha['paciente']);
-                        echo "<td id='data-aval'><a href='cadastrarAvaliacao.php?cod_aval={$this->getId_Avaliacao()}&idpac={$this->getId_Pessoa()}'>{$linha['consulta']}°Aval</a></td>";
-                    }
-            echo"</tr>"
-               . "<tr>";
-                    while ($linha = $this->Read_1->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<td id='data-aval'>" . date('d/m/Y', strtotime($linha['data_avalicao'])) . "</td>";
-                    }
-            echo"</tr>";
             
-            $i = 1;
-            echo"<tr>";
-                    while ($linha = $this->Read_2->fetch(PDO::FETCH_ASSOC)) {
-                        $i++;
-                        echo "<td>{$linha['peso']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>"
-                    . "<td colspan='{$i}' height='21'><h3>Circunferências</h3></td>"
-            . "</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_3->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_cintura']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_4->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_abdominal']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_5->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_quadril']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_6->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_peito']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_7->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_braco_d']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_8->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_braco_e']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_9->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_coxa_d']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_10->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['c_coxa_e']}</td>";
-                    }
-            echo"</tr>"
+              $conta_largura="0"; 
+            while ($linha = $this->Read_21->fetch(PDO::FETCH_ASSOC)) {
+                $conta_largura++;
+            }
+            
+            //Aumentando a div conforme o conteudo
+            $conta_largura = $conta_largura*81;
+           echo"<div style='width:{$conta_largura}px; height:auto;' class='tableCadAval'>";
+        
+            while ($linha = $this->Read->fetch(PDO::FETCH_ASSOC)) {
+                $this->setId_Avaliacao($linha['id_avalicao']);
+                    $this->setId_Pessoa($linha['paciente']);
+                echo "<div class='dados-aval conta-avaliacao' ><p><a href='CadastraAvaliacao3.php?cod_aval={$this->getId_Avaliacao()}&idpac={$this->getId_Pessoa()}'>{$linha['consulta']}°Aval</a> </p> </div>";
+            }
                     
-                . "<tr>"
-                            . "<td  colspan='{$i}' ><h3>Dobra Cutânia</h3></td>"
-                . "</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_11->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['dc_triceps']}</td>";
-                    }
-            echo"</tr>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_12->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['dc_escapular']}</td>";
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_13->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['dc_supra_iliaca']}</td>";
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_14->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['dc_abdominal']}</td>";
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_15->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['dc_axilar']}</td>";
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_16->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['dc_peitoral']}</td>";
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_17->fetch(PDO::FETCH_ASSOC)) {
-                        echo"<td>{$linha['dc_coxa']}</td>";
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_18->fetch(PDO::FETCH_ASSOC)) {
-                        
-                        $this->setDc_Triceps($linha['dc_triceps']);
-                        $this->setDc_Escapular($linha['dc_escapular']);
-                        $this->setDc_Supra_Iliaca($linha['dc_supra_iliaca']);
-                        $this->setDc_Abdominal($linha['dc_abdominal']);
-                        $this->setDc_Axilar($linha['dc_axilar']);
-                        $this->setDc_Peitoral($linha['dc_peitoral']);
-                        $this->setDc_Coxa($linha['dc_coxa']);
-                        $this->setSexo($linha['sexo']);
-                        $this->setIdade($linha['data_nascimento']);
-                        $this->setPeso($linha['peso']);
-                        $this->calculos();
-                        $PercGordura=number_format($this->getPercentual_Gordura(), 1, ',', '');
-                         if($PercGordura>25):
-                            echo"<td><font color='red'><b>{$PercGordura } %</b></font></td>";
-                         elseif($PercGordura>=23 && $PercGordura<=25):
-                            echo"<td><font color='orange'><b>{$PercGordura } %</b></font></td>";
-                        else:
-                            echo"<td><font color='green'><b>{$PercGordura } %</b></font></td>";
-                        endif;
-                       
-                        
-                        
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_19->fetch(PDO::FETCH_ASSOC)) {
-                        
-                        $this->setDc_Triceps($linha['dc_triceps']);
-                        $this->setDc_Escapular($linha['dc_escapular']);
-                        $this->setDc_Supra_Iliaca($linha['dc_supra_iliaca']);
-                        $this->setDc_Abdominal($linha['dc_abdominal']);
-                        $this->setDc_Axilar($linha['dc_axilar']);
-                        $this->setDc_Peitoral($linha['dc_peitoral']);
-                        $this->setDc_Coxa($linha['dc_coxa']);
-                        $this->setSexo($linha['sexo']);
-                        $this->setIdade($linha['data_nascimento']);
-                        $this->setPeso($linha['peso']);
-                        $this->calculos();
-                        $Mmuscular=number_format($this->getM_Muscular(), 1, ',', '');
-                        echo"<td>{$Mmuscular } Kg</td>";
-                    }
-            echo"</td>";
-
-            echo"<tr>";
-                    while ($linha = $this->Read_20->fetch(PDO::FETCH_ASSOC)) {
-                        
-                        $this->setDc_Triceps($linha['dc_triceps']);
-                        $this->setDc_Escapular($linha['dc_escapular']);
-                        $this->setDc_Supra_Iliaca($linha['dc_supra_iliaca']);
-                        $this->setDc_Abdominal($linha['dc_abdominal']);
-                        $this->setDc_Axilar($linha['dc_axilar']);
-                        $this->setDc_Peitoral($linha['dc_peitoral']);
-                        $this->setDc_Coxa($linha['dc_coxa']);
-                        $this->setSexo($linha['sexo']);
-                        $this->setIdade($linha['data_nascimento']);
-                        $this->setPeso($linha['peso']);
-                        $this->calculos();
-                            $Gordura=number_format($this->getGordura(), 1, ',', '');
-                            echo"<td>{$Gordura } Kg</td>";
-                    }
-            echo"</tr>"
-        . "</table>";
+            echo"<div style='clear: both'></div>";
             
+            while ($linha = $this->Read_1->fetch(PDO::FETCH_ASSOC)) {
+                echo "<div class='dados-aval'><p>" . date('d/m/Y', strtotime($linha['data_avalicao'])) . "</p></div>";
+            }
+                    
+            echo"<div style='clear: both;'></div>";
+                   
+            $i=0.9;// Variavel para almentar div
+                    
+            while ($linha = $this->Read_2->fetch(PDO::FETCH_ASSOC)) {
+                echo "<div class='dados-aval'><p>{$linha['peso']}</p></div>";
+                        
+                $i++;
+                //arrendondando variavel        
+                if($i > 2 && $i < 3):
+                    $i=2;   
+                endif;
+            }
+                    
+                    
+            $i = $i * 81;// calculando largura da div
+                   
+            echo"<div style='clear: both'></div>";
+
+           
+            echo"<div class='tit-circ-dc' style='width: {$i}px; border-radius:5px;'><h4 class='text-light m-0 ptb2px fs-15'>Circunferências</h4></div>";
+          
+            while ($linha = $this->Read_3->fetch(PDO::FETCH_ASSOC)) {
+                        echo"<div class='dados-aval'><p>{$linha['c_cintura']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+
+           
+            while ($linha = $this->Read_4->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval' style='margin-top:2px'><p>{$linha['c_abdominal']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+
+           
+            while ($linha = $this->Read_5->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['c_quadril']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+
+           
+            while ($linha = $this->Read_6->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['c_peito']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_7->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['c_braco_d']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+           
+            while ($linha = $this->Read_8->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['c_braco_e']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_9->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['c_coxa_d']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_10->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['c_coxa_e']}</p></div>";
+            }
+            
+            echo"<div style='clear: both'></div>";
+            
+            echo"<div class='tit-circ-dc' style='width: {$i}px; border-radius:5px;'><h4 class='text-light m-0 ptb2px fs-15'>Dobra Cutânia</h4></div>";
+              
+            while ($linha = $this->Read_11->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['dc_triceps']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_12->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['dc_escapular']}</p></div>";
+            }
+                    
+           echo"<div style='clear: both'></div>";
+           
+            while ($linha = $this->Read_13->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['dc_supra_iliaca']}</p></div>";
+            }
+                    
+           echo"<div style='clear: both'></div>";
+           
+            while ($linha = $this->Read_14->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['dc_abdominal']}</p></div>";
+            }
+                    
+           echo"<div style='clear: both'></div>";
+           
+            while ($linha = $this->Read_15->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['dc_axilar']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_16->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['dc_peitoral']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+           
+            while ($linha = $this->Read_17->fetch(PDO::FETCH_ASSOC)) {
+                echo"<div class='dados-aval'><p>{$linha['dc_coxa']}</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_18->fetch(PDO::FETCH_ASSOC)) {
+                        
+                $this->setDc_Triceps($linha['dc_triceps']);
+                $this->setDc_Escapular($linha['dc_escapular']);
+                $this->setDc_Supra_Iliaca($linha['dc_supra_iliaca']);
+                $this->setDc_Abdominal($linha['dc_abdominal']);
+                $this->setDc_Axilar($linha['dc_axilar']);
+                $this->setDc_Peitoral($linha['dc_peitoral']);
+                $this->setDc_Coxa($linha['dc_coxa']);
+                $this->setSexo($linha['sexo']);
+                $this->setIdade($linha['data_nascimento']);
+                $this->setPeso($linha['peso']);
+                $this->calculos();
+                $PercGordura=number_format($this->getPercentual_Gordura(), 1, ',', '');
+                
+                if($PercGordura>25):
+                    echo"<div class='dados-aval' style='color:red;'><p>{$PercGordura } %</p></div>";
+                elseif($PercGordura>=23 && $PercGordura<=25):
+                    echo"<div class='dados-aval' style='color:orange;'><p>{$PercGordura } %</p></div>";
+                else:
+                    echo"<div class='dados-aval' style='color:green;'><p>{$PercGordura } %</p></div>";
+                endif;
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_19->fetch(PDO::FETCH_ASSOC)) {
+                        
+                $this->setDc_Triceps($linha['dc_triceps']);
+                $this->setDc_Escapular($linha['dc_escapular']);
+                $this->setDc_Supra_Iliaca($linha['dc_supra_iliaca']);
+                $this->setDc_Abdominal($linha['dc_abdominal']);
+                $this->setDc_Axilar($linha['dc_axilar']);
+                $this->setDc_Peitoral($linha['dc_peitoral']);
+                $this->setDc_Coxa($linha['dc_coxa']);
+                $this->setSexo($linha['sexo']);
+                $this->setIdade($linha['data_nascimento']);
+                $this->setPeso($linha['peso']);
+                $this->calculos();
+                $Mmuscular=number_format($this->getM_Muscular(), 1, ',', '');
+                
+                echo"<div class='dados-aval'><p>{$Mmuscular } Kg</p></div>";
+            }
+                    
+            echo"<div style='clear: both'></div>";
+            
+            while ($linha = $this->Read_20->fetch(PDO::FETCH_ASSOC)) {
+                        
+                $this->setDc_Triceps($linha['dc_triceps']);
+                $this->setDc_Escapular($linha['dc_escapular']);
+                $this->setDc_Supra_Iliaca($linha['dc_supra_iliaca']);
+                $this->setDc_Abdominal($linha['dc_abdominal']);
+                $this->setDc_Axilar($linha['dc_axilar']);
+                $this->setDc_Peitoral($linha['dc_peitoral']);
+                $this->setDc_Coxa($linha['dc_coxa']);
+                $this->setSexo($linha['sexo']);
+                $this->setIdade($linha['data_nascimento']);
+                $this->setPeso($linha['peso']);
+                $this->calculos();
+                $Gordura=number_format($this->getGordura(), 1, ',', '');
+                
+                echo"<div class='dados-aval'><p>{$Gordura } Kg</p></div>";
+                
+            }
+            echo"<div style='clear: both'></div>";
+            
+           while ($linha = $this->Read_23->fetch(PDO::FETCH_ASSOC)) {
+               $this->setId_Avaliacao($linha['id_avalicao']);
+               echo"<div class='dados-aval bg-none'>"
+                    //. "<form id='excluirAvaliacao' action='excluirdados.php' method='POST'>"
+                       ."<input type='hidden' name='ex_idav' value='{$this->getId_Avaliacao()}'/>"
+                        ."<input type='hidden' name='tipoexc' value='4'/>"
+                         ."<input type='hidden' id='paciente' name='pac' value='{$this->getId_Pessoa()}'/>"
+                        . "<button type='submit' class='text-center w-100 delete-aval'><img src='icons-main/icons/x-circle-fill.svg' alt='Deletar' width='15' height='15' title='Deletar'></a></button>"
+                    //. "</form>"
+                . "</div>";
+           }
+                        
+        echo"</div>";
+        
         elseif($this->Tipo==8):
                        
             $this->Consulta=1;           

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 require('./_app/config.inc.php');
 
@@ -19,264 +18,267 @@ if(isset($_POST['pesquisar'])):
     $paciente->setNome($_POST['pesquisar']);
 endif;
 ?>
+
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" media="screen and (min-width: 0px)" href="css/small.css"/>
-        <link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="css/medium.css"/>
-        <link rel="stylesheet" type="text/css" media="screen and (min-width: 1350px)" href="css/large.css"/>
-    </head>
-
-    <body>
-        
-        
-        <div style="width: 100%; height: 120px;">
-            
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/stylo_large.css">
+	<title>Dados Pacientes</title>
+</head>
+<body>
+        <div id="geral">
+	
+        <div id="conteudo-menus">
+            <div id="logo-menu">
+                <img src="imagens/simbolo.jpg">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#Pacientes">Pacientes</a></li>
+                    <li><a href="#Avaliacao">Avaliação</a></li>
+                    <li><a href="#Bioimpedancia">Bioimpedância</a></li>
+                    <li><a href="#Anminese">Anminese</a></li>
+                    <li><a href="#Consumos">Consumos</a></li>
+                    <li><a href="#Relatorios">Relatórios</a></li>
+                    <li><a href="cadastrarPaciente.php">Cadastrar Paciente</a></li>
+                    <li><a href="logout.php">Sair</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="responsive-pag">
+    
+        <div id="pagina">
+	<main>
+            <section>
+                <div id="Pacientes" class="conteudo-duplo">
 
-            <div class="conteudo-esquerdo">
-                <h2>Pacientes</h2>
-                <div class="interno" id="campo-pesquisa">
-                    <form action="#" method="POST">
-                        <button type="submit">Pesquisar</button>
-                        <input type="text" name="pesquisar"/>
-                    </form>
-                    <div class="interno-cont-1">
+                    <h2>Pacientes</h2>
+
+                    <div class="camada-2">
+
+			<div class="camada-3">
+                            <div id="pesquisa">
+                                <form action="#" method="POST">
+                                    <input type="text" name="pesquisar" placeholder="Pesquisar"><button>Pesquisar</button>
+                                </form>
+                            </div>
+                            <div id="lista-pacientes">
+
+                            <?php
+                                $pacDao->listaPaciente($paciente);
+                            ?>
+
+                            </div>
+			</div>
+
+                    </div>
+                    
+		</div>
+
+                <div class="conteudo-duplo" style="float:right !important; margin-right:0 !important;">
+
+                    <h2>Dados Pessoais</h2>
+
+                    <div class="camada-2">
+
+                        <div class="camada-3">
+                            <?php
+                                if(isset($_GET['idpac'])):
+                            ?>
+                            <div id="conteudo-paciente">
+				<div class="dados-pessoais"> <h3>Nome:</h3> </div>
+                                <div class="dados-pessoais"> <h3>Profissão:</h3> </div>
+				<div class="dados-pessoais"> <h3>Nascimento:</h3> </div>
+				<div class="dados-pessoais"> <h3>Idade:</h3> </div>
+				<div class="dados-pessoais"> <h3>Altura:</h3></div>
+				<div class="dados-pessoais"> <h3>E-Mail:</h3></div>
+				<div class="dados-pessoais"> <h3>Telefone:</h3> </div>
+                            </div>
+
+                            <div id="cont-valores"> 
+                            <?php
+			        
+			            $pacDao->dadosPacientes($paciente, 2);
+			        endif;
+			    ?>
+                            </div>
+                        </div>
+
+                    </div>
                     <?php
-                        $pacDao->listaPaciente($paciente);
-                    ?>
-                    </div>
-                </div>
-
-                <p id="menu-interno">
-                    <a href="#">Cadastrar Paciente</a>
-                </p>
-            </div>
-
-            <div class="conteudo-direito">
-                <h2>Dados Pessoais</h2>
-                <div class="interno">
-                    <div class="interno-cont-2">
-                        <?php
                         if(isset($_GET['idpac'])):
-                            $pacDao->dadosPacientes($paciente, 2);
+                     ?>
+                    <div class="menus-camada-2 menu-list">
+                        <ul>
+                            <li><a href="#">Pagamentos</a></li>
+                            <li><a href="cadastrarPaciente.php?paciente=<?php echo $pacDao->getId_Pessoa() ?>">Editar</a></li>
+                        </ul>
+                    </div>
+                    <?php
                         endif;
-                        ?>
-                    </div>
-                </div>
-                <p id="menu-interno">
-                    <a href="#">Editar</a> |
-                    <a href="#">Pacientes</a> |
-                    <a href="#">Avaliação</a> |
-                    <a href="#">Anminese</a> |
-                    <a href="#">Consumos</a>
-
-                </p>
-            </div>
-
-        </div>
-
-        <?php
-        $Avalicao->setId_Pessoa($pacDao->getId_Pessoa());
-        $AvaliacaoDao->ListaAvaliacao($Avalicao, null);
-        
-        if($AvaliacaoDao->getId_Avaliacao()):
-        ?>
-        
-        <div class="responsive-pag">
-
-            <div class="conteudo-centro">
-                <h2>Avaliações</h2> 
-                <div class="interno-camada-2">
-                    <table border="0">
-                        <tr>
-                            <th><b>Paciente:</b></th> 
-                            <td><p><?php echo $AvaliacaoDao->getNome() ?> </p></td>
-                            <th><b>Idade:</b></th>
-                            <td><p><?php echo $AvaliacaoDao->getIdade()." anos" ?></p></td>
-                        </tr>
-                    </table>
-                    <div class="interno-centro">
-
-
-                        <div class="conteudo-avaliacao">
-                            <table border="0">
-                                <tr>
-                                    <th><p>Avaliações</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>Data</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>Peso</p></th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.cintura</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.Abdominal</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.Quadril</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.Peito</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.Braço D</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.Braço E</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.Coxa D</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>C.Coxa E</p></th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th><p>DC Triceps</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>DC Escapular</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>DC Supra Iliaca</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>DC Abdominal</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>DC Axilar</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>DC Peitoral</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>DC Coxa</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>% Gordura</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>M.Muscular</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>Gordura</p></th>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="conteudo-avaliacao-1">
-                        <?php
-                        $AvaliacaoDao->ListaAvaliacao($Avalicao, 1)
-                        ?>
-                        </div>
-                    </div>
-                </div>
-
-                <p id="menu-interno">
-                    <a href="#">Cadastrar Avaliação</a> |
-                    <a href="#">Visualizar</a> |
-                    <a href="#">Dados Pessoais</a> |
-                    <a href="#">Avaliação</a> |
-                    <a href="#">Anminese</a> |
-                    <a href="#">Consumos</a>
-
-                </p>
-            </div>
+                    ?>
+		</div>
+            </section>
+            
+            <section>
+                
             <?php
-            endif;
+                $Avalicao->setId_Pessoa($pacDao->getId_Pessoa());
+                $AvaliacaoDao->ListaAvaliacao($Avalicao, null);
+                
+                if(isset($_GET['idpac'])):
+                    if($AvaliacaoDao->getId_Avaliacao()):
+                    
             ?>
+            
+                <div id="Avaliacao" class="conteudo">
 
+                    <h2>Avaliações</h2>
 
-        </div>
-        
-         <?php
-        $Bio->setId_Pessoa($pacDao->getId_Pessoa());
-        $BioDao->ListaBioImpedancia($Bio, null);
-        
-        if($BioDao->getId_bio()):
-        ?>
-        <div class="responsive-pag" style="margin-top: 115px">
+                    <div class="camada-2">
 
-            <div class="conteudo-centro">
-                <h2>Bioimpedância</h2> 
-                <div class="interno-camada-2">
-                    <table border="0">
-                        <tr>
-                            <th><b>Paciente:</b></th> 
-                            <td><p><?php echo $BioDao->getNome() ?> </p></td>
-                            <th><b>Idade:</b></th>
-                            <td><p><?php echo $BioDao->getIdade()." anos" ?></p></td>
-                             <th><b>Altura:</b></th>
-                             <td><p><?php echo $BioDao->getAltura() ?></p></td>
-                        </tr>
-                    </table>
-                    <div class="interno-centro">
-                        <div class="conteudo-bioimp">
-                            <table border="0">
-                                <tr>
-                                    <th><p>Data</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>Peso</p></th>
-                                </tr>
+                        <div class="camada-3">
+                            
+                            <div id="titulo-paciente"><p>Paciente: <b><?php echo $AvaliacaoDao->getNome() ?></b> | Idade: <b><?php echo $AvaliacaoDao->getIdade() ?> anos</b> | Altura:<b><?php echo $AvaliacaoDao->getAltura() ?></b></p></div>
+                            
+                            <div class="div-indice">
+                               
+                                <div class="indice-aval"><h4>Avaliações</h4></div>
+                               
+                                <div class="indice-aval"><h4 class="p-h4-bio">Data</h4></div>
+                               
+                                <div class="indice-aval"><h4>Peso</h4></div>
                                 
-                                <tr>
-                                    <th><p>Imc</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>%Gord.Corporal</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>%Musc.Esquelético</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>Met.Basal</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>Idade Corporal</p></th>
-                                </tr>
-                                <tr>
-                                    <th><p>Gord.Veceral</p></th>
-                                </tr>
+                                <div class="indice-aval"><h4>--------------------</h4></div>
+                               
+                                <div class="indice-aval"><h4>C.cintura</h4></div>
                                 
-                            </table>
+                                <div class="indice-aval"><h4>C.Abdominal</h4></div>
+                                
+                                <div class="indice-aval"><h4>C.Quadril</h4></div>
+                               
+                                <div class="indice-aval"><h4>C.Peito</h4></div>
+                               
+                                <div class="indice-aval"><h4>C.Braço D</h4></div>
+                                
+                                <div class="indice-aval"><h4>C.Braço E</h4></div>
+                                
+                                <div class="indice-aval"><h4>C.Coxa D</h4></div>
+                               
+                                <div class="indice-aval"><h4>C.Coxa E</h4></div>
+                                
+                                <div class="indice-aval"><h4>--------------------</h4></div>
+                                
+                                <div class="indice-aval"><h4>DC Triceps</h4></div>
+                                
+                                <div class="indice-aval"><h4>DC Escapular</h4></div>
+                               
+                                <div class="indice-aval"><h4>DC Supra Iliaca</h4></div>
+                                
+                                <div class="indice-aval"><h4>DC Abdominal</h4></div>
+                               
+                                <div class="indice-aval"><h4>DC Axilar</h4></div>
+                                
+                                <div class="indice-aval"><h4>DC Peitoral</h4></div>
+                                
+                                <div class="indice-aval"><h4>DC Coxa</h4></div>
+                                
+                                <div class="indice-aval"><h4>% Gordura</h4></div>
+                                
+                                <div class="indice-aval"><h4>M.Muscular</h4></div>
+                               
+                                <div class="indice-aval"><h4>Gordura</h4></div>
+                            
                         </div>
-                        <div class="conteudo-bioimp-1">
-                        <?php
-                        $BioDao->ListaBioImpedancia($Bio, 1)
-                        ?>
+
+                            <div class="dados-avaliacao">
+                            <?php
+                                $AvaliacaoDao->ListaAvaliacao($Avalicao, 1)
+                            ?>		
+                            </div>
+
                         </div>
+                        
+                        <div class="menus-camada-2 menu-list">
+                            <ul>
+                                <li><a href="cadastrarAvaliacao.php?idpac=<?php echo $Avalicao->getId_Pessoa()?>">Cadastrar Avaliação</a></li>
+                                <li><a href="#">Visualizar</a></li>
+                            </ul>
+                        </div>
+                        
                     </div>
-                </div>
 
-                <p id="menu-interno">
-                    <a href="#">Cadastrar Avaliação</a> |
-                    <a href="#">Visualizar</a> |
-                    <a href="#">Dados Pessoais</a> |
-                    <a href="#">Avaliação</a> |
-                    <a href="#">Anminese</a> |
-                    <a href="#">Consumos</a>
+		</div>
+                <?php
+                    else:
+                        echo "<div class='inf-a-central'><p> Nenhuma Avaliação cadastrada para esse paciente. <br> <a href='cadastrarAvaliacao.php?idpac={$pacDao->getId_Pessoa()}'>Cadastrar Avaliação</a> </p></div>";
+                    endif;
+                endif;
+                
+                
+                $Bio->setId_Pessoa($pacDao->getId_Pessoa());
+                $BioDao->ListaBioImpedancia($Bio, null);
+                
+                if($BioDao->getId_bio()):
+                ?>
+                
+                <div id="Bioimpedancia" class="conteudo">
 
-                </p>
-            </div>
-            <?php
-            endif;
-            ?>
+                    <h2>Bioimpedância</h2>
+
+                    <div class="camada-2">
+
+                        <div class="camada-3">
+                            
+                            <div id="tit-paciente-bio"><p>Paciente: <b><?php echo $BioDao->getNome() ?></b> | Idade: <b><?php echo $BioDao->getIdade() ?> anos</b> | Altura:<b><?php echo $BioDao->getAltura() ?></b></p></div>
+                            
+                            <div class="div-ind-bio">
+                            
+                                <div class="indice-bio"><h1>Data</h1></div>
+                               
+                                <div class="indice-bio"><h1>Peso</h1></div>
+                                
+                                <div class="indice-bio"><h1>Imc</h1></div>
+                               
+                                <div class="indice-bio"><h1>%Gord.Corporal</h1></div>
+                                
+                                <div class="indice-bio"><h1>%Musc.Esquelético</h1></div>
+                                
+                                <div class="indice-bio"><h1>Met.Basal</h1></div>
+                               
+                                <div class="indice-bio"><h1>Idade Corporal</h1></div>
+                                
+                                <div class="indice-bio"><h1>Gord.Veceral</h1></div>
+                              
+                        </div>
+
+                            <div class="dados-ava-bio">
+                            <?php
+                                $BioDao->ListaBioImpedancia($Bio, 1)
+                            ?>			
+                            </div>
+
+			</div>
+
+                    </div>
+                    <div class="menus-camada-2 menu-list">
+                        <ul>
+                            <li><a href="cadastrarBioimpedancia.php?idpac=<?php echo $BioDao->getId_Pessoa() ?>">Cadastrar Bioimpedância</a></li>
+                            <li><a href="#">Visualizar</a></li>
+                            
+                        </ul>
+                    </div>
+
+		</div>
+                
+                <?php
+                    endif;
+                ?>
+            </section>
+            
+	</main>
         </div>
-        
-        <div style="width: 100%; height: 50px; background-color: whitesmoke; border-bottom-style:solid; border-color: #00BFFF; position: fixed; top:0px; text-align: center">
-            <div style="width:30%; margin-left: auto; margin-right: auto; background-color:white; border-radius: 0px 0px 100px 100px; border-bottom-style:solid; border-color: #00BFFF; ">
-                <img src="imagens/logo atual.jpg" style="width:220px; height: 100px; align:center; border:1px; " />
-            </div> 
-        </div>
-    </body>
+            <div style="clear:both"></div>    
+    </div>
+</body>
 </html>

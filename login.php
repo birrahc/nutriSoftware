@@ -11,13 +11,10 @@ endif;
 if(isset($_POST['senha'])):
    $log->setSenha($_POST['senha']); 
 endif;
-
-
-
 $logDao->Logar($log);
 
 if($logDao->getExisteUsuario()){
-	$logDao->setDestino("dadosPacientes.php");
+	$logDao->setDestino("pacientes.php");
 	session_start();
 	$_SESSION["usuario"]=$log->getNome();
 	$_SESSION["permissao"]=$logDao->getPermissaoDao();

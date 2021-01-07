@@ -18,6 +18,7 @@ class PessoaMold extends Select {
     private $Data_Nascimento;
     private $Idade;
     private $Altura;
+    private $Cpf;
     
     function getId_Pessoa() {
         return $this->Id_Pessoa;
@@ -42,8 +43,12 @@ class PessoaMold extends Select {
     function getAltura() {
         return $this->Altura;
     }
+    
+    function getCpf() {
+        return $this->Cpf;
+    }
 
-        function setId_Pessoa($Id_Pessoa) {
+            function setId_Pessoa($Id_Pessoa) {
         $this->Id_Pessoa = $Id_Pessoa;
     }
 
@@ -83,7 +88,13 @@ class PessoaMold extends Select {
     function setAltura($Altura) {
         $this->Altura = $Altura;
     }
+    
+    function setCpf($Cpf) {
+        $limpa = str_replace(".", "", $Cpf);
+        $this->Cpf = str_replace("-","", $limpa);
+    }
 
+    
     
     public function Syntax() {
         
